@@ -1,0 +1,22 @@
+{
+  "name": "szychta-pl",
+  "version": "1.0.0",
+  "description": "uni db-app project",
+  "main": "app.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MasterCoookie/szychta-pl.git"
+  },
+  "keywords": [
+    "szychta"
+  ],
+  "author": "we",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MasterCoookie/szychta-pl/issues"
+  },
+  "homepage": "https://github.com/MasterCoookie/szychta-pl#readme"
+}
