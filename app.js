@@ -1,16 +1,26 @@
 const express = require('express');
 const session = require('express-session');
 const secret = require('./secret');
+const mongoose = require('mongoose');
 
 const app = express();
 
-const port = 3000;
+const PORT = 3000;
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const DB_URI = 'mongodb+srv://szychta-dev:' + secret.DB_PASSWORD + '@szychta-pl.nil6bpf.mongodb.net/?retryWrites=true&w=majority'
 
-app.listen(port, () => {
-    console.log('szychta.pl listening for reqests on port ' + port);
+
+console.log("szychta.pl server startup...");
+
+mongoose.connect(DB_URI, {
+		autoIndex: true
+}).then((result) => {
+	console.log('db connection established...');
+	app.listen(PORT, () => {
+		console.log('szychta.pl listeining to requests on %s', PORT);
+	});
+}).catch((err) => {
+	console.log(err);
 });
 
 app.use(
@@ -30,17 +40,6 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
-
-app.use(
-	session({
-		secret: secret.cookieSecret,
-		resave: false,
-		//change last number to specify session max age in hours
-		cookie: { maxAge: 1000 * 3600 * 1 },
-		saveUninitialized: false,
-		// store
-	})
-);
 
 app.get('/', (req, res) => {
     res.send("szychta.pl");
