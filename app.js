@@ -24,6 +24,24 @@ app.use(
 	})
 );
 
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
+app.set('view engine', 'ejs');
+
+app.use(express.static(__dirname + '/public'));
+
+app.use(
+	session({
+		secret: secret.cookieSecret,
+		resave: false,
+		//change last number to specify session max age in hours
+		cookie: { maxAge: 1000 * 3600 * 1 },
+		saveUninitialized: false,
+		// store
+	})
+);
+
 app.get('/', (req, res) => {
     res.send("szychta.pl");
 })
