@@ -1,4 +1,5 @@
 const Applicant = require('../models/apllicantModel');
+
 const profile_post = async (req, res) => {
     // get user id
     // TODO read from session
@@ -22,3 +23,5 @@ const profile_post = async (req, res) => {
         res.sendStatus(400).json(errors);   
     }
 }
+
+module.exports = {profile_post};
