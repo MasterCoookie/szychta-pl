@@ -14,7 +14,8 @@ const applicantModel = new mongoose.Schema({
     email: {
         type: String,
         required: true,
-        validate: [isEmail, "Email invalid"]
+        validate: [isEmail, "Email invalid"],
+        unique: [true, "Email already in use"],
     },
     phoneNumber: {
         type: String,
