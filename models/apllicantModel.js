@@ -18,7 +18,7 @@ const applicantModel = new mongoose.Schema({
     },
     phoneNumber: {
         type: String,
-        validate: isMobilePhone
+        validate: [isMobilePhone, "Phone number invalid"]
     },
     birthDate: {
         type: Date,
