@@ -10,7 +10,7 @@ const docUploadMiddleware = (req, res, next) => {
     docUpload(req, res, (err) => {
         if(err) {
             console.log('Upload middleware err: ' + err);
-            res.send(400).json({ errors: err });
+            res.status(400).json({ errors: err.message });
         }
         next();
     })
