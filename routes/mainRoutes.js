@@ -4,6 +4,19 @@ const uploadMiddleware = require('../middleware/uploadMiddleware');
 
 const router = express.Router();
 
+const docUpload = uploadMiddleware.docsUpload.single('doc');
+
+const docUploadMiddleware = (req, res, next) => {
+    docUpload(req, res, (err) => {
+        if(err) {
+            console.log('Upload middleware err: ' + err);
+            res.send(400).json({ errors: err });
+        }
+        next();
+    })
+}
+
+router.post('/profile/docs_upload', docUploadMiddleware, profileController.docs_upload_post)
 router.get('/profile', profileController.profile_get);
 router.post('/profile', profileController.profile_post);
 

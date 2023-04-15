@@ -30,9 +30,10 @@ const profile_post = async (req, res) => {
         }
         
         // console.log(e);
-        res.status(400).json({ errors: errors });
+        res.status(400).json({ errors });
     }
 }
+
 const profile_get = async (req, res) => {
     try {
         //TMP DUMMY DATA
@@ -45,4 +46,8 @@ const profile_get = async (req, res) => {
     }
 }
 
-module.exports = { profile_post, profile_get };
+const docs_upload_post = (req, res) => {
+    console.log('req:' + req.file);
+}
+
+module.exports = { profile_post, profile_get, docs_upload_post };
