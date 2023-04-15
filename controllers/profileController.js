@@ -1,15 +1,15 @@
-const Applicant = require('../models/apllicantModel');
+const Applicant = require('../models/applicantModel');
 
 const profile_post = async (req, res) => {
     // get user id
     // TODO read from session
     const _id = '64397e2fbed0bea2e17824d2';
-    const { name, surname, email, phoneNumber, birthDate, homeAdress, links } = req.body;
+    const { name, surname, email, phoneNumber, birthDate, homeAddress, links } = req.body;
 
     try {
         await Applicant.findByIdAndUpdate(
             _id,
-            { name, surname, email, phoneNumber, birthDate, homeAdress, links },
+            { name, surname, email, phoneNumber, birthDate, homeAddress, links },
             { runValidators: true }
         );
         res.sendStatus(200);
@@ -37,7 +37,7 @@ const profile_post = async (req, res) => {
 const profile_get = async (req, res) => {
     try {
         //TMP DUMMY DATA
-        const applicant = new Applicant({ name: 'dupa', surname: 'dupa2', email: 'pat.i.mat233@gmail.com', phoneNumber: '224444444', birthDate: '12.12.2001', homeAdress: 'kasztanowa 52 lipinki łużyckie', links: ['patrzuwa.ga', 'macibol.ga'] });
+        const applicant = new Applicant({ name: 'dupa', surname: 'dupa2', email: 'pat.i.mat233@gmail.com', phoneNumber: '224444444', birthDate: '12.12.2001', homeAddress: 'kasztanowa 52 lipinki łużyckie', links: ['patrzuwa.ga', 'macibol.ga'] });
         await applicant.save(applicant);
         res.sendStatus(200);
     }
