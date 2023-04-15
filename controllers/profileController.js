@@ -5,6 +5,7 @@ const profile_post = async (req, res) => {
     // TODO read from session
     const _id = '64397e2fbed0bea2e17824d2';
     const { name, surname, email, phoneNumber, birthDate, homeAdress, links } = req.body;
+
     try {
         await Applicant.findByIdAndUpdate(
             _id,
@@ -15,9 +16,11 @@ const profile_post = async (req, res) => {
     }
     catch (e) {
         let errors = [];
+
         if (e.code === 11000) {
             errors.push('Email already in use')
         }
+
         if(e.errors) {
             Object.values(e.errors).forEach(({ properties }) => {
                 if (properties.message) {
@@ -27,7 +30,7 @@ const profile_post = async (req, res) => {
         }
         
         // console.log(e);
-        res.status(400).json(errors);
+        res.status(400).json({ errors: errors });
     }
 }
 const profile_get = async (req, res) => {
