@@ -4,20 +4,18 @@ const { isEmail, isMobilePhone, isUrl } = require('validator');
 const applicantModel = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
-        minlength: [1, 'Name is required'],
+        required: [true, "Please provide a name"],
         maxlength: [64, 'Name too long']
     },
     surname: {
         type: String,
-        required: true,
-        minlength: [1, 'Surname is required'],
+        required: [true, "Please provide a surname"],
         maxlength: [64, 'Surname too long']
     },
     uploadedDocuments: [String],
     email: {
         type: String,
-        required: true,
+        required: [true, "Please provide an email"],
         validate: [isEmail, "Email invalid"],
         unique: [true, "Email already in use"],
     },

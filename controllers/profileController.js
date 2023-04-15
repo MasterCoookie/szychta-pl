@@ -6,7 +6,11 @@ const profile_post = async (req, res) => {
     const _id = '64397e2fbed0bea2e17824d2';
     const { name, surname, email, phoneNumber, birthDate, homeAdress, links } = req.body;
     try {
-        await Applicant.findByIdAndUpdate(_id, { name, surname, email, phoneNumber, birthDate, homeAdress, links });
+        await Applicant.findByIdAndUpdate(
+            _id,
+            { name, surname, email, phoneNumber, birthDate, homeAdress, links },
+            { runValidators: true }
+        );
         res.sendStatus(200);
     }
     catch (e) {
@@ -15,7 +19,7 @@ const profile_post = async (req, res) => {
             errors.push('Email already in use')
         }
         if(e.errors) {
-            e.errors.forEach(({ properties }) => {
+            Object.values(e.errors).forEach(({ properties }) => {
                 if (properties.message) {
                     errors.push(properties.message);
                 }
