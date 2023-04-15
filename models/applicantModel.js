@@ -4,17 +4,20 @@ const { isEmail, isMobilePhone, isUrl } = require('validator');
 const applicantModel = new mongoose.Schema({
     name: {
         type: String,
-        required: true
+        required: [true, "Please provide a name"],
+        maxlength: [64, 'Name too long']
     },
     surname: {
         type: String,
-        required: true
+        required: [true, "Please provide a surname"],
+        maxlength: [64, 'Surname too long']
     },
     uploadedDocuments: [String],
     email: {
         type: String,
-        required: true,
-        validate: [isEmail, "Email invalid"]
+        required: [true, "Please provide an email"],
+        validate: [isEmail, "Email invalid"],
+        unique: [true, "Email already in use"],
     },
     phoneNumber: {
         type: String,
@@ -25,6 +28,7 @@ const applicantModel = new mongoose.Schema({
     },
     homeAddress: {
         type: String,
+        maxlength: [255, 'Address too long']
     },
     links: {
         type: [String],

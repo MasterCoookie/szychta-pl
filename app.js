@@ -3,6 +3,8 @@ const session = require('express-session');
 const secret = require('./secret');
 const mongoose = require('mongoose');
 
+const mainRoutes = require('./routes/mainRoutes');
+
 const app = express();
 
 const PORT = 3000;
@@ -40,6 +42,9 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 
 app.use(express.static(__dirname + '/public'));
+
+//routers
+app.use('/', mainRoutes);
 
 app.get('/', (req, res) => {
     res.send("szychta.pl");
