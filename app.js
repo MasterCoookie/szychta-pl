@@ -45,8 +45,9 @@ app.set('view engine', 'ejs');
 app.use(express.static(__dirname + '/public'));
 
 //routers
-app.use('/', mainRoutes);
 app.use('/auth', authRoutes);
+app.use('/', mainRoutes);
+
 
 app.get('/', (req, res) => {
     res.send("szychta.pl");

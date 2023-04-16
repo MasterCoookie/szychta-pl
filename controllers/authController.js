@@ -9,7 +9,7 @@ const register_put = async(req, res)=>{
             console.log("New user %s created", email);
 
             //req.session.newly_registered = true;
-            res.status(201).json({redirect:'login'});
+            res.status(201).json({redirect: 'login'});
         }catch(e){
             let errors=[];
 
@@ -18,7 +18,7 @@ const register_put = async(req, res)=>{
             }
     
             if(e.errors) {
-                Object.values(e.errors).forEach(({ properties }) => {
+                Object.values(e.errors).forEach(({properties}) => {
                     if (properties.message) {
                         errors.push(properties.message);
                     }
