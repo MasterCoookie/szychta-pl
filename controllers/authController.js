@@ -1,7 +1,7 @@
 const Applicant = require('../models/applicantModel');
 
 const register_put = async(req, res)=>{
-    const {email,password} = req.body;
+    const {email, password, name, surname} = req.body;
 
     Applicant.init().then(async() => {
         try{
@@ -9,10 +9,8 @@ const register_put = async(req, res)=>{
             console.log("New user %s created", email);
 
             req.session.newly_registered = true;
-            res.status(201);
-            res.json({redirect:'login'});
-            res.edn();
-        }catch(err){
+            res.status(201).json({redirect:'login'});
+        }catch(e){
             let errors=[];
 
             if (e.code === 11000) {
@@ -28,7 +26,7 @@ const register_put = async(req, res)=>{
             }
             
             // console.log(e);
-            res.status(400).json({ errors });
+            res.json({ errors });
         }
     })
 };

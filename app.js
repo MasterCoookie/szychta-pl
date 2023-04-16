@@ -4,6 +4,7 @@ const secret = require('./secret');
 const mongoose = require('mongoose');
 
 const mainRoutes = require('./routes/mainRoutes');
+const authRoutes = require('./routes/authRoutes')
 
 const app = express();
 
@@ -45,6 +46,7 @@ app.use(express.static(__dirname + '/public'));
 
 //routers
 app.use('/', mainRoutes);
+app.use('/auth', authRoutes);
 
 app.get('/', (req, res) => {
     res.send("szychta.pl");
