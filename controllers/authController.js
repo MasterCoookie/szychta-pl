@@ -8,7 +8,7 @@ const register_put = async(req, res)=>{
             const applicant = await Applicant.create({email, password, name, surname});
             console.log("New user %s created", email);
 
-            req.session.newly_registered = true;
+            //req.session.newly_registered = true;
             res.status(201).json({redirect:'login'});
         }catch(e){
             let errors=[];
@@ -30,6 +30,24 @@ const register_put = async(req, res)=>{
         }
     })
 };
+
+/*const login_post = async (req, res) => {
+    const {email, password} = req.body;
+
+    if (email && password) {
+        try {
+            const applicant = await Applicant.login(email, password);
+            if (applicant) {
+                console.log('OK');
+            }else{
+                res.status(403).json({ msg: 'Invalid credentials' });
+            }
+        } catch (e){
+            console.log(e);
+
+        }
+    }
+};*/
 
 module.exports = {
     register_put,

@@ -64,6 +64,19 @@ applicantSchema.pre('save', async function(next) {
     next();
 })
 
+applicantSchema.statics.login = async function(_email, _password) {
+    const applicant = await this.findOne({email: _email});
+    if(applicant) {
+        if (await bcrypt.compare(_password, user.password))
+        {
+            return applicant
+        }
+        throw Error('Incorrect password');
+    } else {
+        throw Error('Invalid email');
+    }
+};
+
 
 const Applicant = mongoose.model('Applicant', applicantSchema);
 
