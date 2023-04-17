@@ -1,6 +1,6 @@
 window.addEventListener('load', function() {
 
-    const getInputTemplate = (index) => '<input type="text" id="input' + index + '" /><button type="button" data-buttonindex="" class="array-remove" id="' + index + '">x</button>';
+    const getInputTemplate = (index) => '<input class="array-input" type="text" id="input' + index + '" /><button type="button" data-buttonindex="" class="array-remove" id="' + index + '">x</button>';
     const inputArrayDOMElement = document.getElementById('inputArray');
     let arrayAddDOMElement = document.getElementById('arrayAdd');
     let inputArrayLen = 1;
@@ -27,6 +27,10 @@ window.addEventListener('load', function() {
                 removedInput.remove();
 
                 inputArrayLen--;
+
+                renderInputArray();
+
+                //TODO - PO USUNIĘCIU PRZEITEROWAĆ SIĘ PO inputach i kneflach usuwających i nadać im idsy od nowa, długość iteracji = inputArrayLen
             });
         });
     }
