@@ -3,7 +3,7 @@ window.addEventListener('load', function() {
     const inputTemplate = '<input type="text" id="link" />';
     const inputArrayDOMElement = document.getElementById('inputArray');
     let arrayAddDOMElement = document.getElementById('arrayAdd');
-    let inputArray = [];
+    let inputArray = [inputTemplate];
 
     arrayAddDOMElement.addEventListener('click', function(e) {
         e.preventDefault();
@@ -21,10 +21,8 @@ window.addEventListener('load', function() {
             arrayAddDOMElement.style.display = 'none';
         }
 
-        inputArrayDOMElement.innerHTML = inputArray.join('') + inputArrayDOMElement.innerHTML;
+        inputArrayDOMElement.innerHTML = inputArray.join('');
     }
-
-
     
     renderInputArray(inputArray);
 })
