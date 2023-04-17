@@ -1,6 +1,6 @@
 window.addEventListener('load', function() {
 
-    const getInputTemplate = (index) => '<input type="text" id="link" data-index="' + index + '" /><button type="button" data-index="' + index + '" class="array-remove">x</button>';
+    const getInputTemplate = (index) => '<input type="text" id="input' + index + '" /><button type="button" data-buttonindex="" class="array-remove" id="' + index + '">x</button>';
     const inputArrayDOMElement = document.getElementById('inputArray');
     let arrayAddDOMElement = document.getElementById('arrayAdd');
     let inputArrayLen = 1;
@@ -18,8 +18,15 @@ window.addEventListener('load', function() {
 
         arrayRemoveDOMElements.forEach(element => {
             element.addEventListener('click', function(e) {
-                const clickedIndex = e.target.dataset.index;
-                console.log(clickedIndex);
+                const clickedIndex = e.target.id;
+
+                const removedButton = document.getElementById(clickedIndex);
+                const removedInput= document.getElementById('input' + clickedIndex);
+
+                removedButton.remove();
+                removedInput.remove();
+
+                inputArrayLen--;
             });
         });
     }
