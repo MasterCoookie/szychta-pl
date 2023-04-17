@@ -29,7 +29,7 @@ window.addEventListener('load', function() {
     arrayAddDOMElement.addEventListener('click', function(e) {
         e.preventDefault();
         inputArrayLen++;
-        inputArrayDOMElement.insertAdjacentHTML('afterend', getInputTemplate(inputArrayLen));
+        inputArrayDOMElement.insertAdjacentHTML('beforeend', getInputTemplate(inputArrayLen - 1));
         renderInputArray();
     });
 });
