@@ -4,10 +4,14 @@ window.addEventListener('load', function () {
     const inputArrayDOMElement = document.getElementById('inputArray');
     let arrayAddDOMElement = document.getElementById('arrayAdd');
     let inputArrayLen = 1;
+    let numberOfElements = 1;
+    /*
+    Create a variable that is incrementen on add and decremented on remove and add this to an if
+    */
 
     function renderInputArray() {
 
-        if (inputArrayLen < 8) {
+        if (numberOfElements < 8) {
             arrayAddDOMElement.style.display = 'inline';
         } else {
             arrayAddDOMElement.style.display = 'none';
@@ -25,7 +29,7 @@ window.addEventListener('load', function () {
 
                 removedButton.remove();
                 removedInput.remove();
-
+                numberOfElements--;
                 renderInputArray();
 
             });
@@ -38,6 +42,7 @@ window.addEventListener('load', function () {
     arrayAddDOMElement.addEventListener('click', function (e) {
         e.preventDefault();
         inputArrayLen++;
+        numberOfElements++;
         inputArrayDOMElement.insertAdjacentHTML('beforeend', getInputTemplate(inputArrayLen - 1));
         renderInputArray();
     });
