@@ -26,17 +26,8 @@ window.addEventListener('load', function () {
                 removedButton.remove();
                 removedInput.remove();
 
-                inputArrayLen--;
-
                 renderInputArray();
 
-                //TODO - PO USUNIĘCIU PRZEITEROWAĆ SIĘ PO inputach i kneflach usuwających i nadać im idsy od nowa, długość iteracji = inputArrayLen
-                let RemoveDOMElements = Array.from(document.getElementsByClassName('array-remove'));
-                let InputDOMElements = Array.from(document.getElementsByClassName('array-input'));
-                for (let i = 0; i < inputArrayLen; i++) {
-                    RemoveDOMElements[i].id = i;
-                    InputDOMElements[i].id = 'input' + i;
-                }
             });
         });
         
