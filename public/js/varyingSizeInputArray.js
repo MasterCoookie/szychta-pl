@@ -31,16 +31,17 @@ window.addEventListener('load', function () {
                 renderInputArray();
 
                 //TODO - PO USUNIĘCIU PRZEITEROWAĆ SIĘ PO inputach i kneflach usuwających i nadać im idsy od nowa, długość iteracji = inputArrayLen
-                
-            });
-        });
-    }
-    let RemoveDOMElements = Array.from(document.getElementsByClassName('array-remove'));
+                let RemoveDOMElements = Array.from(document.getElementsByClassName('array-remove'));
                 let InputDOMElements = Array.from(document.getElementsByClassName('array-input'));
                 for (let i = 0; i < inputArrayLen; i++) {
                     RemoveDOMElements[i].id = i;
                     InputDOMElements[i].id = 'input' + i;
                 }
+            });
+        });
+        
+    }
+
     renderInputArray();
 
     arrayAddDOMElement.addEventListener('click', function (e) {
