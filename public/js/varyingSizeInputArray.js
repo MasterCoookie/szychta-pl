@@ -18,7 +18,7 @@ window.addEventListener('load', function () {
         const arrayRemoveDOMElements = Array.from(document.getElementsByClassName('array-remove'));
 
         arrayRemoveDOMElements.forEach(element => {
-            element.addEventListener('click', function (e) {
+            element.addEventListener('click', function(e) {
                 const clickedIndex = e.target.id;
 
                 const removedButton = document.getElementById(clickedIndex);
@@ -34,7 +34,7 @@ window.addEventListener('load', function () {
 
     renderInputArray();
 
-    arrayAddDOMElement.addEventListener('click', function (e) {
+    arrayAddDOMElement.addEventListener('click', function(e) {
         e.preventDefault();
         currentIndex++;
         currentArrayLen++;
