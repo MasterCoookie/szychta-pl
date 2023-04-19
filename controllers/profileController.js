@@ -40,7 +40,7 @@ const profile_get = async (req, res) => {
         // const applicant = new Applicant({ name: 'dupa', surname: 'dupa2', email: 'pat.i.mat233@gmail.com', phoneNumber: '224444444', birthDate: '12.12.2001', homeAddress: 'kasztanowa 52 lipinki łużyckie', links: ['patrzuwa.ga', 'macibol.ga'] });
         // await applicant.save(applicant);
         // res.sendStatus(200);
-        res.render('profile/applicantProfile', { title: 'Your Profile' })
+        res.render('profile/applicantProfile', { title: 'Your Profile' });
     }
     catch (e) {
         console.log(e);
