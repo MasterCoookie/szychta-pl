@@ -3,15 +3,12 @@ window.addEventListener('load', function () {
     const getInputTemplate = (index) => '<input class="array-input" type="text" id="input' + index + '" /><button type="button" data-buttonindex="" class="array-remove" id="' + index + '">x</button>';
     const inputArrayDOMElement = document.getElementById('inputArray');
     let arrayAddDOMElement = document.getElementById('arrayAdd');
-    let inputArrayLen = 1;
-    let numberOfElements = 1;
-    /*
-    Create a variable that is incrementen on add and decremented on remove and add this to an if
-    */
-
+    let currentIndex = 1;
+    let currentArrayLen = 1;
+    let maximalNumberOfElements = 8;
     function renderInputArray() {
 
-        if (numberOfElements < 8) {
+        if (currentArrayLen < maximalNumberOfElements) {
             arrayAddDOMElement.style.display = 'inline';
         } else {
             arrayAddDOMElement.style.display = 'none';
@@ -29,21 +26,19 @@ window.addEventListener('load', function () {
 
                 removedButton.remove();
                 removedInput.remove();
-                numberOfElements--;
+                currentArrayLen--;
                 renderInputArray();
-
             });
         });
-        
     }
 
     renderInputArray();
 
     arrayAddDOMElement.addEventListener('click', function (e) {
         e.preventDefault();
-        inputArrayLen++;
-        numberOfElements++;
-        inputArrayDOMElement.insertAdjacentHTML('beforeend', getInputTemplate(inputArrayLen - 1));
+        currentIndex++;
+        currentArrayLen++;
+        inputArrayDOMElement.insertAdjacentHTML('beforeend', getInputTemplate(currentIndex - 1));
         renderInputArray();
     });
 });
