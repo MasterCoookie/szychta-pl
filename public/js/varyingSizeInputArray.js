@@ -5,7 +5,7 @@ window.addEventListener('load', function () {
     let arrayAddDOMElement = document.getElementById('arrayAdd');
     let currentIndex = 1;
     let currentArrayLen = 1;
-    let maximalNumberOfElements = 8;
+    const maximalNumberOfElements = 8;
     function renderInputArray() {
 
         if (currentArrayLen < maximalNumberOfElements) {
