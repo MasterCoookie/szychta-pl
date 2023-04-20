@@ -3,7 +3,6 @@ const profileController = require('../controllers/profileController');
 const uploadMiddleware = require('../middleware/uploadMiddleware');
 const multer = require('multer');
 
-
 const router = express.Router();
 const upload = multer();
 

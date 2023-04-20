@@ -2,7 +2,6 @@ const Applicant = require('../models/applicantModel');
 const fs = require('fs');
 
 const profile_post = async (req, res) => {
-    // get user id
     // TODO read from session
     const _id = '64397e2fbed0bea2e17824d2';
     const { name, surname, email, phoneNumber, birthDate, homeAddress, links } = req.body;
@@ -30,7 +29,7 @@ const profile_post = async (req, res) => {
             });
         }
         
-        // console.log(e);
+        console.log(e);
         res.status(400).json({ errors });
     }
 }
@@ -87,8 +86,8 @@ const file_delete = async (req, res) => {
 
                     res.sendStatus(200);
                 } catch(e) {
-                    res.sendStatus(500);
                     console.log(e);
+                    res.sendStatus(500);
                 }
             }
         }
