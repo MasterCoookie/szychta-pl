@@ -52,7 +52,6 @@ const file_delete = async (req, res) => {
     const filename = req.body.filename;
 
     try {
-        // get applicant id from session
         const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
 
         const applicant = Applicant.findById(_id);
@@ -99,15 +98,14 @@ const file_delete = async (req, res) => {
 }
 
 const docs_upload_post = async (req, res) => {
-    // get applicant id from session
     const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
     
     const applicant = await Applicant.findById(_id);
 
     if(!applicant) {
-        // not found, return not found
         res.sendStatus(404);
     }
+
     try {
         applicant.uploadedDocuments.push(req.file.filename);
         await applicant.save();
