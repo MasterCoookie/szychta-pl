@@ -54,6 +54,12 @@ const file_delete = async (req, res) => {
     try {
         // get applicant id from session
         const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
+
+        const applicant = Applicant.findById(_id);
+        if(!applicant) {
+            // not found, return not found
+            res.sendStatus(404);
+        }
         // check if user dir exists
         const userDir = `./public/uploads/${_id}`;
         if (!fs.existsSync(userDir)) {
@@ -75,7 +81,7 @@ const file_delete = async (req, res) => {
                         // file deleted, remove from db
                         await Applicant.findByIdAndUpdate(
                             _id,
-                            { $pull: { documents: filename } },
+                            { $pull: { uploadedDocuments: filename } },
                             { runValidators: true }
                         );
                         try {
@@ -93,8 +99,31 @@ const file_delete = async (req, res) => {
     }
 }
 
-const docs_upload_post = (req, res) => {
+const docs_upload_post = async (req, res) => {
+    // get applicant id from session
+    const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
+    
+    const applicant = await Applicant.findById(_id);
+
+    if(!applicant) {
+        // not found, return not found
+        res.sendStatus(404);
+    }
+    try {
+        applicant.uploadedDocuments.push(req.file.filename);
+        await applicant.save();
+        res.sendStatus(200);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+    
+
     console.log('req:' + req.file);
 }
 
-module.exports = { profile_post, profile_get, docs_upload_post };
+module.exports = { profile_post,
+    profile_get,
+    docs_upload_post,
+    file_delete
+};
