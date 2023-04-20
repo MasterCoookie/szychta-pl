@@ -61,15 +61,17 @@ const file_delete = async (req, res) => {
             res.sendStatus(404);
         }
         // check if user dir exists
-        const userDir = `./public/uploads/${_id}`;
+        const userDir = `./uploads/docs/${_id}`;
         if (!fs.existsSync(userDir)) {
             // doesnt exist, retrun not found
+            console.log("Dir doesnt exist");
             res.sendStatus(404);
         } else {
             // exists, check if file exists
             const filePath = `${userDir}/${filename}`;
             if (!fs.existsSync(filePath)) {
                 // doesnt exist, retrun not found
+                console.log("File doesnt exist");
                 res.sendStatus(404);
             } else {
                 // exists, delete file
