@@ -1,4 +1,5 @@
 const Applicant = require('../models/applicantModel');
+const fs = require('fs');
 
 const profile_post = async (req, res) => {
     // get user id
@@ -43,6 +44,51 @@ const profile_get = async (req, res) => {
         res.render('profile/applicantProfile', { title: 'Your Profile' });
     }
     catch (e) {
+        console.log(e);
+    }
+}
+
+const file_delete = async (req, res) => {
+    const filename = req.body.filename;
+
+    try {
+        // get applicant id from session
+        const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
+        // check if user dir exists
+        const userDir = `./public/uploads/${_id}`;
+        if (!fs.existsSync(userDir)) {
+            // doesnt exist, retrun not found
+            res.sendStatus(404);
+        } else {
+            // exists, check if file exists
+            const filePath = `${userDir}/${filename}`;
+            if (!fs.existsSync(filePath)) {
+                // doesnt exist, retrun not found
+                res.sendStatus(404);
+            } else {
+                // exists, delete file
+                fs.unlink(filePath, async (err) => {
+                    if (err) {
+                        console.log(err);
+                        res.sendStatus(500);
+                    } else {
+                        // file deleted, remove from db
+                        await Applicant.findByIdAndUpdate(
+                            _id,
+                            { $pull: { documents: filename } },
+                            { runValidators: true }
+                        );
+                        try {
+                            res.sendStatus(200);
+                        } catch (e) {
+                            console.log(e);
+                            res.sendStatus(500);
+                        }
+                    }
+                });
+            }
+        }
+    } catch (e) {
         console.log(e);
     }
 }
