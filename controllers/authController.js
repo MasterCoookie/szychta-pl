@@ -31,6 +31,10 @@ const register_put = async(req, res)=>{
     })
 };
 
+const register_get = (req, res) => {
+    res.render('auth/register', { title: 'Register' });
+};
+
 /*const login_post = async (req, res) => {
     const {email, password} = req.body;
 
@@ -51,4 +55,5 @@ const register_put = async(req, res)=>{
 
 module.exports = {
     register_put,
+    register_get,
 };
