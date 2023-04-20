@@ -73,25 +73,20 @@ const file_delete = async (req, res) => {
                 res.sendStatus(404);
             } else {
                 // exists, delete file
-                fs.unlink(filePath, async (err) => {
-                    if (err) {
-                        console.log(err);
-                        res.sendStatus(500);
-                    } else {
-                        // file deleted, remove from db
-                        await Applicant.findByIdAndUpdate(
-                            _id,
-                            { $pull: { uploadedDocuments: filename } },
-                            { runValidators: true }
-                        );
-                        try {
-                            res.sendStatus(200);
-                        } catch (e) {
-                            console.log(e);
-                            res.sendStatus(500);
-                        }
-                    }
-                });
+                try {
+                    fs.unlinkSync(filePath);
+                    // file deleted, remove from db
+                    await Applicant.findByIdAndUpdate(
+                        _id,
+                        { $pull: { uploadedDocuments: filename } },
+                        { runValidators: true }
+                    );
+
+                    res.sendStatus(200);
+                } catch(e) {
+                    res.sendStatus(500);
+                    console.log(e);
+                }
             }
         }
     } catch (e) {
