@@ -60,6 +60,7 @@ const file_delete = async (req, res) => {
             // not found, return not found
             res.sendStatus(404);
         }
+
         // check if user dir exists
         const userDir = `./uploads/docs/${_id}`;
         if (!fs.existsSync(userDir)) {
@@ -77,6 +78,7 @@ const file_delete = async (req, res) => {
                 // exists, delete file
                 try {
                     fs.unlinkSync(filePath);
+
                     // file deleted, remove from db
                     await Applicant.findByIdAndUpdate(
                         _id,
@@ -114,9 +116,6 @@ const docs_upload_post = async (req, res) => {
         console.log(e);
         res.sendStatus(500);
     }
-    
-
-    console.log('req:' + req.file);
 }
 
 module.exports = { profile_post,
