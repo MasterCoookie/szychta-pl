@@ -37,7 +37,7 @@
         </div>
     </form>    
     <div class="col-sm-offset-2 col-sm-10">
-        <h6 class="Error message" id="message"></h6>
+        <h6 class="errorMessageText" id="message"></h6>
     </div>
 </div>
 
@@ -56,9 +56,8 @@ registerButton.addEventListener('click', (event) => {
         
     var errorMesseges = "";
     var password = formData.get('password');
-    console.log(password);
     var repeatPassword = formData.get('repeatPassword');
-    console.log(repeatPassword);
+
     request.addEventListener('load', (event) => {
         const response = JSON.parse(event.target.responseText);
 
@@ -67,9 +66,9 @@ registerButton.addEventListener('click', (event) => {
         }else{
             if(response.errors !== null){
                 response.errors.forEach(element => {
-                    errorMesseges+=element+". ";
+                    errorMessegas+=element+". ";
                 });
-                document.getElementById('message').innerHTML = errorMesseges;
+                document.getElementById('message').innerHTML = errorMessegas;
             }
         }
     });
