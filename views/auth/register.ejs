@@ -2,7 +2,7 @@
 
 <div class="container">
     <h3 class="textTitle">Stwórz konto</h3>
-    <form id="registerForm" method="post">
+    <form id="registerForm" method="put">
         <div class="form-group">   
             <label for="name">Wpisz swoje imię</label>
             <div class="col-sm-10">
@@ -27,8 +27,11 @@
         </div>
         <div class="form-group">  
             <div class="col-sm-offset-2 col-sm-10">
-            <button id="btn" type="submit">Zarejstruj się</button>
+                <button id="btn" type="submit">Zarejstruj się</button>
             </div>
+        </div>
+        <div class="form-group">
+            <a href="/auth/login" id="link" >Masz konto? Zaloguj się</a>
         </div>
     </form>    
 </div>
