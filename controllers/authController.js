@@ -1,25 +1,25 @@
 const Applicant = require('../models/applicantModel');
 
 const register_put = async(req, res)=>{
-    const { email, password, repeatPassword, name, surname } = req.body;
+    const { email, password, name, surname } = req.body;
     
     Applicant.init().then(async() => {
         try{
-             const applicant = await Applicant.create({ email, password, name, surname });
+            const applicant = await Applicant.create({ email, password, name, surname });
             console.log("New user %s created", email);
 
             //req.session.newly_registered = true;
             res.status(201).json({ redirect: 'login' });
                 
         }catch(e){
-                let errors=[];
+            let errors=[];
 
-                if (e.code === 11000) {
-                    errors.push('Email already in use')
-                 }
+            if (e.code === 11000) {
+                errors.push('Email already in use')
+             }
         
-                if(e.errors) {
-                    Object.values(e.errors).forEach(({ properties }) => {
+            if(e.errors) {
+                Object.values(e.errors).forEach(({ properties }) => {
                     if (properties.message) {
                         errors.push(properties.message);
                     }
@@ -27,7 +27,7 @@ const register_put = async(req, res)=>{
                 }
                 // console.log(e);
                 res.json({ errors });
-            }
+        }
         })
 };
 
