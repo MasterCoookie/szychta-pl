@@ -54,9 +54,9 @@ registerButton.addEventListener('click', (event) => {
     const request = new XMLHttpRequest();
     const formData = new FormData(registerForm);
         
-    var errorMessages = "";
-    var password = formData.get('password');
-    var repeatPassword = formData.get('repeatPassword');
+    let errorMessages = "";
+    let password = formData.get('password');
+    let repeatPassword = formData.get('repeatPassword');
 
     request.addEventListener('load', (event) => {
         const response = JSON.parse(event.target.responseText);
