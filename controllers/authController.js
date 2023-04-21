@@ -3,9 +3,9 @@ const Applicant = require('../models/applicantModel');
 const register_put = async(req, res)=>{
     const { email, password, name, surname } = req.body;
     
-    await Applicant.init();
-    async() => {
+    
         try{
+            await Applicant.init();
             const applicant = await Applicant.create({ email, password, name, surname });
             console.log("New user %s created", email);
 
@@ -29,7 +29,7 @@ const register_put = async(req, res)=>{
                 // console.log(e);
                 res.json({ errors });
         }
-        }
+        
 };
 
 const register_get = (req, res) => {
