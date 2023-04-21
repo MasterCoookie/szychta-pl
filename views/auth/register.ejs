@@ -2,27 +2,27 @@
 
 <div class="container">
     <h3 class="textTitle">Stwórz konto</h3>
-    <form id="registerForm" method="put">
+    <form class="form-horizontal" id="registerForm" method="put">
         <div class="form-group">   
-            <label for="name">Wpisz swoje imię</label>
+            <label class="control-label col-sm-2" for="name" >Wpisz swoje imię</label>
             <div class="col-sm-10">
-                <input type="text" placeholder="Jan" id="name"/>
+                <input type="text" placeholder="Jan" id="name" name="name"/>
             </div>
-            <label for="surname">Wpisz swoje nazwisko</label>
+            <label class="control-label col-sm-2" for="surname">Wpisz swoje nazwisko</label>
             <div class="col-sm-10">
-                <input type="text" placeholder="Aplikant" id="surname"/>
+                <input type="text" placeholder="Aplikant" id="surname" name="surname"/>
             </div>
-            <label for="email">Wpisz swój E-mail</label>
+            <label class="control-label col-sm-2" for="email">Wpisz swój E-mail</label>
             <div class="col-sm-10">
-                <input type="email" placeholder="janaplikant@gmail.com" id="email"/>
+                <input type="email" placeholder="janaplikant@gmail.com" id="email" name="email"/>
             </div>
-            <label for="password">Wpisz hasło</label>
+            <label class="control-label col-sm-2" for="passwordInput">Wpisz hasło</label>
             <div class="col-sm-10">
-                <input type="password" placeholder="Hasło" id="password"/>
+                <input type="password" placeholder="Hasło" id="password" name="password"/>
             </div>
-            <label for="repeatPassword">Powtórz swoje hasło</label>
+            <label class="control-label col-sm-2" for="repeatPassword">Powtórz swoje hasło</label>
             <div class="col-sm-10">
-                <input type="password" placeholder="Powtórz hasło" id="repeatPassword"/>
+                <input type="password" placeholder="Powtórz hasło" id="repeatPassword" name="repeatPassword"/>
             </div>
         </div>
         <div class="form-group">  
@@ -31,11 +31,40 @@
             </div>
         </div>
         <div class="form-group">
-            <a href="/auth/login" id="link" >Masz konto? Zaloguj się</a>
+            <div class="col-sm-offset-2 col-sm-10"></div>
+                <a href="/auth/login" id="link" >Masz konto? Zaloguj się</a>
+            </div>
         </div>
     </form>    
 </div>
 
-<script src="../../public/js/register.js"></script>
+<!--<script src="../../public/js/register.js"></script>-->
+
+<script>
+
+const registerForm = document.getElementById('registerForm');
+const registerButton = document.getElementById('registerBtn');
+
+registerButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const request = new XMLHttpRequest();
+    const formData = new FormData(registerForm) ;
+        
+    
+    var password = formData.get('password');
+    
+    var repeatPassword = formData.get('repeatPassword');
+    
+    if(password === repeatPassword){
+    request.open('PUT', '/auth/register');
+    request.send(formData);
+    window.location.href = '/auth/login';
+    }
+});
+
+        
+</script>
+
 <%- include('../partials/footer.ejs') %>
 

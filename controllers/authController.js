@@ -2,37 +2,33 @@ const Applicant = require('../models/applicantModel');
 
 const register_put = async(req, res)=>{
     const { email, password, repeatPassword, name, surname } = req.body;
-    if(password === repeatPassword){
-        Applicant.init().then(async() => {
-            try{
-                const applicant = await Applicant.create({ email, password, name, surname });
-                console.log("New user %s created", email);
+    
+    Applicant.init().then(async() => {
+        try{
+             const applicant = await Applicant.create({ email, password, name, surname });
+            console.log("New user %s created", email);
 
-                //req.session.newly_registered = true;
-                res.status(201).json({ redirect: 'login' });
+            //req.session.newly_registered = true;
+            res.status(201).json({ redirect: 'login' });
                 
-            }catch(e){
+        }catch(e){
                 let errors=[];
 
                 if (e.code === 11000) {
                     errors.push('Email already in use')
-                }
+                 }
         
                 if(e.errors) {
                     Object.values(e.errors).forEach(({ properties }) => {
-                        if (properties.message) {
-                            errors.push(properties.message);
-                        }
-                    });
+                    if (properties.message) {
+                        errors.push(properties.message);
+                    }
+                });
                 }
-                
                 // console.log(e);
                 res.json({ errors });
             }
         })
-    }else{
-        res.status(400).json({ message: 'Password is diferent than repeated password'});
-    }
 };
 
 const register_get = (req, res) => {
