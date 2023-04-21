@@ -1,0 +1,30 @@
+<%- include('../partials/head.ejs') %>
+
+<div class="container">
+    <h3 class="textTitle">Zaloguj się</h3>
+    <form class="form-horizontal" id="loginForm" method="post">
+        <div class="form-group">   
+            <label class="control-label col-sm-2" for="email">Wpisz swój E-mail</label>
+            <div class="col-sm-10">
+                <input type="email" placeholder="E-mail" id="email" name="email"/>
+            </div>
+            <label class="control-label col-sm-2" for="password">Wpisz hasło</label>
+            <div class="col-sm-10">
+                <input type="password" placeholder="Hasło" id="password" name="password"/>
+            </div>
+        </div>
+        <div class="form-group">  
+            <div class="col-sm-offset-2 col-sm-10">
+                <button id="loginBtn" type="submit">Zaloguj się</button>
+            </div>
+        </div>
+    </form>
+    <div class="form-group">
+        <div class="col-sm-offset-2 col-sm-10">
+            <a href="/auth/register" id="link" >Zarejstruj się</a>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs') %>s
