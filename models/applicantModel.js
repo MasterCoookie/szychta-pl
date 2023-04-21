@@ -67,7 +67,7 @@ applicantSchema.pre('save', async function(next) {
 applicantSchema.statics.login = async function(_email, _password) {
     const applicant = await this.findOne({ email: _email });
     if(applicant) {
-        if (await bcrypt.compare(_password, user.password))
+        if (await bcrypt.compare(_password, applicant.password))
         {
             return applicant
         }
