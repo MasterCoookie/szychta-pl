@@ -3,31 +3,28 @@ const Applicant = require('../models/applicantModel');
 const register_put = async(req, res)=>{
     const { email, password, name, surname } = req.body;
     
-    
-        try{
-            await Applicant.init();
-            const applicant = await Applicant.create({ email, password, name, surname });
-            console.log("New user %s created", email);
-
-            //req.session.newly_registered = true;
-            res.status(201).json({ redirect: 'login' });
-                
-        } catch(e) {
-            let errors=[];
-
-            if (e.code === 11000) {
-                errors.push('Email already in use')
-             }
+    try{
+        await Applicant.init();
+        const applicant = await Applicant.create({ email, password, name, surname });
+        console.log("New user %s created", email);
+        //req.session.newly_registered = true;
+        res.status(201).json({ redirect: 'login' });
+            
+    } catch(e) {
+        let errors=[];
+         if (e.code === 11000) {
+            errors.push('Email already in use')
+         }
         
-            if(e.errors) {
-                Object.values(e.errors).forEach(({ properties }) => {
-                    if (properties.message) {
-                        errors.push(properties.message);
-                    }
-                });
+        if(e.errors) {
+            Object.values(e.errors).forEach(({ properties }) => {
+                if (properties.message) {
+                    errors.push(properties.message);
                 }
-                // console.log(e);
-                res.json({ errors });
+            });
+        }
+            // console.log(e);
+            res.json({ errors });
         }
         
 };
@@ -44,7 +41,7 @@ const login_post = async (req, res) => {
             const applicant = await Applicant.login(email, password);
             if (applicant) {
                 console.log('OK');
-            }else{
+            } else {
                 res.status(403).json({ msg: 'Invalid credentials' });
             }
         } catch (e) {
