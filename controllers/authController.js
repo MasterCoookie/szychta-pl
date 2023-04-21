@@ -3,7 +3,8 @@ const Applicant = require('../models/applicantModel');
 const register_put = async(req, res)=>{
     const { email, password, name, surname } = req.body;
     
-    Applicant.init().then(async() => {
+    await Applicant.init();
+    async() => {
         try{
             const applicant = await Applicant.create({ email, password, name, surname });
             console.log("New user %s created", email);
@@ -16,7 +17,7 @@ const register_put = async(req, res)=>{
 
             if (e.code === 11000) {
                 errors.push('Email already in use')
-            }
+             }
         
             if(e.errors) {
                 Object.values(e.errors).forEach(({ properties }) => {
@@ -28,7 +29,7 @@ const register_put = async(req, res)=>{
                 // console.log(e);
                 res.json({ errors });
         }
-        })
+        }
 };
 
 const register_get = (req, res) => {
