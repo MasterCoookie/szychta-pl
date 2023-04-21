@@ -24,7 +24,38 @@
             <a href="/auth/register" id="link" >Zarejstruj się</a>
         </div>
     </div>
+    <div class="col-sm-offset-2 col-sm-10">
+        <h6 class="errorMessageText" id="message"></h6>
+    </div>
 </div>
 
+<script>
 
-<%- include('../partials/footer.ejs') %>s
+const loginForm = document.getElementById('loginForm');
+const loginButton = document.getElementById('loginBtn');
+
+loginButton.addEventListener('click', (event) => {
+    event.preventDefault();
+
+    const request = new XMLHttpRequest();
+    const formData = new FormData(loginForm);
+
+
+    request.addEventListener('load', (event) => {
+        const response = JSON.parse(event.target.responseText);
+
+        if(response.redirect === 'profile'){
+            window.location.href = '/profile';
+        } else if(response.msg !== null){
+            document.getElementById('message').innerHTML = response.msg;
+        }
+        
+    });
+    
+    request.open('post', '/auth/login');
+    request.send(formData);
+    
+});
+</script>
+
+<%- include('../partials/footer.ejs') %>

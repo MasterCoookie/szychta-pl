@@ -40,14 +40,17 @@ const login_post = async (req, res) => {
         try {
             const applicant = await Applicant.login(email, password);
             if (applicant) {
-                console.log('OK');
+                console.log("Loged in");
+                res.status(202).json({ redirect: 'profile' });
             } else {
-                res.status(403).json({ msg: 'Invalid credentials' });
+                res.status(400).json({ msg: 'Niewłaściwe dane' });
             }
         } catch (e) {
-            console.log(e);
-
+            //res.json(e);
+            res.status(400).json({ msg: 'Niewłaściwe dane' });
         }
+    } else {
+        res.status(400).json({ msg: 'Niewłaściwe dane' });
     }
 };
 
