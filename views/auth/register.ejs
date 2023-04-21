@@ -54,7 +54,7 @@ registerButton.addEventListener('click', (event) => {
     const request = new XMLHttpRequest();
     const formData = new FormData(registerForm);
         
-    var errorMesseges = "";
+    var errorMessages = "";
     var password = formData.get('password');
     var repeatPassword = formData.get('repeatPassword');
 
@@ -63,12 +63,12 @@ registerButton.addEventListener('click', (event) => {
 
         if(response.redirect === 'login'){
             window.location.href = '/auth/login';
-        }else{
+        } else {
             if(response.errors !== null){
                 response.errors.forEach(element => {
-                    errorMessegas+=element+". ";
+                    errorMessages+=element+". ";
                 });
-                document.getElementById('message').innerHTML = errorMessegas;
+                document.getElementById('message').innerHTML = errorMessages;
             }
         }
     });

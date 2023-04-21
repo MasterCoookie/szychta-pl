@@ -11,12 +11,12 @@ const register_put = async(req, res)=>{
             //req.session.newly_registered = true;
             res.status(201).json({ redirect: 'login' });
                 
-        }catch(e){
+        } catch(e) {
             let errors=[];
 
             if (e.code === 11000) {
                 errors.push('Email already in use')
-             }
+            }
         
             if(e.errors) {
                 Object.values(e.errors).forEach(({ properties }) => {
@@ -46,7 +46,7 @@ const login_post = async (req, res) => {
             }else{
                 res.status(403).json({ msg: 'Invalid credentials' });
             }
-        } catch (e){
+        } catch (e) {
             console.log(e);
 
         }
