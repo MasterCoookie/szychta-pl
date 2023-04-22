@@ -28,8 +28,8 @@ const jobOfferSchema = new mongoose.Schema({
     industry: [String],
     additionalQuestions: [String],
     keywords: [String],
-    expireDate: Date,
-    organisationId: {
+    expiryDate: Date,
+    organisation_id: {
         type: Schema.Types.ObjectId,
         required: [true, "Offer cannot be an orphan"]
     }
