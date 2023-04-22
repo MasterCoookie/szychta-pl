@@ -1,5 +1,7 @@
 const mongoose = require('mongoose');
 
+const Schema = mongoose.Schema;
+
 const jobOfferSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -12,7 +14,7 @@ const jobOfferSchema = new mongoose.Schema({
     },
     mode: {
         type: [Number],
-        //validate: [(val) -> val.length > 0, 'Must have minimum one type']
+        validate: [(val) => val.length > 0 , 'Must have minimum one type in range 1-3']
     },
     salary: String,
     requirements: {
