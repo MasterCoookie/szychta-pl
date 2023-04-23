@@ -36,10 +36,6 @@ const profile_post = async (req, res) => {
 
 const profile_get = async (req, res) => {
     try {
-        //TMP DUMMY DATA
-        // const applicant = new Applicant({ name: 'dupa', surname: 'dupa2', email: 'pat.i.mat233@gmail.com', phoneNumber: '224444444', birthDate: '12.12.2001', homeAddress: 'kasztanowa 52 lipinki łużyckie', links: ['patrzuwa.ga', 'macibol.ga'] });
-        // await applicant.save(applicant);
-        // res.sendStatus(200);
         res.render('profile/applicantProfile', { title: 'Your Profile' });
     }
     catch (e) {
@@ -107,7 +103,7 @@ const docs_upload_post = async (req, res) => {
 
     try {
         applicant.uploadedDocuments.push(req.file.filename);
-        await applicant.save();
+        await applicant.save({ validateBeforeSave: false });
         res.sendStatus(200);
     } catch (e) {
         console.log(e);
@@ -115,7 +111,8 @@ const docs_upload_post = async (req, res) => {
     }
 }
 
-module.exports = { profile_post,
+module.exports = {
+    profile_post,
     profile_get,
     docs_upload_post,
     file_delete

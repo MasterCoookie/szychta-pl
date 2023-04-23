@@ -29,8 +29,11 @@ const docsUploadStorage = multer.diskStorage({
     filename: function(req, file, cb) {
         if(fs.existsSync(getUploadPath(req) + '\\profilePicture.png')) {
             console.log('Existing profile pic upload attempted. Overwriting...');
+            req.session.profilePicChanged = true;
+            cb(null, 'profilePicture_new.png');
         } else {
             console.log('New profile pic upload');
+            cb(null, 'profilePicture.png');
         }
     }
  });
