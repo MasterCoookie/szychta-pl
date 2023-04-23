@@ -1,4 +1,5 @@
 const Applicant = require('../models/applicantModel');
+const sessionController = require('./sessionController')
 
 const register_put = async(req, res)=>{
     const { email, password, name, surname } = req.body;
@@ -41,6 +42,8 @@ const login_post = async (req, res) => {
             const applicant = await Applicant.login(email, password);
             if (applicant) {
                 console.log("Loged in");
+                sessionController.sessionAuthentication(req);
+                sessionController.sendAplicantInfoToSession(req, applicant.name, applicant.email, applicant._id);
                 res.status(202).json({ redirect: 'profile' });
             } else {
                 res.status(400).json({ msg: 'Niewłaściwe dane' });
@@ -55,12 +58,18 @@ const login_post = async (req, res) => {
 };
 
 const login_get = (req, res) => {
-    res.render('auth/login', { title: 'Login' })
+    if(!req.session.authenticated){
+        res.render('auth/login', { title: 'Login' });
+    } else {
+        res.redirect('/');
+    }
 };
+
 
 module.exports = {
     register_put,
     register_get,
     login_get,
     login_post,
+    logout_get,
 };
