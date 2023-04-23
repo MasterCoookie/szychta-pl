@@ -1,19 +1,19 @@
 const multer = require('multer');
 const fs = require('fs');
 
-const getDocsUploadPath = req => (__dirname + '\\..\\public\\uploads\\' /* + req.user._id */ + '64397e2fbed0bea2e17824d2' + '\\docs\\');
+const getUploadPath = req => (__dirname + '\\..\\public\\uploads\\' /* + req.user._id */ + '64397e2fbed0bea2e17824d2');
 
-const uploadStorage = multer.diskStorage({
+const docsUploadStorage = multer.diskStorage({
     destination: function(req, file, cb) {
-        const path = getDocsUploadPath(req);
+        const path = getUploadPath(req) + '\\docs\\';
         if(!fs.existsSync(path)) {
             console.log('Path does not exist: ' + path + ' creating...');
             fs.mkdirSync(path);
         }
-        cb(null, path /* + req.user._id */);
+        cb(null, path);
     },
     filename: function(req, file, cb) {
-        if(fs.existsSync(getDocsUploadPath(req) + '\\' +file.originalname)) {
+        if(fs.existsSync(getUploadPath(req) + '\\docs\\' + file.originalname)) {
             console.log('Existing file upload attempted!');
             return cb(new Error('Existing file upload attempted!'));
         }
@@ -21,9 +21,26 @@ const uploadStorage = multer.diskStorage({
     }
  });
 
+ const profilePicUploadStorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        const path = getUploadPath(req);
+        cb(null, path);
+    },
+    filename: function(req, file, cb) {
+        if(fs.existsSync(getUploadPath(req) + '\\profilePicture.png')) {
+            console.log('Existing profile pic upload attempted. Overwriting...');
+            req.session.profilePicChanged = true;
+            cb(null, 'profilePicture_new.png');
+        } else {
+            console.log('New profile pic upload');
+            cb(null, 'profilePicture.png');
+        }
+    }
+ });
+
 
  const docsUpload = multer({
-    storage: uploadStorage,
+    storage: docsUploadStorage,
     limits: {
         filesize: 25000000
     },
@@ -33,4 +50,15 @@ const uploadStorage = multer.diskStorage({
     }
  });
 
- module.exports = { docsUpload };
+ const profilePicUpload = multer({
+    storage: profilePicUploadStorage,
+    limits: {
+        filesize: 25000000
+    },
+    fileFilter: (req, res, cb) => {
+        // TODO: limit file extensions
+        cb(null, true);
+    }
+ });
+
+ module.exports = { docsUpload, profilePicUpload };

@@ -4,7 +4,7 @@ const fs = require('fs');
 const profile_post = async (req, res) => {
     // TODO read from session
     const _id = '64397e2fbed0bea2e17824d2';
-    const { name, surname, email, phoneNumber, birthDate, homeAddress, links } = req.body;
+    const { name, surname, email, phoneNumber, birthDate, homeAddress, links, profilePicture } = req.body;
 
     try {
         await Applicant.findByIdAndUpdate(
@@ -12,6 +12,12 @@ const profile_post = async (req, res) => {
             { name, surname, email, phoneNumber, birthDate, homeAddress, links },
             { runValidators: true }
         );
+
+        if(req.session.profilePicChanged) {
+            fs.unlinkSync(`./public/uploads/${_id}/profilePicture.png`);
+            fs.renameSync(`./public/uploads/${_id}/profilePicture_new.png`, `./public/uploads/${_id}/profilePicture.png`);
+            req.session.profilePicChanged = false;
+        }
         res.sendStatus(200);
     }
     catch (e) {
@@ -36,10 +42,6 @@ const profile_post = async (req, res) => {
 
 const profile_get = async (req, res) => {
     try {
-        //TMP DUMMY DATA
-        // const applicant = new Applicant({ name: 'dupa', surname: 'dupa2', email: 'pat.i.mat233@gmail.com', phoneNumber: '224444444', birthDate: '12.12.2001', homeAddress: 'kasztanowa 52 lipinki łużyckie', links: ['patrzuwa.ga', 'macibol.ga'] });
-        // await applicant.save(applicant);
-        // res.sendStatus(200);
         res.render('profile/applicantProfile', { title: 'Your Profile' });
     }
     catch (e) {
@@ -107,7 +109,7 @@ const docs_upload_post = async (req, res) => {
 
     try {
         applicant.uploadedDocuments.push(req.file.filename);
-        await applicant.save();
+        await applicant.save({ validateBeforeSave: false });
         res.sendStatus(200);
     } catch (e) {
         console.log(e);
@@ -115,7 +117,8 @@ const docs_upload_post = async (req, res) => {
     }
 }
 
-module.exports = { profile_post,
+module.exports = {
+    profile_post,
     profile_get,
     docs_upload_post,
     file_delete
