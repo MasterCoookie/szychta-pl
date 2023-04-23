@@ -40,9 +40,9 @@ const login_post = async (req, res) => {
         try {
             const applicant = await Applicant.login(email, password);
             if (applicant) {
-                console.log("Loged in");
-                sessionController.sessionAuthentication(req);
-                sessionController.sendAplicantInfoToSession(req, applicant.name, applicant.email, applicant._id);
+                console.log("Logged in");
+                sessionController.authenticationAfterloggingIn(req);
+                sessionController.saveApplicantInfoToSession(req, applicant.name, applicant.surname, applicant.email, applicant._id);
                 res.status(202).json({ redirect: 'profile' });
             } else {
                 res.status(400).json({ msg: 'Niewłaściwe dane' });

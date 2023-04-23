@@ -1,9 +1,9 @@
-const sessionAuthentication = (req) => {
+const authenticationAfterloggingIn = (req) => {
     req.session.authenticated = true;
 };
 
-const sendAplicantInfoToSession = (req, name, email, _id) => {
-    req.session.applicant = { name: name, _id: _id, email: email };    
+const saveApplicantInfoToSession = (req, name, surname, email, _id) => {
+    req.session.applicant = { name: name, surname: surname, _id: _id, email: email };    
 };
 
 const destroySession = (req) => {
@@ -11,7 +11,7 @@ const destroySession = (req) => {
 };
 
 module.exports = {
-  sessionAuthentication,
-  sendAplicantInfoToSession,
+  authenticationAfterloggingIn,
+  saveApplicantInfoToSession,
   destroySession,
 };
