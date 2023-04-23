@@ -3,7 +3,7 @@ const sessionAuthentication = (req) => {
 };
 
 const sendAplicantInfoToSession = (req, name, email, _id) => {
-    req.session.aplicant = { name: name, id: _id, email: email };    
+    req.session.applicant = { name: name, _id: _id, email: email };    
 };
 
 const destroySession = (req) => {

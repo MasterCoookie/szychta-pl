@@ -8,7 +8,6 @@ const register_put = async(req, res)=>{
         await Applicant.init();
         const applicant = await Applicant.create({ email, password, name, surname });
         console.log("New user %s created", email);
-        //req.session.newly_registered = true;
         res.status(201).json({ redirect: 'login' });
             
     } catch(e) {
@@ -71,5 +70,4 @@ module.exports = {
     register_get,
     login_get,
     login_post,
-    logout_get,
 };
