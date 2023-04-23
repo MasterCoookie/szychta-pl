@@ -4,7 +4,7 @@ const fs = require('fs');
 const profile_post = async (req, res) => {
     // TODO read from session
     const _id = '64397e2fbed0bea2e17824d2';
-    const { name, surname, email, phoneNumber, birthDate, homeAddress, links } = req.body;
+    const { name, surname, email, phoneNumber, birthDate, homeAddress, links, profilePicture } = req.body;
 
     try {
         await Applicant.findByIdAndUpdate(
@@ -12,6 +12,12 @@ const profile_post = async (req, res) => {
             { name, surname, email, phoneNumber, birthDate, homeAddress, links },
             { runValidators: true }
         );
+
+        if(req.session.profilePicChanged) {
+            fs.unlinkSync(`./public/uploads/${_id}/profilePicture.png`);
+            fs.renameSync(`./public/uploads/${_id}/profilePicture_new.png`, `./public/uploads/${_id}/profilePicture.png`);
+            req.session.profilePicChanged = false;
+        }
         res.sendStatus(200);
     }
     catch (e) {
