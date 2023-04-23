@@ -2,7 +2,6 @@ const Applicant = require('../models/applicantModel');
 const fs = require('fs');
 
 const profile_post = async (req, res) => {
-    // TODO read from session
     const _id = req.session.applicant._id;
     
     const { name, surname, email, phoneNumber, birthDate, homeAddress, links, profilePicture } = req.body;
@@ -55,7 +54,6 @@ const file_delete = async (req, res) => {
 
     //TODO - handle middleware errors
     try {
-        //const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
         const _id = req.session.applicant._id;
 
         const applicant = await Applicant.findById(_id);
@@ -101,7 +99,6 @@ const file_delete = async (req, res) => {
 }
 
 const docs_upload_post = async (req, res) => {
-    //const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
     const _id = req.session.applicant._id;
     
     const applicant = await Applicant.findById(_id);
