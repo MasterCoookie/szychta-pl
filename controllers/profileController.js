@@ -53,7 +53,7 @@ const file_delete = async (req, res) => {
     try {
         const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
 
-        const applicant = Applicant.findById(_id);
+        const applicant = await Applicant.findById(_id);
         if(!applicant) {
             // not found, return not found
             res.sendStatus(404);
