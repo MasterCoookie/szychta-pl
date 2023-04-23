@@ -50,17 +50,18 @@ const profile_get = async (req, res) => {
 const file_delete = async (req, res) => {
     const filename = req.body.filename;
 
+    //TODO - handle middleware errors
     try {
         const _id = '64397e2fbed0bea2e17824d2'; //TODO - read from session
 
-        const applicant = Applicant.findById(_id);
+        const applicant = await Applicant.findById(_id);
         if(!applicant) {
             // not found, return not found
             res.sendStatus(404);
         }
 
         // check if user dir exists
-        const userDir = `./uploads/docs/${_id}`;
+        const userDir = `./public/uploads/${_id}/docs/`;
         if (!fs.existsSync(userDir)) {
             // doesnt exist, retrun not found
             console.log("Dir doesnt exist");
@@ -80,8 +81,7 @@ const file_delete = async (req, res) => {
                     // file deleted, remove from db
                     await Applicant.findByIdAndUpdate(
                         _id,
-                        { $pull: { uploadedDocuments: filename } },
-                        { runValidators: true }
+                        { $pull: { uploadedDocuments: filename } }
                     );
 
                     res.sendStatus(200);
