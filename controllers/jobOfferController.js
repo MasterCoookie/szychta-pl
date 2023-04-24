@@ -1,4 +1,4 @@
-const JobOffer = require('../models/JobOfferModel');
+const JobOffer = require('../models/jobOfferModel');
 
 const showOffers_get = async (req, res) => {
     try {
