@@ -1,7 +1,7 @@
 const multer = require('multer');
 const fs = require('fs');
 
-const getUploadPath = req => (__dirname + '\\..\\public\\uploads\\' /* + req.user._id */ + '64397e2fbed0bea2e17824d2');
+const getUploadPath = req => (__dirname + '\\..\\public\\uploads\\'  + req.session.applicant._id);
 
 const docsUploadStorage = multer.diskStorage({
     destination: function(req, file, cb) {

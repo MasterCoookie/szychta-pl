@@ -1,4 +1,5 @@
 const Applicant = require('../models/applicantModel');
+const sessionController = require('./sessionController')
 
 const register_put = async(req, res)=>{
     const { email, password, name, surname } = req.body;
@@ -7,7 +8,6 @@ const register_put = async(req, res)=>{
         await Applicant.init();
         const applicant = await Applicant.create({ email, password, name, surname });
         console.log("New user %s created", email);
-        //req.session.newly_registered = true;
         res.status(201).json({ redirect: 'login' });
             
     } catch(e) {
@@ -40,7 +40,9 @@ const login_post = async (req, res) => {
         try {
             const applicant = await Applicant.login(email, password);
             if (applicant) {
-                console.log("Loged in");
+                console.log("Logged in");
+                sessionController.authenticationAfterloggingIn(req);
+                sessionController.saveApplicantInfoToSession(req, applicant.name, applicant.surname, applicant.email, applicant._id);
                 res.status(202).json({ redirect: 'profile' });
             } else {
                 res.status(400).json({ msg: 'Niewłaściwe dane' });
@@ -55,8 +57,13 @@ const login_post = async (req, res) => {
 };
 
 const login_get = (req, res) => {
-    res.render('auth/login', { title: 'Login' })
+    if(!req.session.authenticated){
+        res.render('auth/login', { title: 'Login' });
+    } else {
+        res.redirect('/');
+    }
 };
+
 
 module.exports = {
     register_put,
