@@ -83,7 +83,7 @@ module.exports = {
     showOffers_get,
     addOffer_put,
     addOffer_get,
-    modifyOffer_put: modifyOffer_post,
+    modifyOffer_post,
     modifyOffer_get,
     offer_delete
 }
