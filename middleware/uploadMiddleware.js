@@ -5,6 +5,10 @@ const getUploadPath = req => (__dirname + '\\..\\public\\uploads\\'  + req.sessi
 
 const docsUploadStorage = multer.diskStorage({
     destination: function(req, file, cb) {
+        if(!fs.existsSync(getUploadPath(req)+'\\')) {
+            console.log('Path does not exist: ' + getUploadPath(req) + ' creating...');
+            fs.mkdirSync(getUploadPath(req));
+        }
         const path = getUploadPath(req) + '\\docs\\';
         if(!fs.existsSync(path)) {
             console.log('Path does not exist: ' + path + ' creating...');
