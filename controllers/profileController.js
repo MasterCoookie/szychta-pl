@@ -3,7 +3,7 @@ const fs = require('fs');
 
 const profile_post = async (req, res) => {
     const _id = req.session.applicant._id;
-    
+
     const { name, surname, email, phoneNumber, birthDate, homeAddress } = req.body;
 
     const links = req.body.links ? JSON.parse(req.body.links) : [];
@@ -15,7 +15,7 @@ const profile_post = async (req, res) => {
             { runValidators: true }
         );
 
-        if(req.session.profilePicChanged) {
+        if (req.session.profilePicChanged) {
             fs.unlinkSync(`./public/uploads/${_id}/profilePicture.png`);
             fs.renameSync(`./public/uploads/${_id}/profilePicture_new.png`, `./public/uploads/${_id}/profilePicture.png`);
             req.session.profilePicChanged = false;
@@ -29,14 +29,14 @@ const profile_post = async (req, res) => {
             errors.push('Email already in use');
         }
 
-        if(e.errors) {
+        if (e.errors) {
             Object.values(e.errors).forEach(({ properties }) => {
                 if (properties.message) {
                     errors.push(properties.message);
                 }
             });
         }
-        
+
         console.log(e);
         res.status(400).json({ errors });
     }
@@ -46,10 +46,10 @@ const profile_get = async (req, res) => {
     try {
         const _id = req.session.applicant._id;
         const applicant = (await Applicant.findById(_id)).toObject();
-        if(!applicant) {
+        if (!applicant) {
             // not found, return not found
             res.sendStatus(404);
-        } else  {
+        } else {
             const hasProfilePic = fs.existsSync(`./public/uploads/${_id}/profilePicture.png`);
             res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic });
         }
@@ -59,6 +59,30 @@ const profile_get = async (req, res) => {
     }
 }
 
+const docs_get = async (req, res) => {
+    try {
+        const _id = req.session.applicant._id;
+        const applicant = (await Applicant.findById(_id)).toObject();
+        if (!applicant) {
+            // not found, return not found
+            res.sendStatus(404);
+        } else {
+            const userDir = `./public/uploads/${_id}/docs/`;
+            if (!fs.existsSync(userDir)) {
+                // doesnt exist, retrun not found
+                console.log("Dir doesnt exist");
+                res.sendStatus(404);
+            } else { 
+                // exists, get files
+                const files = fs.readdirSync(userDir);
+                res.send(files);
+            }
+        }
+    }
+    catch (e) {
+        console.log(e);
+    }
+}
 const file_delete = async (req, res) => {
     const filename = req.body.filename;
 
@@ -67,7 +91,7 @@ const file_delete = async (req, res) => {
         const _id = req.session.applicant._id;
 
         const applicant = await Applicant.findById(_id);
-        if(!applicant) {
+        if (!applicant) {
             // not found, return not found
             res.sendStatus(404);
         }
@@ -97,7 +121,7 @@ const file_delete = async (req, res) => {
                     );
 
                     res.sendStatus(200);
-                } catch(e) {
+                } catch (e) {
                     console.log(e);
                     res.sendStatus(500);
                 }
@@ -110,10 +134,10 @@ const file_delete = async (req, res) => {
 
 const docs_upload_post = async (req, res) => {
     const _id = req.session.applicant._id;
-    
+
     const applicant = await Applicant.findById(_id);
 
-    if(!applicant) {
+    if (!applicant) {
         res.sendStatus(404);
     }
 
@@ -131,5 +155,6 @@ module.exports = {
     profile_post,
     profile_get,
     docs_upload_post,
-    file_delete
+    file_delete,
+    docs_get,
 };

@@ -32,6 +32,7 @@ const profilePicUploadMiddleware = (req, res, next) => {
 }
 
 router.post('/profile/docs_upload', docUploadMiddleware, profileController.docs_upload_post)
+router.get('/profile/docs', profileController.docs_get);
 router.get('/profile', profileController.profile_get);
 router.post('/profile', profilePicUploadMiddleware, profileController.profile_post);
 router.delete('/profile/file_delete', upload.none(), profileController.file_delete);
