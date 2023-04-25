@@ -64,10 +64,15 @@ const login_get = (req, res) => {
     }
 };
 
+const logout_get = (req, res) => {
+    sessionController.destroySession(req);
+    res.redirect('/');
+};
 
 module.exports = {
     register_put,
     register_get,
     login_get,
     login_post,
+    logout_get,
 };
