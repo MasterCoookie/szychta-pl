@@ -7,6 +7,7 @@
         </div>
     <form class="form-horizontal" id="contactForm">
         <div class="form-group">
+
             <label class="control-label col-sm-2" for="name">Nazwa ogłoszenia:</label>
             <div class="col-sm-10">
                 <input type="text" name="name" id="name" />
@@ -14,17 +15,17 @@
 
             <label class="control-label col-sm-2" for="description">Opis ogłoszenia:</label>
             <div class="col-sm-10">
-                <textarea id="description" name="description" rows="64" cols="64"></textarea>
+                <textarea id="description" name="description" rows="8" cols="64"></textarea>
             </div>
 
-            <label class="control-label col-sm-2" for="mode">Tryb pracy:</label>
+            <label class="control-label col-sm-2">Tryb pracy:</label>
             <div class="col-sm-10">
-                <input type="checkbox" id="inOffice" name="mode[0]" value=1>
-                <label for="mode[0]"> Stacjonarny</label><br>
-                <input type="checkbox" id="hybrid" name="mode[1]" value=2>
-                <label for="mode[1]"> Hybrydowy</label><br>
-                <input type="checkbox" id="remote" name="mode[2]" value=4>
-                <label for="mode[2]"> Zdalny</label><br>                
+                <input type="checkbox" id="inOffice" name="mode">
+                <label for="inOffice"> Stacjonarny</label><br>
+                <input type="checkbox" id="hybrid" name="mode">
+                <label for="hybrid"> Hybrydowy</label><br>
+                <input type="checkbox" id="remote" name="mode">
+                <label for="remote"> Zdalny</label><br>                
             </div>
 
             <label class="control-label col-sm-2" for="salary">Wynagrodzenie:</label>
@@ -46,7 +47,8 @@
 
             <label class="control-label col-sm-2" for="industry">Branża:</label>
             <div class="col-sm-10" id="inputArray">
-                <input class="array-input" type="string" id="input0" /><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
+                <input class="array-input" type="SingedDoublePrecissionBool" id="input0" />
+                <button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
             </div>
             <button id="arrayAdd">+</button>
 
@@ -80,6 +82,6 @@
     </form>
 </div>
 
-<script src="../js/varyingSizeInputArray.js"></script>
+<script src="js/varyingSizeInputArray.js"></script>
 
 <%- include('../partials/footer.ejs') %>
