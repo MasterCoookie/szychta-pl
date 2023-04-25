@@ -13,39 +13,41 @@
             
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
-                <input type="text" name="name" id="name" />
+                <input type="text" name="name" id="name" value="<%= applicant.name %>" />
             </div>
 
             <label class="control-label col-sm-2" for="surname">Surname:</label>
             <div class="col-sm-10">
-                <input type="text" name="surname" id="surname" />
+                <input type="text" name="surname" id="surname" value="<%= applicant.surname %>" />
             </div>
 
             <label class="control-label col-sm-2" for="email">Email:</label>
             <div class="col-sm-10">
-                <input type="email" name="email" id="email" />
+                <input type="email" name="email" id="email" value="<%= applicant.email %>" />
             </div>
 
             <label class="control-label col-sm-2" for="number">Phone:</label>
             <div class="col-sm-10">
-                <input type="tel" name="number" id="number" />
+                <input type="tel" name="number" id="number" value="<%= applicant.phoneNumber %>" />
             </div>
 
             <label class="control-label col-sm-2" for="birthdate">Birthdate:</label>
             <div class="col-sm-10">
-                <input type="date" name="birthdate" id="birthdate" />
+                <input type="date" name="birthdate" id="birthdate" value="<%= applicant.birthDate %>" />
             </div>
 
             <label class="control-label col-sm-2" for="homeAddress">Home Address:</label>
             <div class="col-sm-10">
-                <input type="text" name="homeAddress" id="homeAddress" />
+                <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
             </div>
 
             <label class="control-label col-sm-2" for="links">Links:</label>
             <div class="col-sm-10" id="inputArray">
-                <input class="array-input" type="text" id="input0" /><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
+                <% if(applicant.links != null) { for(let i = 0; i < applicant.links.length; i++) { %>
+                    <input class="array-input" type="text" id="input<%= i %>" /><button type="button" data-buttonindex="" class="array-remove" id="<%= i %>">x</button>
+                    <button id="arrayAdd">+</button>
+                <% }} %>
             </div>
-            <button id="arrayAdd">+</button>
         </div>
         <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">

@@ -48,7 +48,7 @@ const profile_get = async (req, res) => {
             // not found, return not found
             res.sendStatus(404);
         } else  {
-            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, applicant: req.session.applicant });
+            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, });
         }
     }
     catch (e) {
