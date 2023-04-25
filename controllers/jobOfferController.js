@@ -33,9 +33,9 @@ const addOffer_put = async (req, res) => {
     }
 }
 
-const addOffer_get = (req, res) => {
+const manageOffer_get = (req, res) => {
     try {
-        res.render('jobOffer/add_offer', { title: 'Add offer' });
+        res.render('jobOffer/manage_offer', { title: 'Create or Edit offer' });
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
@@ -63,13 +63,8 @@ const modifyOffer_post = async (req, res) => {
     }
 }
 
-const modifyOffer_get = (req, res) => {
-    res.render('jobOffer/modify_offer', { title: 'Modify offer' });
-}
-
 const offer_delete = async (req, res) => {
     const { _id } = req.body;
-
     try {
         await JobOffer.init();
         await JobOffer.deleteOne({ _id });
@@ -81,9 +76,8 @@ const offer_delete = async (req, res) => {
 
 module.exports = {
     showOffers_get,
+    manageOffer_get,
     addOffer_put,
-    addOffer_get,
     modifyOffer_post,
-    modifyOffer_get,
     offer_delete
 }
