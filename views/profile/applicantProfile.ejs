@@ -2,8 +2,9 @@
 
 <div class="container">
     <h2>Your Profile</h2>
-    <form class="form-horizontal" id="contactForm">
+    <form class="form-horizontal" id="profileForm">
         <div class="form-group">
+            <div id="saveResult"></div>
             <!-- TODO: append user_id to src-->
             <img src="uploads/<%= applicant._id %>/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
             <div class="col-sm-10">
@@ -43,6 +44,7 @@
 
             <label class="control-label col-sm-2" for="links">Links:</label>
             <div class="col-sm-10" id="inputArray">
+                <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
                 <% if(applicant.links != null) { for(let i = 0; i < applicant.links.length; i++) { %>
                     <input value="<%= applicant.links[i] %>" class="array-input" type="text" id="input<%= i %>" />
                     <button type="button" data-buttonindex="" class="array-remove" id="<%= i %>">x</button>
@@ -68,4 +70,5 @@
 <script src="js/varyingSizeInputArray.js"></script>
 <script src="js/profilePicturePreview.js"></script>
 <script src="js/addFile.js"></script>
+<script src="js/submitProfileForm.js"></script>
 <%- include('../partials/footer.ejs') %>

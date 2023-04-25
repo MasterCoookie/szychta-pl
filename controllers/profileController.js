@@ -4,7 +4,9 @@ const fs = require('fs');
 const profile_post = async (req, res) => {
     const _id = req.session.applicant._id;
     
-    const { name, surname, email, phoneNumber, birthDate, homeAddress, links, profilePicture } = req.body;
+    const { name, surname, email, phoneNumber, birthDate, homeAddress } = req.body;
+
+    const links = req.body.links ? JSON.parse(req.body.links) : [];
 
     try {
         await Applicant.findByIdAndUpdate(
