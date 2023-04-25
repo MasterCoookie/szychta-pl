@@ -2,13 +2,16 @@ const multer = require('multer');
 const fs = require('fs');
 
 const getUploadPath = req => (__dirname + '\\..\\public\\uploads\\'  + req.session.applicant._id);
+const checkUserUploadPath = req => {
+    if(!fs.existsSync(getUploadPath(req)+'\\')) {
+        console.log('Path does not exist: ' + getUploadPath(req) + ' creating...');
+        fs.mkdirSync(getUploadPath(req));
+    }
+}
 
 const docsUploadStorage = multer.diskStorage({
     destination: function(req, file, cb) {
-        if(!fs.existsSync(getUploadPath(req)+'\\')) {
-            console.log('Path does not exist: ' + getUploadPath(req) + ' creating...');
-            fs.mkdirSync(getUploadPath(req));
-        }
+        checkUserUploadPath(req);
         const path = getUploadPath(req) + '\\docs\\';
         if(!fs.existsSync(path)) {
             console.log('Path does not exist: ' + path + ' creating...');
@@ -31,6 +34,7 @@ const docsUploadStorage = multer.diskStorage({
         cb(null, path);
     },
     filename: function(req, file, cb) {
+        checkUserUploadPath(req);
         if(fs.existsSync(getUploadPath(req) + '\\profilePicture.png')) {
             console.log('Existing profile pic upload attempted. Overwriting...');
             req.session.profilePicChanged = true;
