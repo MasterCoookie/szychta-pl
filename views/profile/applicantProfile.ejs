@@ -44,9 +44,10 @@
             <label class="control-label col-sm-2" for="links">Links:</label>
             <div class="col-sm-10" id="inputArray">
                 <% if(applicant.links != null) { for(let i = 0; i < applicant.links.length; i++) { %>
-                    <input class="array-input" type="text" id="input<%= i %>" /><button type="button" data-buttonindex="" class="array-remove" id="<%= i %>">x</button>
-                    <button id="arrayAdd">+</button>
+                    <input value="<%= applicant.links[i] %>" class="array-input" type="text" id="input<%= i %>" />
+                    <button type="button" data-buttonindex="" class="array-remove" id="<%= i %>">x</button>
                 <% }} %>
+                <button id="arrayAdd">+</button>
             </div>
         </div>
         <div class="form-group">        
