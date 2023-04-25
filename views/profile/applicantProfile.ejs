@@ -39,7 +39,9 @@
 
             <label class="control-label col-sm-2" for="birthdate">Birthdate:</label>
             <div class="col-sm-10">
-                <input type="date" name="birthDate" id="birthdate" value="<%= applicant.birthDate.toISOString().split('T')[0] %>" />
+                
+                <input type="date" name="birthDate" id="birthdate" <% if(applicant.birthDate != null) {%> value="<%= applicant.birthDate.toISOString().split('T')[0] %>"  <% } %>/>
+               
             </div>
 
             <label class="control-label col-sm-2" for="homeAddress">Home Address:</label>
