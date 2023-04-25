@@ -3,7 +3,13 @@
 <div class="container">
     <h2>Your Profile</h2>
     <form class="form-horizontal" id="contactForm">
-        <div class="form-group">     
+        <div class="form-group">
+            <!-- TODO: append user_id to src-->
+            <img src="uploads/64397e2fbed0bea2e17824d2/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
+            <div class="col-sm-10">
+                <input type="file" name="profilePicture" id="profilePicture" />
+                <button type="button" id="clearProfilePictureButton">x</button>
+            </div>   
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
                 <input type="text" name="name" id="name" />
@@ -49,5 +55,6 @@
 </div>
 
 <script src="js/varyingSizeInputArray.js"></script>
+<script src="js/profilePicturePreview.js"></script>
 
 <%- include('../partials/footer.ejs') %>

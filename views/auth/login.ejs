@@ -1,61 +1,38 @@
 <%- include('../partials/head.ejs') %>
 
-<div class="container">
-    <h3 class="textTitle">Zaloguj się</h3>
-    <form class="form-horizontal" id="loginForm" method="post">
-        <div class="form-group">   
-            <label class="control-label col-sm-2" for="email">Wpisz swój E-mail</label>
-            <div class="col-sm-10">
-                <input type="email" placeholder="E-mail" id="email" name="email"/>
+<div class="container h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-6 mx-auto text-center bg-white p-3">
+            <h3 class="textTitle">Zaloguj się</h3>
+            <form class="form-horizontal" id="loginForm" method="post">
+                <div class="form-group">   
+                    <label class="control-label col-sm-6 pt-2 pb-1 m-0" for="email">Wpisz E-mail</label>
+                    <div class="col-sm-8 mx-auto">
+                        <input type="email" placeholder="E-mail" id="email" name="email" class="form-control shadow bg-white rounded"/>
+                    </div>
+                    <label class="control-label col-sm-6 pt-2 pb-1 m-0" for="password">Wpisz hasło</label>
+                    <div class="col-sm-8 mx-auto">
+                        <input type="password" placeholder="Hasło" id="password" name="password" class="form-control shadow bg-white rounded"/>
+                    </div>
+                </div>
+                <div class="form-group">  
+                    <div class="col-sm-8 mx-auto">
+                        <button id="loginBtn" type="submit" class="btn">Zaloguj się</button>
+                    </div>
+                </div>
+            </form>
+            <div class="form-group">
+                <div class="col-sm-8 mx-auto">
+                    <a href="/auth/register" id="link" >Zarejstruj się</a>
+                </div>
             </div>
-            <label class="control-label col-sm-2" for="password">Wpisz hasło</label>
-            <div class="col-sm-10">
-                <input type="password" placeholder="Hasło" id="password" name="password"/>
+            <div class="col-sm-8 mx-auto">
+                <span class="errorMessageText" id="message"></span>
             </div>
         </div>
-        <div class="form-group">  
-            <div class="col-sm-offset-2 col-sm-10">
-                <button id="loginBtn" type="submit">Zaloguj się</button>
-            </div>
-        </div>
-    </form>
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <a href="/auth/register" id="link" >Zarejstruj się</a>
-        </div>
-    </div>
-    <div class="col-sm-offset-2 col-sm-10">
-        <h6 class="errorMessageText" id="message"></h6>
     </div>
 </div>
 
-<script>
-
-const loginForm = document.getElementById('loginForm');
-const loginButton = document.getElementById('loginBtn');
-
-loginButton.addEventListener('click', (event) => {
-    event.preventDefault();
-
-    const request = new XMLHttpRequest();
-    const formData = new FormData(loginForm);
-
-
-    request.addEventListener('load', (event) => {
-        const response = JSON.parse(event.target.responseText);
-
-        if(response.redirect === 'profile'){
-            window.location.href = '/profile';
-        } else if(response.msg !== null){
-            document.getElementById('message').innerHTML = response.msg;
-        }
-        
-    });
-    
-    request.open('post', '/auth/login');
-    request.send(formData);
-    
-});
-</script>
+<script src="/js/login.js"></script>
 
 <%- include('../partials/footer.ejs') %>
