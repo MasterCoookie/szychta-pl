@@ -5,7 +5,13 @@
     <form class="form-horizontal" id="profileForm">
         <div class="form-group">
             <div id="saveResult"></div>
-            <img src="uploads/<%= applicant._id %>/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
+            <img
+            <% if(hasProfilePic) { %>
+                src="uploads/<%= applicant._id %>/profilePicture.png" 
+            <% } else { %>
+                src="img/blank-profile-picture-973460_1280.webp"
+            <% } %>
+            alt="Profile Picture" class="col-sm-3" id="profilePicturePreview" />
             <div class="col-sm-10">
                 <input type="file" name="profilePicture" id="profilePicture" />
                 <button type="button" id="clearProfilePictureButton">x</button>

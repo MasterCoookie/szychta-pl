@@ -50,7 +50,8 @@ const profile_get = async (req, res) => {
             // not found, return not found
             res.sendStatus(404);
         } else  {
-            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, });
+            const hasProfilePic = fs.existsSync(`./public/uploads/${_id}/profilePicture.png`);
+            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic });
         }
     }
     catch (e) {
