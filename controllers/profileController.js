@@ -42,7 +42,14 @@ const profile_post = async (req, res) => {
 
 const profile_get = async (req, res) => {
     try {
-        res.render('profile/applicantProfile', { title: 'Your Profile' });
+        const _id = req.session.applicant._id;
+        const applicant = (await Applicant.findById(_id)).toObject();
+        if(!applicant) {
+            // not found, return not found
+            res.sendStatus(404);
+        } else  {
+            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, applicant: req.session.applicant });
+        }
     }
     catch (e) {
         console.log(e);

@@ -5,16 +5,12 @@
     <form class="form-horizontal" id="contactForm">
         <div class="form-group">
             <!-- TODO: append user_id to src-->
-            <img src="uploads/64397e2fbed0bea2e17824d2/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
+            <img src="uploads/<%= applicant._id %>/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
             <div class="col-sm-10">
                 <input type="file" name="profilePicture" id="profilePicture" />
                 <button type="button" id="clearProfilePictureButton">x</button>
             </div>
-            Your Files   
-            <div class="col-sm-10">
-                <input type="button" id="loadFileXml" value="Dodaj Plik" onclick="document.getElementById('addfile').click();" />
-                <input type="file" style=display:none id="addfile" name="file"/>
-            </div>
+            
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
                 <input type="text" name="name" id="name" />
@@ -55,6 +51,13 @@
             <div class="col-sm-offset-2 col-sm-10">
                 <input type="submit" value="Save" class="btn btn-default" />
             </div>
+        </div>
+    </form>
+    <form>
+        Your Files   
+        <div class="col-sm-10">
+            <input type="button" id="loadFileXml" value="Dodaj Plik" onclick="document.getElementById('addfile').click();" />
+            <input type="file" style=display:none id="addfile" name="file"/>
         </div>
     </form>
 </div>
