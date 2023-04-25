@@ -14,11 +14,12 @@ window.addEventListener('load', function () {
         request = new XMLHttpRequest();
         request.open('POST', '/profile');
         request.send(formData);
+        
         request.onload = () => {
-            console.log(request);
             if(request.status === 200) {
                 saveResultDOMElement.innerHTML = 'Dane zostały zapisane';
             } else if(request.status < 500) {
+                //TODO: handle errors
                 saveResultDOMElement.innerHTML = 'Błędne dane!';
             } else {
                 saveResultDOMElement.innerHTML = 'Błąd serwera!';
