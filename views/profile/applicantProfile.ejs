@@ -9,7 +9,12 @@
             <div class="col-sm-10">
                 <input type="file" name="profilePicture" id="profilePicture" />
                 <button type="button" id="clearProfilePictureButton">x</button>
-            </div>   
+            </div>
+            Your Files   
+            <div class="col-sm-10">
+                <!-- <input type="button" id="loadFileXml" value="Add File" onclick="document.getElementById('addfile').click();" /> -->
+                <input type="file" id="addfile" name="file"/>
+            </div>
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
                 <input type="text" name="name" id="name" />
@@ -56,5 +61,5 @@
 
 <script src="js/varyingSizeInputArray.js"></script>
 <script src="js/profilePicturePreview.js"></script>
-
+<script src="js/addFile.js"></script>
 <%- include('../partials/footer.ejs') %>
