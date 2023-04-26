@@ -1,6 +1,7 @@
 const express = require('express');
 const profileController = require('../controllers/profileController');
 const uploadMiddleware = require('../middleware/uploadMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 const multer = require('multer');
 
 const router = express.Router();
@@ -31,9 +32,9 @@ const profilePicUploadMiddleware = (req, res, next) => {
     });
 }
 
-router.post('/profile/docs_upload', docUploadMiddleware, profileController.docs_upload_post)
-router.get('/profile', profileController.profile_get);
-router.post('/profile', profilePicUploadMiddleware, profileController.profile_post);
-router.delete('/profile/file_delete', upload.none(), profileController.file_delete);
+router.post('/profile/docs_upload', [docUploadMiddleware, authMiddleware.require_login], profileController.docs_upload_post);
+router.get('/profile', authMiddleware.require_login, profileController.profile_get);
+router.post('/profile', [profilePicUploadMiddleware, authMiddleware.require_login], profileController.profile_post);
+router.delete('/profile/file_delete', [upload.none(), authMiddleware.require_login], profileController.file_delete);
 
 module.exports = router;
