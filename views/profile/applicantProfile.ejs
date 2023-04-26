@@ -1,60 +1,125 @@
 <%- include('../partials/head.ejs') %>
 
-<div class="container">
-    <h2>Your Profile</h2>
-    <form class="form-horizontal" id="contactForm">
-        <div class="form-group">
-            <!-- TODO: append user_id to src-->
-            <img src="uploads/64397e2fbed0bea2e17824d2/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
-            <div class="col-sm-10">
-                <input type="file" name="profilePicture" id="profilePicture" />
-                <button type="button" id="clearProfilePictureButton">x</button>
-            </div>   
-            <label class="control-label col-sm-2" for="name">Name:</label>
-            <div class="col-sm-10">
-                <input type="text" name="name" id="name" />
-            </div>
+<div class="container h-100">
+    <div class="d-flex align-items-center justify-content-center h-100">
+        <div class="col-lg-12 mx-auto text-center bg-white p-3">
+            <h2>Opowiedz nam więcej o sobie</h2>
+            <form class="form-horizontal" id="contactForm">
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-5 offset-sm-1">
+                            <div class="row justify-content-center">
+                                <img src="uploads/64397e2fbed0bea2e17824d2/profilePicture.png" alt="Profile Picture" class="col" id="profilePicturePreview"/>
+                            </div>
 
-            <label class="control-label col-sm-2" for="surname">Surname:</label>
-            <div class="col-sm-10">
-                <input type="text" name="surname" id="surname" />
-            </div>
+                            <div class="row justify-content-center">
+                                <input type="file" name="profilePicture" id="profilePicture" />
+                                <button class="btn btn-default" type="button" id="clearProfilePictureButton">x</button>
+                            </div>
+                        </div>   
+                        
+                        <div class="col-sm-5">
+                            <label class="control-label col-sm-5 pt-2 pb-1 m-0" for="name">Imię:</label>
+                            <input type="text" name="name" id="name" class="form-control shadow bg-white rounded"/>
 
-            <label class="control-label col-sm-2" for="email">Email:</label>
-            <div class="col-sm-10">
-                <input type="email" name="email" id="email" />
-            </div>
+                            <label class="control-label col-sm-5 pt-2 pb-1 m-0" for="surname">Nazwisko:</label>
+                            <input type="text" name="surname" id="surname" class="form-control shadow bg-white rounded"/>
+                    
 
-            <label class="control-label col-sm-2" for="number">Phone:</label>
-            <div class="col-sm-10">
-                <input type="tel" name="number" id="number" />
-            </div>
+                            <label class="control-label col-sm-5 pt-2 pb-1 m-0" for="email">Email:</label>
+                            <input type="email" name="email" id="email" class="form-control shadow bg-white rounded"/>
+                            
 
-            <label class="control-label col-sm-2" for="birthdate">Birthdate:</label>
-            <div class="col-sm-10">
-                <input type="date" name="birthdate" id="birthdate" />
-            </div>
+                            <label class="control-label col-sm-5 pt-2 pb-1 m-0" for="number">Numer telefonu:</label>
+                            <input type="tel" name="number" id="number" class="form-control shadow bg-white rounded"/>
 
-            <label class="control-label col-sm-2" for="homeAddress">Home Address:</label>
-            <div class="col-sm-10">
-                <input type="text" name="homeAddress" id="homeAddress" />
-            </div>
+                            <label class="control-label col-sm-5 pt-2 pb-1 m-0" for="birthdate">Data urodzenia:</label>
+                            <input type="date" name="birthdate" id="birthdate" class="form-control shadow bg-white rounded"/>
+                            
 
-            <label class="control-label col-sm-2" for="links">Links:</label>
-            <div class="col-sm-10" id="inputArray">
-                <input class="array-input" type="text" id="input0" /><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
-            </div>
-            <button id="arrayAdd">+</button>
+                            <label class="control-label col-sm-5 pt-2 pb-1 m-0" for="homeAddress">Adres:</label>
+                            <input type="text" name="homeAddress" id="homeAddress" class="form-control shadow bg-white rounded"/>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <label class="control-label col-md-2 offset-sm-1" for="links">Linki:</label>
+                        <div class="col-sm-9 offset-1" id="inputArray">
+                            <input class="array-input col-sm-10 offset-1" type="text" id="input0"/><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
+                        </div>
+                        <button id="arrayAdd">+</button>
+                    </div>
+                </div>
+                <div class="form-group">        
+                    <div class="col-md-12">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </form>
         </div>
-        <div class="form-group">        
-            <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
-        </div>
-    </form>
+    </div>
 </div>
 
 <script src="js/varyingSizeInputArray.js"></script>
 <script src="js/profilePicturePreview.js"></script>
 
 <%- include('../partials/footer.ejs') %>
+
+
+<!-- 
+    <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-6 mx-auto text-center bg-white p-3">
+            <h2>Your Profile</h2>
+            <form class="form-horizontal" id="contactForm">
+                <div class="form-group">
+
+                    <img src="uploads/64397e2fbed0bea2e17824d2/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
+                    <div class="col-sm-10">
+                        <input type="file" name="profilePicture" id="profilePicture" />
+                        <button type="button" id="clearProfilePictureButton">x</button>
+                    </div>   
+                    <label class="control-label col-sm-2" for="name">Name:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="name" id="name" class="form-control shadow bg-white rounded"/>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="surname">Surname:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="surname" id="surname" class="form-control shadow bg-white rounded"/>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="email">Email:</label>
+                    <div class="col-sm-10">
+                        <input type="email" name="email" id="email" class="form-control shadow bg-white rounded"/>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="number">Phone:</label>
+                    <div class="col-sm-10">
+                        <input type="tel" name="number" id="number" class="form-control shadow bg-white rounded"/>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="birthdate">Birthdate:</label>
+                    <div class="col-sm-10">
+                        <input type="date" name="birthdate" id="birthdate" class="form-control shadow bg-white rounded"/>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="homeAddress">Home Address:</label>
+                    <div class="col-sm-10">
+                        <input type="text" name="homeAddress" id="homeAddress" class="form-control shadow bg-white rounded"/>
+                    </div>
+
+                    <label class="control-label col-sm-2" for="links">Links:</label>
+                    <div class="col-sm-10" id="inputArray">
+                        <input class="array-input" type="text" id="input0" /><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
+                    </div>
+                    <button id="arrayAdd">+</button>
+                </div>
+                <div class="form-group">        
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <input type="submit" value="Save" class="btn btn-default" />
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+-->
