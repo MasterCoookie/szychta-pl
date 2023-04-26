@@ -35,6 +35,6 @@ router.post('/profile/docs_upload', docUploadMiddleware, profileController.docs_
 router.get('/profile/docs', profileController.docs_get);
 router.get('/profile', profileController.profile_get);
 router.post('/profile', profilePicUploadMiddleware, profileController.profile_post);
-router.delete('/profile/file_delete', upload.none(), profileController.file_delete);
+router.delete('/profile/file_delete', profileController.file_delete);
 
 module.exports = router;

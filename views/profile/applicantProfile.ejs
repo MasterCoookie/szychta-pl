@@ -66,7 +66,15 @@
         </div>
     </form>
     <form>
-        Your Files   
+        Your Files
+        <div id="files">
+            <% if(applicant.uploadedDocuments != null) { for(let i = 0; i < applicant.uploadedDocuments.length; i++) { %>
+                <div id="file<%= i %>">
+                    <span id="filename<%= i %>"><%= applicant.uploadedDocuments[i] %></span>
+                    <button type="button" class="file-remove" id="buttonFile-<%= i %>">x</button>
+                </div>
+            <% }} %>
+        </div>   
         <div class="col-sm-10">
             <input type="button" id="loadFileXml" value="Dodaj Plik" onclick="document.getElementById('addfile').click();" />
             <input type="file" style=display:none id="addfile" name="file"/>
