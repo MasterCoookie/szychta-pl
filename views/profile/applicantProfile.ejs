@@ -2,49 +2,62 @@
 
 <div class="container">
     <h2>Your Profile</h2>
-    <form class="form-horizontal" id="contactForm">
+    <form class="form-horizontal" id="profileForm">
         <div class="form-group">
-            <!-- TODO: append user_id to src-->
-            <img src="uploads/64397e2fbed0bea2e17824d2/profilePicture.png" alt="Profile Picture" class="col-sm-3" id="profilePicturePreview"/>
+            <div id="saveResult"></div>
+            <img
+            <% if(hasProfilePic) { %>
+                src="uploads/<%= applicant._id %>/profilePicture.png" 
+            <% } else { %>
+                src="img/blank-profile-picture-973460_1280.webp"
+            <% } %>
+            alt="Profile Picture" class="col-sm-3" id="profilePicturePreview" />
             <div class="col-sm-10">
                 <input type="file" name="profilePicture" id="profilePicture" />
                 <button type="button" id="clearProfilePictureButton">x</button>
-            </div>   
+            </div>
+            
             <label class="control-label col-sm-2" for="name">Name:</label>
             <div class="col-sm-10">
-                <input type="text" name="name" id="name" />
+                <input type="text" name="name" id="name" value="<%= applicant.name %>" />
             </div>
 
             <label class="control-label col-sm-2" for="surname">Surname:</label>
             <div class="col-sm-10">
-                <input type="text" name="surname" id="surname" />
+                <input type="text" name="surname" id="surname" value="<%= applicant.surname %>" />
             </div>
 
             <label class="control-label col-sm-2" for="email">Email:</label>
             <div class="col-sm-10">
-                <input type="email" name="email" id="email" />
+                <input type="email" name="email" id="email" value="<%= applicant.email %>" />
             </div>
 
             <label class="control-label col-sm-2" for="number">Phone:</label>
             <div class="col-sm-10">
-                <input type="tel" name="number" id="number" />
+                <input type="tel" name="phoneNumber" id="number" value="<%= applicant.phoneNumber %>" />
             </div>
 
             <label class="control-label col-sm-2" for="birthdate">Birthdate:</label>
             <div class="col-sm-10">
-                <input type="date" name="birthdate" id="birthdate" />
+                
+                <input type="date" name="birthDate" id="birthdate" <% if(applicant.birthDate != null) {%> value="<%= applicant.birthDate.toISOString().split('T')[0] %>"  <% } %>/>
+               
             </div>
 
             <label class="control-label col-sm-2" for="homeAddress">Home Address:</label>
             <div class="col-sm-10">
-                <input type="text" name="homeAddress" id="homeAddress" />
+                <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
             </div>
 
             <label class="control-label col-sm-2" for="links">Links:</label>
             <div class="col-sm-10" id="inputArray">
-                <input class="array-input" type="text" id="input0" /><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
+                <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
+                <% if(applicant.links != null) { for(let i = 0; i < applicant.links.length; i++) { %>
+                    <input value="<%= applicant.links[i] %>" class="array-input" type="text" id="input<%= i %>" />
+                    <button type="button" data-buttonindex="" class="array-remove" id="<%= i %>">x</button>
+                <% }} %>
+                <button id="arrayAdd">+</button>
             </div>
-            <button id="arrayAdd">+</button>
         </div>
         <div class="form-group">        
             <div class="col-sm-offset-2 col-sm-10">
@@ -52,9 +65,25 @@
             </div>
         </div>
     </form>
+    <form>
+        Your Files
+        <div id="files">
+            <% if(applicant.uploadedDocuments != null) { for(let i = 0; i < applicant.uploadedDocuments.length; i++) { %>
+                <div id="file<%= i %>">
+                    <span id="filename<%= i %>"><%= applicant.uploadedDocuments[i] %></span>
+                    <button type="button" class="file-remove" id="buttonFile-<%= i %>">x</button>
+                </div>
+            <% }} %>
+        </div>   
+        <div class="col-sm-10">
+            <input type="button" id="loadFileXml" value="Dodaj Plik" onclick="document.getElementById('addfile').click();" />
+            <input type="file" style=display:none id="addfile" name="file"/>
+        </div>
+    </form>
 </div>
 
 <script src="js/varyingSizeInputArray.js"></script>
 <script src="js/profilePicturePreview.js"></script>
-
+<script src="js/addFile.js"></script>
+<script src="js/submitProfileForm.js"></script>
 <%- include('../partials/footer.ejs') %>
