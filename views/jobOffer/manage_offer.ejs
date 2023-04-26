@@ -5,7 +5,7 @@
         <div class="col-sm-12">
             <h1>Dodaj ofertę pracy</h1>
         </div>
-    <form class="form-horizontal" id="contactForm">
+    <form class="form-horizontal" id="offerForm">
         <div class="form-group">
 
             <label class="control-label col-sm-2" for="name">Nazwa ogłoszenia:</label>
@@ -77,12 +77,13 @@
         </div>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" value="Opublikuj" class="btn btn-default" />
+                <button type="submit" class="btn btn-default" id="submitBtn">Opublikuj</button>
             </div>
         </div>
     </form>
 </div>
 
 <script src="../js/varyingSizeInputArray.js"></script>
+<script src="../js/modifyOffer.js"></script>
 
 <%- include('../partials/footer.ejs') %>
