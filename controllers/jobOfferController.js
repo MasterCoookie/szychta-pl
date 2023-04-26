@@ -13,11 +13,21 @@ const showOffers_get = async (req, res) => {
 }
 
 const addOffer_put = async (req, res) => {
-    const { title, description, requirements, salary, location, tags } = req.body;
-
+    const { title, description, requirements, salary, location, industry, keywords, expiryDate, organisation_id, mode0, mode1, mode2} = req.body;
+    let additionalQuestions = []; //temp
+    let mode = [];
+    if (mode0){
+        mode.push(0);
+    }
+    if (mode1){
+        mode.push(1);
+    }
+    if (mode2){
+        mode.push(2);
+    }
     try {
         await JobOffer.init();
-        const jobOffer = await JobOffer.create({ title, description, requirements, salary, location, tags });
+        const jobOffer = await JobOffer.create({ title, description, mode, salary, requirements, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
         res.sendStatus(201);
     } catch (e) {
