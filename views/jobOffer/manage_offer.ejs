@@ -1,0 +1,89 @@
+<%- include('../partials/head.ejs') %>
+
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12">
+            <h1>Dodaj ofertę pracy</h1>
+        </div>
+    <form class="form-horizontal" id="offerForm">
+        <div class="form-group">
+
+            <label class="control-label col-sm-2" for="title">Tytuł ogłoszenia:</label>
+            <div class="col-sm-10">
+                <input type="text" name="title" id="title" required=""/>
+            </div>
+
+            <label class="control-label col-sm-2" for="description">Opis ogłoszenia:</label>
+            <div class="col-sm-10">
+                <textarea id="description" name="description" rows="8" cols="64"></textarea>
+            </div>
+
+            <label class="control-label col-sm-2">Tryb pracy:</label>
+            <div class="col-sm-10">
+                <input type="checkbox" id="inOffice" name="mode0">
+                <label for="inOffice"> Stacjonarny</label><br>
+                <input type="checkbox" id="hybrid" name="mode1">
+                <label for="hybrid"> Hybrydowy</label><br>
+                <input type="checkbox" id="remote" name="mode2">
+                <label for="remote"> Zdalny</label><br>                
+            </div>
+
+            <label class="control-label col-sm-2" for="salary">Wynagrodzenie:</label>
+            <div class="col-sm-10">
+                <input type="text" name="salary" id="salary" />
+            </div>
+            
+            <label class="control-label col-sm-2" for="requirements">Wymagania:</label>
+            <div class="col-sm-10" id="inputArray">
+                <!-- TODO: implement requirements module -->
+                <!-- temporary disabled field -->
+                <input value="64397e2fbed0bea2e17824d2" disabled="" name="requirements" id="requirements">
+            </div>
+
+            <label class="control-label col-sm-2" for="location">Lokalizacja:</label>
+            <div class="col-sm-10">
+                <input type="text" name="location" id="location" />
+            </div>
+
+            <label class="control-label col-sm-2" for="industry">Branża:</label>
+            <div class="col-sm-10" id="industry">
+                <input type="text" name="industry" id="industry" />
+            </div>
+
+
+            <label class="control-label col-sm-2" for="additionalQuestions">Dodatkowe pytania:</label>
+            <div class="col-sm-10" id="additionalQuestions">
+                <input class="array-input" id="input0" /><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
+            </div>
+            <button id="arrayAdd">+</button>
+
+            <label class="control-label col-sm-2" for="keywords">Słowa kluczowe:</label>
+            <div class="col-sm-10" id="keywords">
+                <input type="text" name="keywords" id="keywords" />
+            </div>
+
+
+            <label class="control-label col-sm-2" for="expiryDate">Data wygaśnięcia:</label>
+            <div class="col-sm-10">
+                <input type="date" name="expiryDate" id="expiryDate"/>
+            </div>
+
+            <label class="control-label col-sm-2" for="organisation_id">Organizacja:</label>
+            <div class="col-sm-10">
+                <!-- TODO: implement requirements module -->
+                <!-- temporary disabled field -->
+                <input value="64397e2fbed0bea2e17824d2" disabled="" name="organisation_id" id="organisation_id">
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default" id="submitBtn">Opublikuj</button>
+            </div>
+        </div>
+    </form>
+</div>
+
+<script src="../js/varyingSizeInputArray.js"></script>
+<script src="../js/modifyOffer.js"></script>
+
+<%- include('../partials/footer.ejs') %>

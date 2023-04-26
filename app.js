@@ -4,7 +4,8 @@ const secret = require('./secret');
 const mongoose = require('mongoose');
 
 const mainRoutes = require('./routes/mainRoutes');
-const authRoutes = require('./routes/authRoutes')
+const authRoutes = require('./routes/authRoutes');
+const employerRoutes = require('./routes/employerRoutes');
 
 const app = express();
 
@@ -20,7 +21,7 @@ mongoose.connect(DB_URI, {
 }).then((result) => {
 	console.log('db connection established...');
 	app.listen(PORT, () => {
-		console.log('szychta.pl listeining to requests on %s', PORT);
+		console.log('szychta.pl listening to requests on %s', PORT);
 	});
 }).catch((err) => {
 	console.log(err);
@@ -46,6 +47,7 @@ app.use(express.static(__dirname + '/public'));
 
 //routers
 app.use('/auth', authRoutes);
+app.use('/employer', employerRoutes);
 app.use('/', mainRoutes);
 
 
