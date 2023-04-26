@@ -16,6 +16,6 @@ submitButton.addEventListener('click', (event) => {
         }
     });
     
-    request.open('post', '/employer/login');
+    request.open('put', '/employer/add_offer');
     request.send(formData);
 });

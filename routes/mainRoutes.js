@@ -31,7 +31,7 @@ const profilePicUploadMiddleware = (req, res, next) => {
     });
 }
 
-// router related routes
+// profile related routes
 router.post('/profile/docs_upload', docUploadMiddleware, profileController.docs_upload_post)
 router.get('/profile', profileController.profile_get);
 router.post('/profile', profilePicUploadMiddleware, profileController.profile_post);
