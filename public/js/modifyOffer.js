@@ -6,10 +6,9 @@ submitButton.addEventListener('click', (event) => {
     const request = new XMLHttpRequest();
     const formData = new FormData(form);
     console.log(formData);
-    // request.addEventListener('load', (event) => {
-    //     const response = JSON.parse(event.target.responseText);
-    //     console.log(response);
-    // });
+    request.onload = () => {
+        console.log(request.response);
+    }
     
     request.open('put', '/employer/add_offer');
     request.send(formData);

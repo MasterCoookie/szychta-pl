@@ -5,7 +5,6 @@ const register_put = async(req, res)=>{
     const { email, password, name, surname } = req.body;
     
     try{
-        await Applicant.init();
         const applicant = await Applicant.create({ email, password, name, surname });
         console.log("New user %s created", email);
         res.status(201).json({ redirect: 'login' });
