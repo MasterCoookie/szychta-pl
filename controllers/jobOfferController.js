@@ -26,7 +26,6 @@ const addOffer_put = async (req, res) => {
         mode.push(2);
     }
     try {
-        await JobOffer.init();
         const jobOffer = await JobOffer.create({ title, description, mode, salary, requirements, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
         res.sendStatus(201);
