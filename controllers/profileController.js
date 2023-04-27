@@ -65,6 +65,7 @@ const docs_get = async (req, res) => {
         const applicant = (await Applicant.findById(_id)).toObject();
         if (!applicant) {
             // not found, return not found
+            console.log("Applicant not found!");
             res.sendStatus(404);
         } else {
             const userDir = `./public/uploads/${_id}/docs/`;

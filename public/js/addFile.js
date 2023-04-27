@@ -46,7 +46,9 @@ window.addEventListener('load', function () {
         request = new XMLHttpRequest();
         request.open('POST', '/profile/docs_upload');
         request.send(formData);
-        renderFiles();
+        request.onload = () => {
+            renderFiles();
+        }
     });
 
 
