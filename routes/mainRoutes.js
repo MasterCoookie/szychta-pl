@@ -32,9 +32,11 @@ const profilePicUploadMiddleware = (req, res, next) => {
     });
 }
 
+
 router.post('/profile/docs_upload', [docUploadMiddleware, authMiddleware.require_login], profileController.docs_upload_post);
 router.get('/profile', authMiddleware.require_login, profileController.profile_get);
 router.post('/profile', [profilePicUploadMiddleware, authMiddleware.require_login], profileController.profile_post);
 router.delete('/profile/file_delete', authMiddleware.require_login, profileController.file_delete);
+router.get('/profile/docs', authMiddleware.require_login, profileController.docs_get);
 
 module.exports = router;
