@@ -4,7 +4,7 @@ const skill_post = async (req, res) => {
     const { name, description, keywords } = req.body;
 
     try {
-        const skill = await Skill.create({ name, description, keywords });
+        await Skill.create({ name, description, keywords });
         console.log("New skill %s created", name);
         res.sendStatus(201);
     } catch (e) {
@@ -26,6 +26,16 @@ const skill_post = async (req, res) => {
     }
 }
 
+const skillsCreator_get = (req, res) => {
+    try {
+        res.render('skills/skillsCreator', { title: 'Create skill' });
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
 module.exports = {
-    skill_post
+    skill_post,
+    skillsCreator_get
 };
