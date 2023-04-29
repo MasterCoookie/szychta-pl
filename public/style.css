@@ -11,3 +11,7 @@ html, body {
     background-color: #445766;
   }
   
+#skillsComponent {
+    height: 500px;
+    width: 500px;
+}
