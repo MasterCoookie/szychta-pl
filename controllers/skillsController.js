@@ -43,10 +43,23 @@ const skills_get = async (req, res) => {
             $or: [
                 { name: { $regex: regexExp } },
                 { keywords: { $in: regexExp }},
-                { description: { $regex: regexExp } }
+                // { description: { $regex: regexExp } }
             ]
     }).limit(10);
-        res.json(skills);
+        if(skills.length < 10) {
+            const additionalSkills = await Skill.find({
+                $or: [
+                    { name: { $regex: regexExp } },
+                    { keywords: { $in: regexExp }},
+                    { description: { $regex: regexExp } }
+                ]
+            }).limit(10 - skills.length);
+
+            const joinedSkills = skills.concat(additionalSkills);
+            res.json(joinedSkills.filter((skill, index, self) => self.findIndex(s => s.name === skill.name) === index));
+        } else {
+            res.json(skills);
+        }
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
