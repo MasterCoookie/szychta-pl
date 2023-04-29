@@ -22,7 +22,7 @@ const skill_post = async (req, res) => {
             console.log('Error creating skill');
             console.log(e);
         }
-        res.json({ errors });
+        res.status(400).json({ errors });
     }
 }
 
