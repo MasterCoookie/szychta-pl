@@ -13,7 +13,36 @@ window.addEventListener('load', function () {
 
         clearTimeout(timeout);
         timeout = setTimeout(function () {
-            console.log("Searching for: " + searchQuery);
+            console.log('searching for: ' + searchQuery);
+            const request = new XMLHttpRequest();
+            request.open('GET', '/skills');
+            request.setRequestHeader('Content-Type', 'application/json');
+            request.send(JSON.stringify({ searchQuery: searchQuery }));
+            request.onload = () => {
+                if(request.status === 200) {
+                    const skills = JSON.parse(request.response);
+                    if(skills.length == 0) {
+                        searchResultsDOMElement.innerHTML = 'No skills found';
+                        return;
+                    }
+                    searchResultsDOMElement.innerHTML = '';
+                    skills.forEach(skill => {
+                        const skillDOMElement = document.createElement('div');
+                        skillDOMElement.classList.add('skill');
+                        skillDOMElement.innerHTML = skill.name;
+                        skillDOMElement.addEventListener('click', function () {
+                            const skillInputDOMElement = document.getElementById('skillInput');
+                            skillInputDOMElement.value = skill.name;
+                            searchResultsDOMElement.innerHTML = '';
+                        });
+                        searchResultsDOMElement.appendChild(skillDOMElement);
+                    });
+                } else if(request.status < 500) {
+                    searchResultsDOMElement.innerHTML = 'No skills found';
+                } else {
+                    searchResultsDOMElement.innerHTML = 'Something went wrong, try again later';
+                }
+            };
         }, 500);
     });
 });
