@@ -6,6 +6,7 @@ const mongoose = require('mongoose');
 const mainRoutes = require('./routes/mainRoutes');
 const authRoutes = require('./routes/authRoutes');
 const employerRoutes = require('./routes/employerRoutes');
+const skillsRoutes = require('./routes/skillsRoutes');
 
 const app = express();
 
@@ -48,6 +49,7 @@ app.use(express.static(__dirname + '/public'));
 //routers
 app.use('/auth', authRoutes);
 app.use('/employer', employerRoutes);
+app.use('/skills', skillsRoutes);
 app.use('/', mainRoutes);
 
 
