@@ -15,7 +15,7 @@ window.addEventListener('load', function () {
         timeout = setTimeout(function () {
             console.log('searching for: ' + searchQuery);
             const request = new XMLHttpRequest();
-            request.open('GET', '/skills');
+            request.open('POST', '/skills/search');
             request.setRequestHeader('Content-Type', 'application/json');
             request.send(JSON.stringify({ searchQuery: searchQuery }));
             request.onload = () => {

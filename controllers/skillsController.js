@@ -35,7 +35,7 @@ const skillsCreator_get = (req, res) => {
     }
 }
 
-const skills_get = async (req, res) => {
+const search_post = async (req, res) => {
     const searchQuery = req.body.searchQuery;
     try {
         const regexExp = new RegExp(searchQuery, 'i');
@@ -69,5 +69,5 @@ const skills_get = async (req, res) => {
 module.exports = {
     skill_post,
     skillsCreator_get,
-    skills_get
+    search_post
 };
