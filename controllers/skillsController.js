@@ -35,7 +35,26 @@ const skillsCreator_get = (req, res) => {
     }
 }
 
+const skills_get = async (req, res) => {
+    const searchQuery = req.body.searchQuery;
+    try {
+        
+        const skills = await Skill.find({
+            $or: [
+                { name: { $regex: searchQuery, $options: 'i' } },
+                { keywords: { $in: [searchQuery] }},
+                { description: { $regex: searchQuery, $options: 'i' } }
+            ]
+    }).limit(10);
+        res.json(skills);
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
 module.exports = {
     skill_post,
-    skillsCreator_get
+    skillsCreator_get,
+    skills_get
 };
