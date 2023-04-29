@@ -38,12 +38,12 @@ const skillsCreator_get = (req, res) => {
 const skills_get = async (req, res) => {
     const searchQuery = req.body.searchQuery;
     try {
-        
+        const regexExp = new RegExp(searchQuery, 'i');
         const skills = await Skill.find({
             $or: [
-                { name: { $regex: searchQuery, $options: 'i' } },
-                { keywords: { $in: [searchQuery] }},
-                { description: { $regex: searchQuery, $options: 'i' } }
+                { name: { $regex: regexExp } },
+                { keywords: { $in: regexExp }},
+                { description: { $regex: regexExp } }
             ]
     }).limit(10);
         res.json(skills);
