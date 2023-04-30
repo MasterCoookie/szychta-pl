@@ -50,13 +50,14 @@
             </div>
 
             <label class="control-label col-sm-2" for="links">Links:</label>
-            <div class="col-sm-10" id="inputArray">
+            <!-- prefix: "links" -->
+            <div class="col-sm-10" id="links-inputArray">
                 <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
                 <% if(applicant.links != null) { for(let i = 0; i < applicant.links.length; i++) { %>
-                    <input value="<%= applicant.links[i] %>" class="array-input" type="text" id="input<%= i %>" />
-                    <button type="button" data-buttonindex="" class="array-remove" id="<%= i %>">x</button>
+                    <input value="<%= applicant.links[i] %>" class="links-array-input" type="text" id="links-input<%= i %>" />
+                    <button type="button" class="links-array-remove" id="links-<%= i %>">x</button>
                 <% }} %>
-                <button id="arrayAdd">+</button>
+                <button id="links-arrayAdd">+</button>
             </div>
         </div>
         <div class="form-group">        
@@ -84,7 +85,7 @@
 
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
-    initializeVaryingSizeInputArray('links', 1, 8);
+    initializeVaryingSizeInputArray('links', 0, 8);
 </script>
 <script src="js/profilePicturePreview.js"></script>
 <script src="js/addFile.js"></script>

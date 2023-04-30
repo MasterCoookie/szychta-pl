@@ -1,9 +1,9 @@
 function initializeVaryingSizeInputArray(prefix, startingLength, maxNumberOfElements) {
     window.addEventListener('load', function () {
 
-        const getInputTemplate = (index) => '<input class="array-input" type="text" id="input' + index + '" /><button type="button" data-buttonindex="" class="array-remove" id="' + index + '">x</button>';
-        const inputArrayDOMElement = document.getElementById('inputArray');
-        let arrayAddDOMElement = document.getElementById('arrayAdd');
+        const getInputTemplate = (index) => '<input class="' + prefix + '-array-input" type="text" id="' + prefix + 'input' + index + '" /><button type="button" class="' + prefix + '-array-remove" id="' + prefix + '-' + index + '">x</button>';
+        const inputArrayDOMElement = document.getElementById(prefix + '-inputArray');
+        let arrayAddDOMElement = document.getElementById(prefix + '-arrayAdd');
         let currentIndex = startingLength;
         let currentArrayLen = startingLength;
         const maximalNumberOfElements = maxNumberOfElements;
@@ -16,19 +16,22 @@ function initializeVaryingSizeInputArray(prefix, startingLength, maxNumberOfElem
             }
 
 
-            const arrayRemoveDOMElements = Array.from(document.getElementsByClassName('array-remove'));
+            const arrayRemoveDOMElements = Array.from(document.getElementsByClassName(prefix + '-array-remove'));
 
             arrayRemoveDOMElements.forEach(element => {
                 element.addEventListener('click', function(e) {
-                    const clickedIndex = e.target.id;
+                    const clickedIndex = e.target.id.split('-')[1];
 
-                    const removedButton = document.getElementById(clickedIndex);
-                    const removedInput = document.getElementById('input' + clickedIndex);
-
-                    removedButton.remove();
-                    removedInput.remove();
-                    currentArrayLen--;
-                    renderInputArray();
+                    const removedButton = document.getElementById(prefix + '-' + clickedIndex);
+                    const removedInput = document.getElementById(prefix + 'input' + clickedIndex);
+                    try{
+                        removedButton.remove();
+                        removedInput.remove();
+                        currentArrayLen--;
+                        renderInputArray();
+                    } catch(e) {
+                        console.log(e);
+                    }
                 });
             });
         }
