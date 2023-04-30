@@ -27,8 +27,9 @@ const showOffers_get = async (req, res) => {
 }
 
 const addOffer_put = async (req, res) => {
-    const { title, description, requirements, salary, location, industry, keywords, expiryDate, organisation_id, mode0, mode1, mode2} = req.body;
-    let additionalQuestions = []; //temp
+    const { title, description, requirements, salary, location, industry, expiryDate, organisation_id, mode0, mode1, mode2} = req.body;
+    const additionalQuestions = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
+    const keywords = req.body.keywords ? JSON.parse(req.body.keywords) : [];
     let mode = await getModeArray(mode0, mode1, mode2);
     try {
         const jobOffer = await JobOffer.create({ title, description, mode, salary, requirements, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});

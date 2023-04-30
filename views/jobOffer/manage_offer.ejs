@@ -22,18 +22,17 @@
 
             <label class="control-label col-sm-2">Tryb pracy:</label>
             <div class="col-sm-10">
-                <%= console.log(offer.mode); %>
-                <input type="checkbox" id="inOffice" name="mode0" <% if(locals.offer && offer.mode.includes(0)) {%><%= checked="" %> <% } %>>
+                <input type="checkbox" id="inOffice" name="mode0" <% if(locals.offer && offer.mode.includes(0)) {%>checked=""<% } %>>
                 <label for="inOffice"> Stacjonarny</label><br/>
-                <input type="checkbox" id="hybrid" name="mode1" <% if(locals.offer && offer.mode.includes(1)) {%><%= checked="" %> <% } %>>
+                <input type="checkbox" id="hybrid" name="mode1" <% if(locals.offer && offer.mode.includes(1)) {%>checked=""<% } %>>
                 <label for="hybrid"> Hybrydowy</label><br/>
-                <input type="checkbox" id="remote" name="mode2" <% if(locals.offer && offer.mode.includes(2)) {%><%= checked="" %> <% } %>>
+                <input type="checkbox" id="remote" name="mode2" <% if(locals.offer && offer.mode.includes(2)) {%>checked=""<% } %>>
                 <label for="remote"> Zdalny</label><br/>                
             </div>
 
             <label class="control-label col-sm-2" for="salary">Wynagrodzenie:</label>
             <div class="col-sm-10">
-                <input type="text" name="salary" id="salary" />
+                <input type="text" name="salary" id="salary" value="<% if(locals.offer && offer.salary != null) {%><%= offer.salary %> <% } %>"/>
             </div>
             
             <label class="control-label col-sm-2" for="requirements">Wymagania:</label>
@@ -45,12 +44,12 @@
 
             <label class="control-label col-sm-2" for="location">Lokalizacja:</label>
             <div class="col-sm-10">
-                <input type="text" name="location" id="location" />
+                <input type="text" name="location" id="location" value="<% if(locals.offer && offer.location != null) {%><%= offer.location %> <% } %>"/>
             </div>
 
             <label class="control-label col-sm-2" for="industry">Branża:</label>
             <div class="col-sm-10" id="industry">
-                <input type="text" name="industry" id="industry" />
+                <input type="text" name="industry" id="industry" value="<% if(locals.offer && offer.industry != null) {%><%= offer.industry %> <% } %>"/>
             </div>
 
 
@@ -64,14 +63,18 @@
             </div>
 
             <label class="control-label col-sm-2" for="keywords">Słowa kluczowe:</label>
-            <div class="col-sm-10" id="keywords">
-                <input type="text" name="keywords" id="keywords" />
+            <div class="col-sm-10" id="keywords-inputArray">
+                <% if(locals.offer && offer.keywords != null) { for(let i = 0; i < offer.keywords.length; i++) { %>
+                    <input value="<%= offer.keywords[i] %>" class="keywords-array-input" type="text" id="keywords-input<%= i %>" />
+                    <button type="button" class="keywords-array-remove" id="keywords-<%= i %>">x</button>
+                <% }} %>
+                <button id="keywords-arrayAdd">+</button>
             </div>
 
 
             <label class="control-label col-sm-2" for="expiryDate">Data wygaśnięcia:</label>
             <div class="col-sm-10">
-                <input type="date" name="expiryDate" id="expiryDate"/>
+                <input type="date" name="expiryDate" id="expiryDate" value="<% if(locals.offer && offer.expiryDate != null) {%><%= offer.expiryDate %> <% } %>"/>
             </div>
 
             <label class="control-label col-sm-2" for="organisation_id">Organizacja:</label>
@@ -94,5 +97,6 @@
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
     initializeVaryingSizeInputArray('additionalQuestions', 0, 16);
+    initializeVaryingSizeInputArray('keywords', 0, 16);
 </script>
 <%- include('../partials/footer.ejs') %>
