@@ -82,7 +82,10 @@
     </form>
 </div>
 
-<script src="js/varyingSizeInputArray.js"></script>
+<script type="module">
+    import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
+    initializeVaryingSizeInputArray('links', 1, 8);
+</script>
 <script src="js/profilePicturePreview.js"></script>
 <script src="js/addFile.js"></script>
 <script src="js/submitProfileForm.js"></script>
