@@ -1,5 +1,19 @@
 const JobOffer = require('../models/jobOfferModel');
 
+const getModeArray = (_mode0, _mode1, _mode2) =>{
+    let mode = [];
+    if (_mode0){
+        mode.push(0);
+    }
+    if (_mode1){
+        mode.push(1);
+    }
+    if (_mode2){
+        mode.push(2);
+    }
+    return mode;
+}
+
 const showOffers_get = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find();
@@ -15,16 +29,7 @@ const showOffers_get = async (req, res) => {
 const addOffer_put = async (req, res) => {
     const { title, description, requirements, salary, location, industry, keywords, expiryDate, organisation_id, mode0, mode1, mode2} = req.body;
     let additionalQuestions = []; //temp
-    let mode = [];
-    if (mode0){
-        mode.push(0);
-    }
-    if (mode1){
-        mode.push(1);
-    }
-    if (mode2){
-        mode.push(2);
-    }
+    let mode = await getModeArray(mode0, mode1, mode2);
     try {
         const jobOffer = await JobOffer.create({ title, description, mode, salary, requirements, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
@@ -42,9 +47,15 @@ const addOffer_put = async (req, res) => {
     }
 }
 
-const manageOffer_get = (req, res) => {
+const manageOffer_get = async (req, res) => {
     try {
-        res.render('jobOffer/manage_offer', { title: 'Create or Edit offer' });
+        const offer_id = req.query.offer;
+        if (offer_id) {
+            const offer = (await JobOffer.findById(offer_id)).toObject();
+            res.render('jobOffer/manage_offer', { title: 'Edit offer', offer });
+        } else {
+            res.render('jobOffer/manage_offer', { title: 'Create offer' });
+        }
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
@@ -57,7 +68,7 @@ const modifyOffer_post = async (req, res) => {
     try {
         const jobOffer = await JobOffer.findByIdAndUpdate(req.body._id, { title, description, requirements, salary, location, tags },
             { runValidators: true });
-        console.log("New job offer %s created", title);
+        console.log("Job offer %s modified", title);
         res.sendStatus(201);
     } catch (e) {
         let errors = [];
