@@ -6,7 +6,7 @@ function submitSkill() {
         skillFormDOMElement.addEventListener('submit', (e) => {
             e.preventDefault();
             const name = document.getElementById('skillName').value;
-            const description = document.getElementById('skillDescryption').value;
+            const description = document.getElementById('skillDesc').value;
             const keywordsInputs = document.getElementsByClassName('keywords-array-input');
 
             const keywords = Array.from(keywordsInputs).map(input => input.value);
@@ -17,7 +17,7 @@ function submitSkill() {
             request.send(JSON.stringify({ name: name, description: description, keywords: keywords }));
             request.onload = () => {
                 if(request.status === 201) {
-                    skillSaveResultDOMElement.innerHTML = 'Skill został dodany';
+                    skillSaveResultDOMElement.innerHTML = 'Dodano';
                 } else if(request.status < 500) {
                     skillSaveResultDOMElement.innerHTML = 'Błędne dane!';
                 } else {
