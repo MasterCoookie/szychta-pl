@@ -4,9 +4,9 @@
         Start typing to search for skills or 
         <span id="newSkillClickText">create new one.</span>
     </div>
-    <form>
+    <form id="skillForm">
         <input type="text" name="name" id="skillName" />
-        <textarea name="descryption" id="skillDescrytion" cols="8" rows="2"></textarea>
+        <textarea name="descryption" id="skillDescryption" cols="8" rows="2"></textarea>
         <!-- prefix: "keywords" -->
         <div class="col-sm-10" id="keywords-inputArray">
             <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
@@ -14,9 +14,12 @@
         </div>
         <input type="submit" value="Add" id="addSkill" />
     </form>
+    <div id="skillSaveResult"></div>
 </div>
 <script src="/js/skillsSearch.js"></script>
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
+    import { submitSkill } from '/js/submitSkill.js';
     initializeVaryingSizeInputArray('keywords', 0, 32);
+    submitSkill();
 </script>
