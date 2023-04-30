@@ -12,6 +12,11 @@ html, body {
   }
   
 #skillsComponent {
-    height: 500px;
-    width: 500px;
+    height: 400px;
+    width: 400px;
+}
+
+#newSkillClickText  {
+    text-decoration: underline;
+    cursor: pointer;
 }

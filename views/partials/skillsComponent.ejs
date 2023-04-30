@@ -1,7 +1,25 @@
 <div id="skillsComponent">
     <input type="text" id="skillsSearchBar" />
-    <div id="skillsResults" class=" border h-100">
-        Start typing to search for skills
+    <div id="skillsResults" class="border h-100">
+        Start typing to search for skills or 
+        <span id="newSkillClickText">create new one.</span>
     </div>
+    <form id="skillForm">
+        <input type="text" name="name" id="skillName" />
+        <textarea name="description" id="skillDesc" cols="8" rows="2"></textarea>
+        <!-- prefix: "keywords" -->
+        <div class="col-sm-10" id="keywords-inputArray">
+            <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
+            <button id="keywords-arrayAdd" style="display: inline;">+</button>
+        </div>
+        <input type="submit" value="Add" id="addSkill" />
+    </form>
+    <div id="skillSaveResult"></div>
 </div>
 <script src="/js/skillsSearch.js"></script>
+<script type="module">
+    import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
+    import { submitSkill } from '/js/submitSkill.js';
+    initializeVaryingSizeInputArray('keywords', 0, 32);
+    submitSkill();
+</script>

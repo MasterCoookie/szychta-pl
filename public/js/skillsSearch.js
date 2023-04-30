@@ -11,6 +11,8 @@ window.addEventListener('load', function () {
             return;
         }
 
+        const notFoundMsg = 'No skills found, <span id="newSkillClickText">create "' + searchQuery + '" skill</span>';
+
         clearTimeout(timeout);
         timeout = setTimeout(function () {
             console.log('searching for: ' + searchQuery);
@@ -22,7 +24,7 @@ window.addEventListener('load', function () {
                 if(request.status === 200) {
                     const skills = JSON.parse(request.response);
                     if(skills.length == 0) {
-                        searchResultsDOMElement.innerHTML = 'No skills found';
+                        searchResultsDOMElement.innerHTML = notFoundMsg;
                         return;
                     }
                     searchResultsDOMElement.innerHTML = '';
@@ -38,7 +40,7 @@ window.addEventListener('load', function () {
                         searchResultsDOMElement.appendChild(skillDOMElement);
                     });
                 } else if(request.status < 500) {
-                    searchResultsDOMElement.innerHTML = 'No skills found';
+                    searchResultsDOMElement.innerHTML = notFoundMsg;
                 } else {
                     searchResultsDOMElement.innerHTML = 'Something went wrong, try again later';
                 }
