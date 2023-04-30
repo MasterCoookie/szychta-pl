@@ -37,6 +37,7 @@ const skillsCreator_get = (req, res) => {
 
 const search_post = async (req, res) => {
     const searchQuery = req.body.searchQuery;
+    if(!searchQuery) return res.json([]);
     try {
         const regexExp = new RegExp(searchQuery, 'i');
         const skills = await Skill.find({
