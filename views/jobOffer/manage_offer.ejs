@@ -92,11 +92,15 @@
     </form>
 </div>
 
-<script src="../js/varyingSizeInputArray.js"></script>
-<script src="../js/modifyOffer.js"></script>
+
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
     initializeVaryingSizeInputArray('additionalQuestions', 0, 16);
     initializeVaryingSizeInputArray('keywords', 0, 16);
+</script>
+<script type="module">
+    const offer_id = <% if(locals.offer) {%><%= offer._id%><% } else { %>null<% }%>;
+    import { initializeModifyOfferSubmitListener } from '/js/modifyOffer.js';
+    initializeModifyOfferSubmitListener(offer_id);
 </script>
 <%- include('../partials/footer.ejs') %>

@@ -64,11 +64,12 @@ const manageOffer_get = async (req, res) => {
 }
 
 const modifyOffer_post = async (req, res) => {
-    const { title, description, requirements, salary, location, tags } = req.body;
-
+    const { title, description, requirements, salary, location, industry, expiryDate, organisation_id, mode0, mode1, mode2, offer_id} = req.body;
+    const additionalQuestions = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
+    const keywords = req.body.keywords ? JSON.parse(req.body.keywords) : [];
+    let mode = await getModeArray(mode0, mode1, mode2);
     try {
-        const jobOffer = await JobOffer.findByIdAndUpdate(req.body._id, { title, description, requirements, salary, location, tags },
-            { runValidators: true });
+        const jobOffer = await JobOffer.findByIdAndUpdate(offer_id, { title, description, mode, salary, requirements, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("Job offer %s modified", title);
         res.sendStatus(201);
     } catch (e) {
