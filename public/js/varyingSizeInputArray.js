@@ -43,6 +43,7 @@ function initializeVaryingSizeInputArray(prefix, startingLength, maxNumberOfElem
             currentIndex++;
             currentArrayLen++;
             inputArrayDOMElement.insertAdjacentHTML('beforeend', getInputTemplate(currentIndex - 1));
+            document.getElementById(prefix + 'input' + (currentIndex - 1)).focus();
             renderInputArray();
         });
     });
