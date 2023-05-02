@@ -10,27 +10,27 @@
 
             <label class="control-label col-sm-2" for="title">Tytuł ogłoszenia:</label>
             <div class="col-sm-10">
-                <input type="text" name="title" id="title" required=""/>
+                <input type="text" name="title" id="title" value="<% if(locals.offer && offer.title != null) {%><%= offer.title %> <% } %>" required=""/>
             </div>
 
             <label class="control-label col-sm-2" for="description">Opis ogłoszenia:</label>
             <div class="col-sm-10">
-                <textarea id="description" name="description" rows="8" cols="64"></textarea>
+                <textarea id="description" name="description" rows="8" cols="64"><% if(locals.offer && offer.description != null) {%><%= offer.description %> <% } %></textarea>
             </div>
 
             <label class="control-label col-sm-2">Tryb pracy:</label>
             <div class="col-sm-10">
-                <input type="checkbox" id="inOffice" name="mode0">
-                <label for="inOffice"> Stacjonarny</label><br>
-                <input type="checkbox" id="hybrid" name="mode1">
-                <label for="hybrid"> Hybrydowy</label><br>
-                <input type="checkbox" id="remote" name="mode2">
-                <label for="remote"> Zdalny</label><br>                
+                <input type="checkbox" id="inOffice" name="mode0" <% if(locals.offer && offer.mode.includes(0)) {%>checked=""<% } %>>
+                <label for="inOffice"> Stacjonarny</label><br/>
+                <input type="checkbox" id="hybrid" name="mode1" <% if(locals.offer && offer.mode.includes(1)) {%>checked=""<% } %>>
+                <label for="hybrid"> Hybrydowy</label><br/>
+                <input type="checkbox" id="remote" name="mode2" <% if(locals.offer && offer.mode.includes(2)) {%>checked=""<% } %>>
+                <label for="remote"> Zdalny</label><br/>                
             </div>
 
             <label class="control-label col-sm-2" for="salary">Wynagrodzenie:</label>
             <div class="col-sm-10">
-                <input type="text" name="salary" id="salary" />
+                <input type="text" name="salary" id="salary" value="<% if(locals.offer && offer.salary != null) {%><%= offer.salary %> <% } %>"/>
             </div>
             
             <label class="control-label col-sm-2" for="requirements">Wymagania:</label>
@@ -42,30 +42,37 @@
 
             <label class="control-label col-sm-2" for="location">Lokalizacja:</label>
             <div class="col-sm-10">
-                <input type="text" name="location" id="location" />
+                <input type="text" name="location" id="location" value="<% if(locals.offer && offer.location != null) {%><%= offer.location %> <% } %>"/>
             </div>
 
             <label class="control-label col-sm-2" for="industry">Branża:</label>
             <div class="col-sm-10" id="industry">
-                <input type="text" name="industry" id="industry" />
+                <input type="text" name="industry" id="industry" value="<% if(locals.offer && offer.industry != null) {%><%= offer.industry %> <% } %>"/>
             </div>
 
 
             <label class="control-label col-sm-2" for="additionalQuestions">Dodatkowe pytania:</label>
-            <div class="col-sm-10" id="additionalQuestions">
-                <input class="array-input" id="input0" /><button type="button" data-buttonindex="" class="array-remove" id="0">x</button>
+            <div class="col-sm-10" id="additionalQuestions-inputArray">
+                <% if(locals.offer && offer.additionalQuestions != null) { for(let i = 0; i < offer.additionalQuestions.length; i++) { %>
+                    <input value="<%= offer.additionalQuestions[i] %>" class="additionalQuestions-array-input" type="text" id="additionalQuestions-input<%= i %>" />
+                    <button type="button" class="additionalQuestions-array-remove" id="additionalQuestions-<%= i %>">x</button>
+                <% }} %>
+                <button id="additionalQuestions-arrayAdd">+</button>
             </div>
-            <button id="arrayAdd">+</button>
 
             <label class="control-label col-sm-2" for="keywords">Słowa kluczowe:</label>
-            <div class="col-sm-10" id="keywords">
-                <input type="text" name="keywords" id="keywords" />
+            <div class="col-sm-10" id="keywords-inputArray">
+                <% if(locals.offer && offer.keywords != null) { for(let i = 0; i < offer.keywords.length; i++) { %>
+                    <input value="<%= offer.keywords[i] %>" class="keywords-array-input" type="text" id="keywords-input<%= i %>" />
+                    <button type="button" class="keywords-array-remove" id="keywords-<%= i %>">x</button>
+                <% }} %>
+                <button id="keywords-arrayAdd">+</button>
             </div>
 
 
             <label class="control-label col-sm-2" for="expiryDate">Data wygaśnięcia:</label>
             <div class="col-sm-10">
-                <input type="date" name="expiryDate" id="expiryDate"/>
+                <input type="date" name="expiryDate" id="expiryDate" value="<% if(locals.offer && offer.expiryDate != null) {%><%=offer.expiryDate.toISOString().split('T')[0]%><% } %>"/>
             </div>
 
             <label class="control-label col-sm-2" for="organisation_id">Organizacja:</label>
@@ -83,7 +90,15 @@
     </form>
 </div>
 
-<script src="../js/varyingSizeInputArray.js"></script>
-<script src="../js/modifyOffer.js"></script>
 
+<script type="module">
+    import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
+    initializeVaryingSizeInputArray('additionalQuestions', 0, 16);
+    initializeVaryingSizeInputArray('keywords', 0, 16);
+</script>
+<script type="module">
+    <%    var offer_id = locals.offer ? offer._id : null;    %>
+    import { initializeModifyOfferSubmitListener } from '/js/modifyOffer.js';
+    initializeModifyOfferSubmitListener("<%=offer_id%>");
+</script>
 <%- include('../partials/footer.ejs') %>
