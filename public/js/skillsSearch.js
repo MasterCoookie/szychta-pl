@@ -3,6 +3,9 @@ function initializeSkillsSearch(allowCreation = false) {
         const searchBarDOMElement = document.getElementById('skillsSearchBar');
         const searchResultsDOMElement = document.getElementById('skillsResults');
         const skillFormDOMElement = document.getElementById('skillForm');
+        const newSkillClickText = document.getElementById('newSkillClickText');
+        const skillNameInputDOMElement = document.getElementById('skillName');
+        const notFoundMsg = 'No skills found';
         let timeout = null;
 
         searchBarDOMElement.addEventListener('input', function (e) {
@@ -12,8 +15,7 @@ function initializeSkillsSearch(allowCreation = false) {
                 searchResultsDOMElement.innerHTML = 'Start typing to search for skills';
                 return;
             }
-
-            const notFoundMsg = 'No skills found, <span id="newSkillClickText">create "' + searchQuery + '" skill</span>';
+            newSkillClickText.innerHTML = 'Create new skill named "' + searchQuery + '"';
 
             clearTimeout(timeout);
             timeout = setTimeout(function () {
@@ -51,7 +53,9 @@ function initializeSkillsSearch(allowCreation = false) {
         });
 
         newSkillClickText.addEventListener('click', function () {
-            
+            skillFormDOMElement.style.display = 'block';
+            skillNameInputDOMElement.value = searchBarDOMElement.value;
+            searchBarDOMElement.value = '';
         });
     });
 }
