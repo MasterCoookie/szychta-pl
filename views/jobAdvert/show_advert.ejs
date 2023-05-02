@@ -1,0 +1,16 @@
+<%- include('../partials/head.ejs') %>
+<div class="container h-100">
+    <div class="row d-flex align-items-up justify-content-center h-100">
+        <div class="col-md-6 mx-auto text-center bg-white p-3">
+            <h3 class="col-sm-8 mx-auto"><%=jobAdvert.title %></h3>
+            <h5 class="col-sm-8 mx-auto"><%=jobAdvert.description %></h5>
+            <h5 class="col-sm-8 mx-auto">Salary: <%=jobAdvert.salary %></h5>
+            <h5 class="col-sm-8 mx-auto">Location: <%=jobAdvert.location %></h5>
+            <h5 class="col-sm-8 mx-auto">Expiry Date<%=jobAdvert.expiryDate %></h5>
+            <div class="col-sm-8 mx-auto">
+                <span class="errorMessageText" id="message"></span>
+            </div>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer.ejs') %>
