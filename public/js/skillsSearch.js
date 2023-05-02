@@ -34,7 +34,9 @@ function initializeSkillsSearch(allowCreation = false) {
                         searchResultsDOMElement.innerHTML = '';
                         skills.forEach(skill => {
                             const skillDOMElement = document.createElement('div');
-                            skillDOMElement.classList.add('skill');
+                            skillDOMElement.className += 'skill btn btn-primary p-2 mx-1 my-2 text-dark';
+                            skillDOMElement.style.cursor = 'pointer';
+                            skillDOMElement.style.backgroundColor = "rgba(0, 0, 0, 0.1)"
                             skillDOMElement.innerHTML = skill.name;
                             skillDOMElement.addEventListener('click', function () {
                                 const skillInputDOMElement = document.getElementById('skillInput');

@@ -1,21 +1,23 @@
 <!-- TODO: expand template for no creation / picking option -->
-<div id="skillsComponent">
-    <input type="text" id="skillsSearchBar" />
-    <div id="skillsResults" class="border h-100">
-        Start typing to search for skills.
-    </div>
-    <span id="newSkillClickText">Create new skill</span>
-    <form id="skillForm" style="display: none;">
-        <input type="text" name="name" id="skillName" />
-        <textarea name="description" id="skillDesc" cols="8" rows="2"></textarea>
-        <!-- prefix: "keywords" -->
-        <div class="col-sm-10" id="keywords-inputArray">
-            <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
-            <button id="keywords-arrayAdd" style="display: inline;">+</button>
+<div class="container h-100">
+    <div id="skillsComponent" class="col-md-6 mx-auto text-center bg-white p-3">
+        <input type="text" id="skillsSearchBar" class="form-control shadow bg-white rounded"/>
+        <div id="skillsResults" class="border h-75">
+            Start typing to search for skills.
         </div>
-        <input type="submit" value="Add" id="addSkill" />
-    </form>
-    <div id="skillSaveResult"></div>
+        <span id="newSkillClickText">Create new skill</span>
+        <form id="skillForm" style="display: none;" class="form-horizontal">
+            <input type="text" name="name" id="skillName" />
+            <textarea name="description" id="skillDesc" cols="8" rows="2"></textarea>
+            <!-- prefix: "keywords" -->
+            <div class="col-sm-10" id="keywords-inputArray">
+                <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
+                <button id="keywords-arrayAdd" style="display: inline;">+</button>
+            </div>
+            <input type="submit" value="Add" id="addSkill" />
+        </form>
+        <div id="skillSaveResult"></div>
+    </div>
 </div>
 <script type="module">
     import { initializeSkillsSearch } from '/js/skillsSearch.js';
