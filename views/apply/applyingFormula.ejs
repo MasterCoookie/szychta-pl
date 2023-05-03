@@ -5,28 +5,46 @@
             <div>
                 <span>Aplikujesz na stanowisko: <%= jobAdvert.title %></span>
             </div>
-            <div>
-                <div>Email:</div>
-                <input type="text" name="email" id="email" value="<%= applicant.email %>" />
-            </div>
-            <div>
-                <div>Numer telefonu: </div>
-                <input type="text" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
-            </div>
-            <div>
-                <div>Adres: </div>
-                <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
-            </div>
-            <% if(applicant.uploadedDocuments.length > 0) { %>
-                <div>Wybierz odpowiednie dokumenty: </div>
-                <% applicant.uploadedDocuments.forEach( document => { %>
+            <form id = "applyForm">
+                <div>
+                    <div>Email:</div>
+                    <input type="text" name="email" id="email" value="<%= applicant.email %>" />
+                </div>
+                <div>
+                    <div>Numer telefonu: </div>
+                    <input type="text" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
+                </div>
+                <div>
+                    <div>Adres: </div>
+                    <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
+                </div>
+                <% if(jobAdvert.additionalQuestions.length > 0) { %>
                     <div>
-                        <span><%= document %>
-                            <input type="checkbox" id="<%= document %>" name="<%= document %>">
-                        </span>
+                        Pytania dodatkowe:
+                        <% jobAdvert.additionalQuestions.forEach( question => { %>
+                            <div>
+                                <span><%= question %></span>
+                                <br>
+                                <input type="text" class = "question">
+                            </div>
                     </div>
-            <% })}; %>
+                <% })}; %>
+                <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
+                <% if(applicant.uploadedDocuments.length > 0) { %>
+                    <div>Wybierz dokumenty do załączenia: </div>
+                    <% applicant.uploadedDocuments.forEach( (document) => { %>
+                        <div>
+                            <span><%= document %>
+                                <input type="checkbox" class = "document">
+                            </span>
+                        </div>
+                <% })}; %>
+                <button id="applyBtn" onclick="apply('<%= jobAdvert._id %>')" type = "button" class="btn">Aplikuj</button>
+            </form>
         </div>
     </div>
 </div>
+
+<script src="/js/apply.js"></script>
+
 <%- include('../partials/footer.ejs') %>

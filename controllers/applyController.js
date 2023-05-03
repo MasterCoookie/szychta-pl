@@ -13,7 +13,7 @@ const showApplyingFormula = async (req, res) => {
                 res.sendStatus(404);
             }
             else {
-                const jobAdvert = await JobOffer.findById(req.query.id);
+                const jobAdvert = (await JobOffer.findById(req.query.id)).toObject();
                 res.render('apply/applyingFormula', { title: 'Apply', jobAdvert, applicant });
             } 
         }
