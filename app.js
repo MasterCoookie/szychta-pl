@@ -54,6 +54,7 @@ app.use('/skills', skillsRoutes);
 app.use('/', mainRoutes);
 app.use('/advert', advertRoutes);
 
+
 app.get('/', (req, res) => {
     res.send("szychta.pl");
 })

@@ -1,0 +1,32 @@
+<%- include('../partials/head.ejs') %>
+<div class="container h-100">
+    <div>
+        <div>
+            <div>
+                <span>Aplikujesz na stanowisko: <%= jobAdvert.title %></span>
+            </div>
+            <div>
+                <div>Email:</div>
+                <input type="text" name="email" id="email" value="<%= applicant.email %>" />
+            </div>
+            <div>
+                <div>Numer telefonu: </div>
+                <input type="text" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
+            </div>
+            <div>
+                <div>Adres: </div>
+                <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
+            </div>
+            <% if(applicant.uploadedDocuments.length > 0) { %>
+                <div>Wybierz odpowiednie dokumenty: </div>
+                <% applicant.uploadedDocuments.forEach( document => { %>
+                    <div>
+                        <span><%= document %>
+                            <input type="checkbox" id="<%= document %>" name="<%= document %>">
+                        </span>
+                    </div>
+            <% })}; %>
+        </div>
+    </div>
+</div>
+<%- include('../partials/footer.ejs') %>
