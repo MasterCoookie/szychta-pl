@@ -1,22 +1,42 @@
-<div id="skillsComponent">
-    <input type="text" id="skillsSearchBar" />
-    <div id="skillsResults" class="border h-100">
-        Start typing to search for skills or 
-        <span id="newSkillClickText">create new one.</span>
-    </div>
-    <form id="skillForm">
-        <input type="text" name="name" id="skillName" />
-        <textarea name="description" id="skillDesc" cols="8" rows="2"></textarea>
-        <!-- prefix: "keywords" -->
-        <div class="col-sm-10" id="keywords-inputArray">
-            <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
-            <button id="keywords-arrayAdd" style="display: inline;">+</button>
+<!-- TODO: expand template for no creation / picking option -->
+<div class="container h-100">
+    <div class="form-group">
+        <div id="skillsComponent" class="col-md-6 mx-auto text-center bg-white p-3">
+            <input type="text" id="skillsSearchBar" class="form-control shadow bg-white rounded"/>
+            <div id="skillsResults" class="border h-75">
+                Zacznij wpisywać, aby szukać umiejętności
+            </div>
+            <span id="newSkillClickText">Stwórz nową</span>
         </div>
-        <input type="submit" value="Add" id="addSkill" />
-    </form>
-    <div id="skillSaveResult"></div>
+    </div>
 </div>
-<script src="/js/skillsSearch.js"></script>
+<br>
+<div class="container h-100">
+    <form id="skillForm" style="display: none;" class="form-vertical col-md-6 mx-auto text-center bg-white p-3">
+        <div class="form-group"> 
+            <label class="control-label col-sm-6 pt-2 pb-1 m-0" for="skillName">Nazwa</label>
+            <div class="col-sm-8 mx-auto">
+                <input type="text" name="name" id="skillName" required/>
+            </div>
+            <label class="control-label col-sm-6 pt-2 pb-1 m-0" for="skillDesc">Opis</label>
+            <textarea name="description" id="skillDesc" cols="32" rows="2"></textarea>
+            <label class="control-label col-sm-6 pt-2 pb-1 m-0" for="0input">Słowa kluczowe</label>
+            <!-- prefix: "keywords" -->
+            <div class="col-sm-10" id="keywords-inputArray">
+                <div class="col-sm-8 mx-auto">
+                    <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
+                    <button id="keywords-arrayAdd" class="btn mb-2" style="display: inline;">Dodaj</button>
+                </div>
+            </div>
+        </div>
+        <input type="submit" value="Utwórz" id="addSkill" class="btn" />
+        <div id="skillSaveResult" class="mt-2"></div>
+    </form>
+</div>
+<script type="module">
+    import { initializeSkillsSearch } from '/js/skillsSearch.js';
+    initializeSkillsSearch(true);
+</script>
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
     import { submitSkill } from '/js/submitSkill.js';

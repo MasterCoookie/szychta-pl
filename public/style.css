@@ -9,14 +9,23 @@ html, body {
 .btn {
     color: white;
     background-color: #445766;
-  }
+}
+
+.btn-decolored {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: black;
+}
   
 #skillsComponent {
-    height: 400px;
-    width: 400px;
+    height: 370px;
+    width: 370px;
 }
 
 #newSkillClickText  {
     text-decoration: underline;
     cursor: pointer;
+}
+
+#keywords-inputArray {
+    margin: 0 auto;
 }
