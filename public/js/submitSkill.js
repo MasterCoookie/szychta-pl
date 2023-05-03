@@ -18,10 +18,17 @@ function submitSkill() {
             request.onload = () => {
                 if(request.status === 201) {
                     skillSaveResultDOMElement.innerHTML = 'Dodano';
+                    skillSaveResultDOMElement.classList.remove('alert-danger');
+                    skillSaveResultDOMElement.classList.add('alert-info');
+                    skillFormDOMElement.reset();
                 } else if(request.status < 500) {
                     skillSaveResultDOMElement.innerHTML = 'Błędne dane!';
+                    skillSaveResultDOMElement.classList.add('alert-danger');
+                    skillSaveResultDOMElement.classList.remove('alert-info');
                 } else {
                     skillSaveResultDOMElement.innerHTML = 'Błąd serwera!';
+                    skillSaveResultDOMElement.classList.add('alert-danger');
+                    skillSaveResultDOMElement.classList.remove('alert-info');
                 }
             }
         });
