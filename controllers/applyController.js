@@ -24,6 +24,11 @@ const showApplyingFormula = async (req, res) => {
     }
 }
 
+const apply_post = async(req, res)=>{
+    const { email, phoneNumber, homeAddress, additionalQuestions, jobAdvertID, applicationDate } = req.body;
+    
+};
+
 module.exports = {
     showApplyingFormula
 }
