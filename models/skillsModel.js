@@ -6,7 +6,7 @@ const skillsSchema = new mongoose.Schema({
         required: true,
         unique: true,
         minlength: [2, 'Name must be at least 2 characters long'],
-        maxlength: [20, 'Name must be less than 20 characters long'],
+        maxlength: [32, 'Name must be less than 32 characters long'],
     },
     description: {
         type: String,

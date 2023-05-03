@@ -5,6 +5,7 @@ function initializeSkillsSearch(allowCreation = false) {
         const skillFormDOMElement = document.getElementById('skillForm');
         const newSkillClickText = document.getElementById('newSkillClickText');
         const skillNameInputDOMElement = document.getElementById('skillName');
+        const skillDescDOMElement = document.getElementById('skillDesc');
         const notFoundMsg = 'No skills found';
         let timeout = null;
 
