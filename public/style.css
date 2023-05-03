@@ -9,7 +9,12 @@ html, body {
 .btn {
     color: white;
     background-color: #445766;
-  }
+}
+
+.btn-decolored {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: black;
+}
   
 #skillsComponent {
     height: 270px;
