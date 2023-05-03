@@ -7,5 +7,6 @@ const router = express.Router();
 
 router.get('/view', jobAdvertController.showAdvert);
 router.get('/apply', authMiddleware.require_login ,applyController.showApplyingFormula);
+router.post('/apply', applyController.apply_post);
 
 module.exports = router;
