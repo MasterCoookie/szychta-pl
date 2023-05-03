@@ -4,10 +4,9 @@
         <div id="skillsComponent" class="col-md-6 mx-auto text-center bg-white p-3">
             <input type="text" id="skillsSearchBar" class="form-control shadow bg-white rounded"/>
             <div id="skillsResults" class="border h-75">
-                Start typing to search for skills.
+                Zacznij wpisywać, aby szukać umiejętności
             </div>
-            <span id="newSkillClickText">Create new skill</span>
-            <div id="skillSaveResult"></div>
+            <span id="newSkillClickText">Stwórz nową</span>
         </div>
     </div>
 </div>
@@ -26,11 +25,12 @@
             <div class="col-sm-10" id="keywords-inputArray">
                 <div class="col-sm-8 mx-auto">
                     <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
-                    <button id="keywords-arrayAdd" class="btn" style="display: inline;">+</button>
+                    <button id="keywords-arrayAdd" class="btn mb-2" style="display: inline;">Dodaj</button>
                 </div>
             </div>
         </div>
-        <input type="submit" value="Add" id="addSkill" class="btn" />
+        <input type="submit" value="Utwórz" id="addSkill" class="btn" />
+        <div id="skillSaveResult" class="alert-info mt-2"></div>
     </form>
 </div>
 <script type="module">

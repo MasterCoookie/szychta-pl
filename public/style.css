@@ -25,3 +25,7 @@ html, body {
     text-decoration: underline;
     cursor: pointer;
 }
+
+#keywords-inputArray {
+    margin: 0 auto;
+}

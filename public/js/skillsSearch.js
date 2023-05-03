@@ -12,10 +12,10 @@ function initializeSkillsSearch(allowCreation = false) {
             const searchQuery = e.target.value;
 
             if(searchQuery.length == 0) {
-                searchResultsDOMElement.innerHTML = 'Start typing to search for skills';
+                searchResultsDOMElement.innerHTML = 'Zacznij wpisywać, aby szukać umiejętności';
                 return;
             }
-            newSkillClickText.innerHTML = 'Create new skill named "' + searchQuery + '"';
+            newSkillClickText.innerHTML = 'Stwórz nową, nazwaną "' + searchQuery + '"';
 
             clearTimeout(timeout);
             timeout = setTimeout(function () {
