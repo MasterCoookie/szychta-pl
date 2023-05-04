@@ -26,6 +26,19 @@ const showOffers_get = async (req, res) => {
     }
 }
 
+const showOfferDetails_get = async (req, res) => {
+    try {
+        console.log(req.query);
+        const jobOffer = await JobOffer.findById(req.query.id);
+        console.log(jobOffer);
+        res.render('jobOffer/show_offer_details', { title: 'Show offer', jobOffer });
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
 const addOffer_put = async (req, res) => {
     const { title, description, requirements, salary, location, industry, expiryDate, organisation_id, mode0, mode1, mode2} = req.body;
     const additionalQuestions = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
@@ -98,6 +111,7 @@ const offer_delete = async (req, res) => {
 
 module.exports = {
     showOffers_get,
+    showOfferDetails_get,
     manageOffer_get,
     addOffer_put,
     modifyOffer_post,
