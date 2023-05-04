@@ -22,7 +22,7 @@ const applicationSchema = new mongoose.Schema({
         type: [Schema.Types.ObjectId],
     },
     questionAnswers: {
-        type: [String],
+        type: {},
     },
     email: {
         type: String,

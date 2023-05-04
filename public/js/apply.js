@@ -2,12 +2,22 @@ function apply(jobAdvertID) {
     const request = new XMLHttpRequest();
     const capturedForm = document.getElementById("applyForm");
     let formData = new FormData(capturedForm);
-    const questionsArray = Array.from(document.getElementsByClassName("question")).filter(element => element.value !== "").map(element => element.value);
-    formData.append("additionalQuestions", JSON.stringify(questionsArray));
+    const questionsArray = Array.from(document.getElementsByClassName("question")).map(element => element.textContent);
+    const answerArray = Array.from(document.getElementsByClassName("questionAnswer")).map(element => element.value);
+    const keyValueQuestionArray = questionsArray.reduce((obj, question, index) => {
+        const answer = answerArray[index];
+        if (answer !== "") {
+        obj[question] = answer;
+        }
+        return obj;
+    }, {});
+    //console.log(elements);
+    console.log(keyValueQuestionArray);
+    formData.append("additionalQuestions", JSON.stringify(keyValueQuestionArray));
     const filesArray = Array.from(document.getElementsByClassName("document")).filter(element => element.checked).map(element => element.value);
     formData.append("relativeDocuments", JSON.stringify(filesArray));
     formData.append("jobAdvertID", jobAdvertID);
-    let currentDate = new Date().toJSON().slice(0, 10);
+    const currentDate = new Date().toJSON().slice(0, 10);
     formData.append("applicationDate", currentDate);
 
     request.addEventListener('load', (event) => {

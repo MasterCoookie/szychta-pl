@@ -7,15 +7,15 @@
             </div>
             <form id = "applyForm">
                 <div>
-                    <div>Email:</div>
+                    <label for="email">Email:</label>
                     <input type="email" name="email" id="email" value="<%= applicant.email %>" />
                 </div>
                 <div>
-                    <div>Numer telefonu: </div>
+                    <label for="phone">Numer telefonu:</label>
                     <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
                 </div>
                 <div>
-                    <div>Adres: </div>
+                    <label for="homeAddress">Adres:</label>
                     <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
                 </div>
                 <% if(jobAdvert.additionalQuestions.length > 0) { %>
@@ -23,9 +23,9 @@
                         Pytania dodatkowe:
                         <% jobAdvert.additionalQuestions.forEach( question => { %>
                             <div>
-                                <span><%= question %></span>
+                                <span class = "question"><%= question %></span>
                                 <br>
-                                <input type="text" class = "question">
+                                <input type="text" class = "questionAnswer">
                             </div>
                     </div>
                 <% })}; %>
