@@ -31,7 +31,7 @@ const apply_post = async(req, res)=>{
     const relativeSkills = req.body.keywords ? JSON.parse(req.body.keywords) : [];
     const applicantID = req.session.applicant._id;
     try {
-        const application = await Application.create({ email, phoneNumber, homeAddress, jobAdvertID, applicationDate, questionAnswers, relativeSkills, applicantID, relativeDocuments });
+        await Application.create({ email, phoneNumber, homeAddress, jobAdvertID, applicationDate, questionAnswers, relativeSkills, applicantID, relativeDocuments });
         res.sendStatus(201);
     } catch (e) {
         let errors = [];

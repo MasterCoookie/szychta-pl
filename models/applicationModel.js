@@ -4,11 +4,11 @@ const Schema = mongoose.Schema;
 
 const applicationSchema = new mongoose.Schema({
     applicantID: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: [true, "Please provide an applicantID"],
     },
     jobAdvertID: {
-        type: String,
+        type: Schema.Types.ObjectId,
         required: [true, "Please provide a jobOfferID"],
     },
     applicationDate: {

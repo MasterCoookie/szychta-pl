@@ -2,9 +2,9 @@ function apply(jobAdvertID) {
     const request = new XMLHttpRequest();
     const capturedForm = document.getElementById("applyForm");
     let formData = new FormData(capturedForm);
-    let questionsArray = Array.from(document.getElementsByClassName("question")).filter(element => element.value !== "").map(element => element.value);
+    const questionsArray = Array.from(document.getElementsByClassName("question")).filter(element => element.value !== "").map(element => element.value);
     formData.append("additionalQuestions", JSON.stringify(questionsArray));
-    let filesArray = Array.from(document.getElementsByClassName("document")).filter(element => element.checked).map(element => element.value);
+    const filesArray = Array.from(document.getElementsByClassName("document")).filter(element => element.checked).map(element => element.value);
     formData.append("relativeDocuments", JSON.stringify(filesArray));
     formData.append("jobAdvertID", jobAdvertID);
     let currentDate = new Date().toJSON().slice(0, 10);
