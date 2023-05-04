@@ -23,7 +23,7 @@ const register_put = async(req, res)=>{
                 }
             });
         }
-        res.json({ errors });
+        res.status(400).json({ errors });
     }
         
 };
@@ -49,7 +49,7 @@ const createEmployer_put = async(req, res) =>{
                 }
             });
         }
-        res.json({ errors });
+        res.status(400).json({ errors });
     }
 };
 
@@ -67,7 +67,7 @@ const login_post = async (req, res) => {
             if(isEmployer) {
                 const employer = await Employer.login(email, password);
                 if(employer) {
-                    console.log("Logged in as employer");
+                    console.log("Logged in %s as employer", email);
                     sessionController.authenticationAfterLoggingIn(req);
                     sessionController.saveEmployerInfoToSession(req, employer.name, employer.surname, employer.email, employer.permissionLevel, employer._id);
                     res.status(202).json({ redirect: 'panel' });
@@ -79,7 +79,7 @@ const login_post = async (req, res) => {
                 if(isApplicant) {
                     const applicant = await Applicant.login(email, password);
                     if (applicant) {
-                        console.log("Logged in");
+                        console.log("Logged in %s", email);
                         sessionController.authenticationAfterLoggingIn(req);
                         sessionController.saveApplicantInfoToSession(req, applicant.name, applicant.surname, applicant.email, applicant._id);
                         res.status(202).json({ redirect: 'profile' });
