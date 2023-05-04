@@ -2,17 +2,21 @@
 <div class="container h-100">
     <div class="form-group">
         <div id="skillsComponent" class="col-md-6 mx-auto text-center bg-white p-3">
-            <input type="text" id="skillsSearchBar" class="form-control shadow bg-white rounded"/>
+            <form autocomplete="off">
+                <input type="text" id="skillsSearchBar" class="form-control shadow bg-white rounded"/>
+                <input type="hidden" name="pickedSkills" id="pickedSkills" />
+            </form>
             <div id="skillsResults" class="border h-75">
                 Zacznij wpisywać, aby szukać umiejętności
             </div>
-            <span id="newSkillClickText">Stwórz nową</span>
+            <span <% if(!ableToCreate) { %> style="display: none" <% } %>id="newSkillClickText">Stwórz nową</span>
         </div>
     </div>
 </div>
 <br>
+<% if(ableToCreate) { %>
 <div class="container h-100">
-    <form id="skillForm" style="display: none;" class="form-vertical col-md-6 mx-auto text-center bg-white p-3">
+    <form id="skillForm" style="display: none;" class="form-vertical col-md-6 mx-auto text-center bg-white p-3" autocomplete="off">
         <div class="form-group"> 
             <label class="control-label col-sm-6 pt-2 pb-1 m-0" for="skillName">Nazwa</label>
             <div class="col-sm-8 mx-auto">
@@ -33,13 +37,15 @@
         <div id="skillSaveResult" class="mt-2"></div>
     </form>
 </div>
+<% } %>
 <script type="module">
     import { initializeSkillsSearch } from '/js/skillsSearch.js';
-    initializeSkillsSearch(true);
+    initializeSkillsSearch(<%= ableToCreate %>);
 </script>
+<% if(ableToCreate) { %> <script type="module"></script>
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
     import { submitSkill } from '/js/submitSkill.js';
     initializeVaryingSizeInputArray('keywords', 0, 32);
     submitSkill();
-</script>
+</script><% } %>
