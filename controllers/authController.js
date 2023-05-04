@@ -28,7 +28,7 @@ const register_put = async(req, res)=>{
         
 };
 
-//shpuld be move to admin controller when created
+//should be move to admin controller when created
 const createEmployer_put = async(req, res) =>{
     const { email, password, name, surname, permissionLevel } = req.body;
 
