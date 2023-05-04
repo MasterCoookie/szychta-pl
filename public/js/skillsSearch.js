@@ -1,4 +1,4 @@
-function initializeSkillsSearch(allowCreation = false) {
+function initializeSkillsSearch(allowCreation = false, allowPicking = true) {
     window.addEventListener('load', function () {
         const searchBarDOMElement = document.getElementById('skillsSearchBar');
         const searchResultsDOMElement = document.getElementById('skillsResults');
@@ -40,9 +40,9 @@ function initializeSkillsSearch(allowCreation = false) {
                             skillDOMElement.style.backgroundColor = "rgba(0, 0, 0, 0.1)"
                             skillDOMElement.innerHTML = skill.name;
                             skillDOMElement.addEventListener('click', function () {
-                                const skillInputDOMElement = document.getElementById('skillInput');
-                                skillInputDOMElement.value = skill.name;
-                                searchResultsDOMElement.innerHTML = '';
+                                const skillInputDOMElement = document.getElementById('pickedSkills');
+                                skillInputDOMElement.value += skill._id + ';';
+                                skillDOMElement.className += ' disabled';
                             });
                             searchResultsDOMElement.appendChild(skillDOMElement);
                         });
