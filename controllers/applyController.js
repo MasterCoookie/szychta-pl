@@ -2,7 +2,7 @@ const JobOffer = require('../models/jobOfferModel');
 const Applicant = require('../models/applicantModel');
 const Application = require('../models/applicationModel');
 
-const showApplyingFormula = async (req, res) => {
+const showApplyingForm = async (req, res) => {
     try {
         if(req.query.id == null) {
             res.sendStatus(404);
@@ -15,7 +15,7 @@ const showApplyingFormula = async (req, res) => {
             }
             else {
                 const jobAdvert = (await JobOffer.findById(req.query.id)).toObject();
-                res.render('apply/applyingFormula', { title: 'Apply', jobAdvert, applicant });
+                res.render('apply/applyingForm', { title: 'Aplikuj', jobAdvert, applicant });
             } 
         }
     }
@@ -26,12 +26,12 @@ const showApplyingFormula = async (req, res) => {
 }
 
 const apply_post = async(req, res)=>{
-    const { email, phoneNumber, homeAddress, jobAdvertID, applicationDate, relativeDocuments } = req.body;
+    const { email, phoneNumber, homeAddress, jobOffer_id, applicationDate, relativeDocuments } = req.body;
     const questionAnswers = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
     const relativeSkills = req.body.keywords ? JSON.parse(req.body.keywords) : [];
-    const applicantID = req.session.applicant._id;
+    const applicant_id = req.session.applicant._id;
     try {
-        await Application.create({ email, phoneNumber, homeAddress, jobAdvertID, applicationDate, questionAnswers, relativeSkills, applicantID, relativeDocuments });
+        await Application.create({ email, phoneNumber, homeAddress, jobOffer_id, applicationDate, questionAnswers, relativeSkills, applicant_id, relativeDocuments });
         res.sendStatus(201);
     } catch (e) {
         let errors = [];
@@ -49,6 +49,6 @@ const apply_post = async(req, res)=>{
 };
 
 module.exports = {
-    showApplyingFormula,
+    showApplyingForm,
     apply_post,
 }

@@ -9,7 +9,7 @@ const upload = multer();
 const router = express.Router();
 
 router.get('/view', jobOfferController.showOfferDetails_get);
-router.get('/apply', authMiddleware.require_login , applyController.showApplyingFormula);
+router.get('/apply', authMiddleware.require_login , applyController.showApplyingForm);
 router.post('/apply', upload.none() , applyController.apply_post);
 
 module.exports = router;
