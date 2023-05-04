@@ -6,11 +6,12 @@
             <div id="skillsResults" class="border h-75">
                 Zacznij wpisywać, aby szukać umiejętności
             </div>
-            <span id="newSkillClickText">Stwórz nową</span>
+            <span <% if(!ableToCreate) { %> style="display: none" <% } %>id="newSkillClickText">Stwórz nową</span>
         </div>
     </div>
 </div>
 <br>
+<% if(ableToCreate) { %>
 <div class="container h-100">
     <form id="skillForm" style="display: none;" class="form-vertical col-md-6 mx-auto text-center bg-white p-3">
         <div class="form-group"> 
@@ -33,13 +34,15 @@
         <div id="skillSaveResult" class="mt-2"></div>
     </form>
 </div>
+<% } %>
 <script type="module">
     import { initializeSkillsSearch } from '/js/skillsSearch.js';
     initializeSkillsSearch(true);
 </script>
+<% if(ableToCreate) { %> <script type="module"></script>
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
     import { submitSkill } from '/js/submitSkill.js';
     initializeVaryingSizeInputArray('keywords', 0, 32);
     submitSkill();
-</script>
+</script><% } %>
