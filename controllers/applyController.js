@@ -28,7 +28,6 @@ const showApplyingFormula = async (req, res) => {
 const apply_post = async(req, res)=>{
     const { email, phoneNumber, homeAddress, jobAdvertID, applicationDate, relativeDocuments } = req.body;
     const questionAnswers = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
-    console.log(questionAnswers);
     const relativeSkills = req.body.keywords ? JSON.parse(req.body.keywords) : [];
     const applicantID = req.session.applicant._id;
     try {

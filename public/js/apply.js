@@ -11,12 +11,12 @@ function apply(jobAdvertID) {
         }
         return obj;
     }, {});
-    //console.log(elements);
-    console.log(keyValueQuestionArray);
+    const keywords = document.getElementById("pickedSkills").value.split(';').slice(0, -1);
     formData.append("additionalQuestions", JSON.stringify(keyValueQuestionArray));
     const filesArray = Array.from(document.getElementsByClassName("document")).filter(element => element.checked).map(element => element.value);
     formData.append("relativeDocuments", JSON.stringify(filesArray));
     formData.append("jobAdvertID", jobAdvertID);
+    formData.append("keywords", JSON.stringify(keywords));
     const currentDate = new Date().toJSON().slice(0, 10);
     formData.append("applicationDate", currentDate);
 
