@@ -1,28 +1,17 @@
 <%- include('../partials/head.ejs') %>
 
-<div class="container"><form class="form-horizontal" id="employerProfileForm">
-    <div class="form-group">
-        <label class="control-label col-sm-2" for="name">Imię:</label>
-        <div class="col-sm-10">
-            <input type="text" name="name" id="name" value="<%= req.session.employer.name %>" />
-        </div>
-
-        <label class="control-label col-sm-2" for="surname">Nazwisko:</label>
-        <div class="col-sm-10">
-            <input type="text" name="surname" id="surname" value="<%= req.session.employer.surname %>" />
-        </div>
-    </div>
-    <div class="form-group">        
-        <div class="col-sm-offset-2 col-sm-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</form>
+<div class="container">
     <div>
-        <a href="/employer/manage_offer" class="btn">Stwórz oferte pracy</a>
+        <a href="/employer/manage_offer" class="btn">Stwórz ofertę pracy</a>
+    </div>
+    <div>
+        <a href="" class="btn">Zmoydfikuj ofertę pract</a>
     </div>
     <div>
         <a href="/skills/create" class="btn">Stwórz umiejętność do rekrutacji</a>
+    </div>
+    <div>
+        <a href="" class="btn">Przeglądaj aplikacje</a>
     </div>
 </div>
 
