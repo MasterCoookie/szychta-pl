@@ -11,6 +11,8 @@ loginButton.addEventListener('click', (event) => {
 
         if(response.redirect === 'profile'){
             window.location.href = '/profile';
+        } else if(response.redirect === 'panel') {
+            window.location.href = '/employer/employerPanel';
         } else if(response.msg !== null){
             document.getElementById('message').innerHTML = response.msg;
         }

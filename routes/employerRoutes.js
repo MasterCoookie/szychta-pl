@@ -1,6 +1,8 @@
 const express = require('express');
 const jobOfferController = require('../controllers/jobOfferController');
+const employerController = require('../controllers/employerController');
 //const uploadMiddleware = require('../middleware/uploadMiddleware');
+const authMiddleware = require('../middleware/authMiddleware');
 const multer = require('multer');
 
 const router = express.Router();
@@ -14,6 +16,9 @@ router.post('/modify_offer', upload.none(), jobOfferController.modifyOffer_post)
 router.delete('/delete_offer', upload.none(), jobOfferController.offer_delete);
 
 //application related routes
+
+//employer related routes
+router.get('/employerPanel',authMiddleware.require_login, employerController.panel_get);
 
 //todo in next sprint
 

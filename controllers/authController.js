@@ -1,5 +1,6 @@
 const Applicant = require('../models/applicantModel');
-const sessionController = require('./sessionController')
+const Employer = require('../models/empolyerModel');
+const sessionController = require('./sessionController');
 
 const register_put = async(req, res)=>{
     const { email, password, name, surname } = req.body;
@@ -22,11 +23,36 @@ const register_put = async(req, res)=>{
                 }
             });
         }
-            // console.log(e);
-            res.json({ errors });
-        }
+        res.json({ errors });
+    }
         
 };
+
+//shpuld be move to admin controller when created
+const createEmployer_put = async(req, res) =>{
+    const { email, password, name, surname, permissionLevel } = req.body;
+
+    try{
+        const employer = await Employer.create({ email, password, name, surname,permissionLevel });
+        console.log("New employer %s created", email, permissionLevel);
+        res.status(201).jason({ redirect: 'login '});
+    } catch(e) {
+        let errors=[];
+         if (e.code === 11000) {
+            errors.push('Email already in use')
+         }
+        
+        if(e.errors) {
+            Object.values(e.errors).forEach(({ properties }) => {
+                if (properties.message) {
+                    errors.push(properties.message);
+                }
+            });
+        }
+        res.json({ errors });
+    }
+};
+
 
 const register_get = (req, res) => {
     res.render('auth/register', { title: 'Register' });
@@ -37,17 +63,34 @@ const login_post = async (req, res) => {
 
     if (email && password) {
         try {
-            const applicant = await Applicant.login(email, password);
-            if (applicant) {
-                console.log("Logged in");
-                sessionController.authenticationAfterloggingIn(req);
-                sessionController.saveApplicantInfoToSession(req, applicant.name, applicant.surname, applicant.email, applicant._id);
-                res.status(202).json({ redirect: 'profile' });
-            } else {
+            const isEmployer = await Employer.findOne({ email: email });
+            if(isEmployer) {
+                const employer = await Employer.login(email, password);
+                if(employer) {
+                    console.log("Logged in as employer");
+                    sessionController.authenticationAfterloggingIn(req);
+                    sessionController.saveEmployerInfoToSession(req, employer.name, employer.surname, employer.email, employer.permissionLevel, employer._id);
+                    console.log(req.authenticated);
+                    console.log(req.Employer);
+                    res.status(202).json({ redirect: 'panel' });
+                } else {
                 res.status(400).json({ msg: 'Niewłaściwe dane' });
+                }
+            } else {
+                const isApplicant = await Applicant.findOne({ email: email });
+                if(isApplicant) {
+                    const applicant = await Applicant.login(email, password);
+                    if (applicant) {
+                        console.log("Logged in");
+                        sessionController.authenticationAfterloggingIn(req);
+                        sessionController.saveApplicantInfoToSession(req, applicant.name, applicant.surname, applicant.email, applicant._id);
+                        res.status(202).json({ redirect: 'profile' });
+                    } else {
+                        res.status(400).json({ msg: 'Niewłaściwe dane' });
+                    }
+                }
             }
         } catch (e) {
-            //res.json(e);
             res.status(400).json({ msg: 'Niewłaściwe dane' });
         }
     } else {
@@ -70,6 +113,7 @@ const logout_get = (req, res) => {
 
 module.exports = {
     register_put,
+    createEmployer_put,
     register_get,
     login_get,
     login_post,

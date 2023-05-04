@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const { isEmail, isMobilePhone, isUrl } = require('validator');
+const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
 
 const pwdValid = (password) => {
@@ -12,7 +12,7 @@ const pwdValid = (password) => {
     return true;
 }
 
-const applicantSchema = new mongoose.Schema({
+const employerSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please provide a name"],
@@ -23,7 +23,6 @@ const applicantSchema = new mongoose.Schema({
         required: [true, "Please provide a surname"],
         maxlength: [64, 'Surname too long']
     },
-    uploadedDocuments: [String],
     email: {
         type: String,
         required: [true, "Please provide an email"],
@@ -37,28 +36,13 @@ const applicantSchema = new mongoose.Schema({
 		maxlength: [24, 'Your password must be shorter than 24 characters'],
 		validate: [pwdValid, 'Your password must contain both letters (lowercase and uppercase) and numbers']
 	},
-    phoneNumber: {
-        type: String,
-        validate: [isMobilePhone, "Phone number invalid"]
-    },
-    birthDate: {
-        type: Date, 
-    },
-    homeAddress: {
-        type: String,
-        maxlength: [255, 'Address too long']
-    },
-    links: {
-        type: [String],
-        //TODO validate
-        // validate: v=> v.forEach(link => {
-        //   return isUrl(link);  
-        // })
+    permissionLevel: {
+        type: Number,
+        default: 1
     },
 });
 
-//add your model mehtods here
-applicantSchema.pre('save', async function(next) {  
+employerSchema.pre('save', async function(next) {  
     if (!this.isModified('password')){ 
         return next();
     }
@@ -67,12 +51,12 @@ applicantSchema.pre('save', async function(next) {
     next();
 });
 
-applicantSchema.statics.login = async function(_email, _password) {
-    const applicant = await this.findOne({ email: _email });
-    if(applicant) {
-        if (await bcrypt.compare(_password, applicant.password))
+employerSchema.statics.login = async function(_email, _password) {
+    const employer = await this.findOne({ email: _email });
+    if(employer) {
+        if (await bcrypt.compare(_password, employer.password))
         {
-            return applicant;
+            return employer;
         }
         throw Error('Incorrect password');
     } else {
@@ -80,7 +64,6 @@ applicantSchema.statics.login = async function(_email, _password) {
     }
 };
 
+const Employer = mongoose.model('Employer', employerSchema);
 
-const Applicant = mongoose.model('Applicant', applicantSchema);
-
-module.exports = Applicant;
+module.exports = Employer;
