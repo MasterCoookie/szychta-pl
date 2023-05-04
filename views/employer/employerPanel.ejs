@@ -1,24 +1,23 @@
 <%- include('../partials/head.ejs') %>
 
-<div class="container">
-    <form class="form-horizontal" id="employerProfileForm">
-        <div class="form-group">
-            <label class="control-label col-sm-2" for="name">Name:</label>
-            <div class="col-sm-10">
-                <input type="text" name="name" id="name" value="<%= employer.name %>" />
-            </div>
+<div class="container"><form class="form-horizontal" id="employerProfileForm">
+    <div class="form-group">
+        <label class="control-label col-sm-2" for="name">Imię:</label>
+        <div class="col-sm-10">
+            <input type="text" name="name" id="name" value="<%= req.session.employer.name %>" />
+        </div>
 
-            <label class="control-label col-sm-2" for="surname">Surname:</label>
-            <div class="col-sm-10">
-                <input type="text" name="surname" id="surname" value="<%= employer.surname %>" />
-            </div>
+        <label class="control-label col-sm-2" for="surname">Nazwisko:</label>
+        <div class="col-sm-10">
+            <input type="text" name="surname" id="surname" value="<%= req.session.employer.surname %>" />
         </div>
-        <div class="form-group">        
-            <div class="col-sm-offset-2 col-sm-10">
-                <input type="submit" value="Save" class="btn btn-default" />
-            </div>
+    </div>
+    <div class="form-group">        
+        <div class="col-sm-offset-2 col-sm-10">
+            <input type="submit" value="Save" class="btn btn-default" />
         </div>
-    </form>
+    </div>
+</form>
     <div>
         <a href="/employer/manage_offer" class="btn">Stwórz oferte pracy</a>
     </div>

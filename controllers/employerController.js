@@ -1,7 +1,7 @@
 const Employer = require('../models/empolyerModel');
 
 const panel_get = (req, res) => {
-    if(!req.session.authenticated){
+    if(req.session.authenticated){
         console.log('Redirect')
         res.render('employer/employerPanel', { title: 'employerPanel' });
     } else {
