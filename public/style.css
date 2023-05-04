@@ -9,11 +9,16 @@ html, body {
 .btn {
     color: white;
     background-color: #445766;
+    border-radius: 25px;
 }
 
 .btn-decolored {
     background-color: rgba(255, 255, 255, 0.1);
     color: black;
+}
+
+.form-control {
+    border-radius: 25px !important;
 }
   
 #skillsComponent {

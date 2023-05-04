@@ -35,6 +35,6 @@ function apply(jobAdvertID) {
             }
         }
     });
-    request.open("POST", "/advert/apply")
+    request.open("POST", "/applicant/apply")
     request.send(formData);
 }
