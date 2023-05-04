@@ -1,12 +1,13 @@
 const mongoose = require('mongoose');
 const { isEmail, isMobilePhone } = require('validator');
+const Schema = mongoose.Schema;
 
 const applicationSchema = new mongoose.Schema({
     applicantID: {
         type: String,
         required: [true, "Please provide an applicantID"],
     },
-    jobOfferID: {
+    jobAdvertID: {
         type: String,
         required: [true, "Please provide a jobOfferID"],
     },
@@ -18,7 +19,7 @@ const applicationSchema = new mongoose.Schema({
         type: [String],
     },
     relativeSkills: {
-        type: [String],
+        type: [Schema.Types.ObjectId],
     },
     questionAnswers: {
         type: [String],

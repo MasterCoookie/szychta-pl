@@ -26,13 +26,12 @@ const showApplyingFormula = async (req, res) => {
 }
 
 const apply_post = async(req, res)=>{
-    const { email, phoneNumber, homeAddress, jobAdvertID, applicationDate } = req.body;
-    console.log(req.body);
-    const additionalQuestions = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
-    const keywords = req.body.keywords ? JSON.parse(req.body.keywords) : [];
+    const { email, phoneNumber, homeAddress, jobAdvertID, applicationDate, relativeDocuments } = req.body;
+    const questionAnswers = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
+    const relativeSkills = req.body.keywords ? JSON.parse(req.body.keywords) : [];
+    const applicantID = req.session.applicant._id;
     try {
-        const jobAdvert = await Application.create({ email, phoneNumber, homeAddress, jobAdvertID, applicationDate, additionalQuestions, keywords });
-        console.log("Application %s created", jobAdvert._id);
+        const application = await Application.create({ email, phoneNumber, homeAddress, jobAdvertID, applicationDate, questionAnswers, relativeSkills, applicantID, relativeDocuments });
         res.sendStatus(201);
     } catch (e) {
         let errors = [];
@@ -43,7 +42,8 @@ const apply_post = async(req, res)=>{
                 }
             });
         }
-        res.json({ errors });
+        res.status(400).json({ errors });
+        
     }
     
 };

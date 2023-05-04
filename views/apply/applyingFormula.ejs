@@ -5,7 +5,7 @@
             <div>
                 <span>Aplikujesz na stanowisko: <%= jobAdvert.title %></span>
             </div>
-            <form id = "applyForm" method = "post">
+            <form id = "applyForm">
                 <div>
                     <div>Email:</div>
                     <input type="text" name="email" id="email" value="<%= applicant.email %>" />
@@ -35,12 +35,13 @@
                     <% applicant.uploadedDocuments.forEach( (document) => { %>
                         <div>
                             <span><%= document %>
-                                <input type="checkbox" class = "document">
+                                <input type="checkbox" class = "document" value="<%= document %>">
                             </span>
                         </div>
                 <% })}; %>
                 <button id="applyBtn" onclick="apply('<%= jobAdvert._id %>')" type = "button" class="btn">Aplikuj</button>
             </form>
+            <div id="message"></div>
         </div>
     </div>
 </div>

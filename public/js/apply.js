@@ -2,26 +2,29 @@ function apply(jobAdvertID) {
     const request = new XMLHttpRequest();
     const capturedForm = document.getElementById("applyForm");
     let formData = new FormData(capturedForm);
-    let questionsArray = Array.from(document.getElementsByClassName("question")).map((element) => { return {answer: element.value } });
-    console.log(questionsArray);
+    let questionsArray = Array.from(document.getElementsByClassName("question")).filter(element => element.value !== "").map(element => element.value);
     formData.append("additionalQuestions", JSON.stringify(questionsArray));
-    let filesArray = Array.from(document.getElementsByClassName("document")).map((element) => { return {filename: element.value } });
-    console.log(jobAdvertID);
-    formData.append("files", JSON.stringify(filesArray));
+    let filesArray = Array.from(document.getElementsByClassName("document")).filter(element => element.checked).map(element => element.value);
+    formData.append("relativeDocuments", JSON.stringify(filesArray));
     formData.append("jobAdvertID", jobAdvertID);
     let currentDate = new Date().toJSON().slice(0, 10);
     formData.append("applicationDate", currentDate);
 
     request.addEventListener('load', (event) => {
-        const response = JSON.parse(event.target.responseText);
-        console.log(response);
+        if(event.target.status === 201){
+            document.getElementById("message").innerHTML = "Aplikowano pomyślnie";
+        }
+        else {
+            const response = JSON.parse(event.target.responseText);
+            let errorMessage = "";
+            if(response.errors !== null){
+                response.errors.forEach(element => {
+                    errorMessage+=element+". ";
+                    document.getElementById("message").innerHTML = errorMessage;
+                });
+            }
+        }
     });
-
-    for (var pair of formData.entries()) {
-        console.log(pair[0]+ ' - ' + pair[1]); 
-    }
-    const jsonData = JSON.stringify(Object.fromEntries(formData));
-    console.log(jsonData);
     request.open("POST", "/advert/apply")
-    request.send(jsonData);
+    request.send(formData);
 }
