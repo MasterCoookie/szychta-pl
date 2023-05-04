@@ -1,4 +1,4 @@
-const authenticationAfterloggingIn = (req) => {
+const authenticationAfterLoggingIn = (req) => {
     req.session.authenticated = true;
 };
 
@@ -15,7 +15,7 @@ const destroySession = (req) => {
 };
 
 module.exports = {
-  authenticationAfterloggingIn,
+  authenticationAfterLoggingIn,
   saveApplicantInfoToSession,
   saveEmployerInfoToSession,
   destroySession,

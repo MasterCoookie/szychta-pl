@@ -1,5 +1,5 @@
 const Applicant = require('../models/applicantModel');
-const Employer = require('../models/empolyerModel');
+const Employer = require('../models/employerModel');
 const sessionController = require('./sessionController');
 
 const register_put = async(req, res)=>{
@@ -35,7 +35,7 @@ const createEmployer_put = async(req, res) =>{
     try{
         const employer = await Employer.create({ email, password, name, surname,permissionLevel });
         console.log("New employer %s created", email, permissionLevel);
-        res.status(201).jason({ redirect: 'login '});
+        res.status(201).json({ redirect: 'login'});
     } catch(e) {
         let errors=[];
          if (e.code === 11000) {
@@ -68,7 +68,7 @@ const login_post = async (req, res) => {
                 const employer = await Employer.login(email, password);
                 if(employer) {
                     console.log("Logged in as employer");
-                    sessionController.authenticationAfterloggingIn(req);
+                    sessionController.authenticationAfterLoggingIn(req);
                     sessionController.saveEmployerInfoToSession(req, employer.name, employer.surname, employer.email, employer.permissionLevel, employer._id);
                     res.status(202).json({ redirect: 'panel' });
                 } else {
@@ -80,7 +80,7 @@ const login_post = async (req, res) => {
                     const applicant = await Applicant.login(email, password);
                     if (applicant) {
                         console.log("Logged in");
-                        sessionController.authenticationAfterloggingIn(req);
+                        sessionController.authenticationAfterLoggingIn(req);
                         sessionController.saveApplicantInfoToSession(req, applicant.name, applicant.surname, applicant.email, applicant._id);
                         res.status(202).json({ redirect: 'profile' });
                     } else {
