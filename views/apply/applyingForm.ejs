@@ -1,47 +1,52 @@
 <%- include('../partials/head.ejs') %>
 <div class="container h-100">
-    <div>
-        <div>
-            <div>
-                <span>Aplikujesz na stanowisko: <%= jobAdvert.title %></span>
-            </div>
-            <form id = "applyForm">
+    <div class="row d-flex align-items-center justify-content-center h-100 text-center">
+        <div class="w-75 bg-white">
+            <div class="p-3">
                 <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value="<%= applicant.email %>" />
+                    <div>Aplikujesz na stanowisko: <%= jobAdvert.title %></div>
                 </div>
-                <div>
-                    <label for="phoneNumber">Numer telefonu:</label>
-                    <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
-                </div>
-                <div>
-                    <label for="homeAddress">Adres:</label>
-                    <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
-                </div>
-                <% if(jobAdvert.additionalQuestions.length > 0) { %>
+                <form id = "applyForm">
                     <div>
-                        Pytania dodatkowe:
-                        <% jobAdvert.additionalQuestions.forEach( question => { %>
-                            <div>
-                                <span class = "question"><%= question %></span>
-                                <br>
-                                <input type="text" class = "questionAnswer">
-                            </div>
+                        <label for="email" class="control-label col-sm-6 pt-2 pb-1 m-0">Email:</label>
+                        <br>
+                        <input type="email" name="email" id="email" value="<%= applicant.email %>" />
                     </div>
-                <% })}; %>
-                <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
-                <% if(applicant.uploadedDocuments.length > 0) { %>
-                    <div>Wybierz dokumenty do załączenia: </div>
-                    <% applicant.uploadedDocuments.forEach( (document) => { %>
+                    <div>
+                        <label for="phoneNumber">Numer telefonu:</label>
+                        <br>
+                        <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
+                    </div>
+                    <div>
+                        <label for="homeAddress">Adres:</label>
+                        <br>
+                        <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
+                    </div>
+                    <% if(jobAdvert.additionalQuestions.length > 0) { %>
+                            <div>Pytania dodatkowe:</div>
+                            <% jobAdvert.additionalQuestions.forEach( question => { %>
+                                <div>
+                                    <div class = "question"><%= question %></div>
+                                    <input type="text" class = "questionAnswer">
+                                </div>
+                    <% })}; %>
+                    <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
+                    <% if(applicant.uploadedDocuments.length > 0) { %>
                         <div>
-                            <span><%= document %>
-                                <input type="checkbox" class = "document" value="<%= document %>">
-                            </span>
-                        </div>
-                <% })}; %>
-                <button id="applyBtn" onclick="apply('<%= jobAdvert._id %>')" type = "button" class="btn">Aplikuj</button>
-            </form>
-            <div id="message"></div>
+                            <div>Wybierz dokumenty do załączenia: </div>
+                            <% applicant.uploadedDocuments.forEach( (document) => { %>
+                                <div>
+                                    <div><%= document %>
+                                        <input type="checkbox" class = "document" value="<%= document %>">
+                                    </div>
+                                </div>
+                    <% }) %></div><% }; %>
+                    <div>
+                        <button id="applyBtn" onclick="apply('<%= jobAdvert._id %>')" type = "button" class="btn">Aplikuj</button>
+                    </div>
+                </form>
+                <div id="message"></div>
+            </div>
         </div>
     </div>
 </div>
