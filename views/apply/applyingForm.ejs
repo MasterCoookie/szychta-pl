@@ -2,40 +2,42 @@
 <div class="container h-100">
     <div class="row d-flex align-items-center justify-content-center h-100 text-center">
         <div class="w-75 bg-white">
-            <div class="p-3">
+            <div class="p-2">
                 <div>
-                    <div>Aplikujesz na stanowisko: <%= jobAdvert.title %></div>
+                    <div style="background-color: #445766;color: white;">Aplikujesz na stanowisko: <%= jobAdvert.title %></div>
                 </div>
                 <form id = "applyForm">
                     <div>
                         <label for="email" class="control-label col-sm-6 pt-2 pb-1 m-0">Email:</label>
-                        <br>
-                        <input type="email" name="email" id="email" value="<%= applicant.email %>" />
+                        <input type="email" name="email" id="email" value="<%= applicant.email %>" class="form-control shadow bg-white rounded w-75 text-center mx-auto"/>
                     </div>
                     <div>
-                        <label for="phoneNumber">Numer telefonu:</label>
+                        <label for="phoneNumber" class="control-label col-sm-6 pt-1 pb-1 m-0">Numer telefonu:</label>
                         <br>
-                        <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
+                        <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" class="form-control shadow bg-white rounded w-75 text-center mx-auto"/>
                     </div>
                     <div>
-                        <label for="homeAddress">Adres:</label>
+                        <label for="homeAddress" class="control-label col-sm-6 pt-2 pb-1 m-0">Adres:</label>
                         <br>
-                        <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
+                        <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" class="form-control shadow bg-white rounded w-75 text-center mx-auto"/>
                     </div>
                     <% if(jobAdvert.additionalQuestions.length > 0) { %>
-                            <div>Pytania dodatkowe:</div>
-                            <% jobAdvert.additionalQuestions.forEach( question => { %>
-                                <div>
-                                    <div class = "question"><%= question %></div>
-                                    <input type="text" class = "questionAnswer">
-                                </div>
+                        <br>
+                        <div style="background-color: #445766;color: white;">Pytania dodatkowe:</div>
+                        <% jobAdvert.additionalQuestions.forEach( question => { %>
+                            <div>
+                                <div class="question control-label pt-2 pb-1 m-0"><%= question %></div>
+                                <input type="text" class="questionAnswer form-control shadow bg-white rounded w-75 text-center mx-auto" >
+                            </div>
                     <% })}; %>
+                    <br>
+                    <div style="background-color: #445766;color: white;">Umiejętności:</div>
                     <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
                     <% if(applicant.uploadedDocuments.length > 0) { %>
-                        <div>
-                            <div>Wybierz dokumenty do załączenia: </div>
+                        <div class = "pb-3 pl-3 pr-3">
+                            <div style="background-color: #445766;color: white;">Wybierz dokumenty do załączenia: </div>
                             <% applicant.uploadedDocuments.forEach( (document) => { %>
-                                <div>
+                                <div class="p-2">
                                     <div><%= document %>
                                         <input type="checkbox" class = "document" value="<%= document %>">
                                     </div>
