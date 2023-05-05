@@ -54,6 +54,7 @@ app.use('/skills', skillsRoutes);
 app.use('/', mainRoutes);
 app.use('/applicant', applicantRoutes);
 
+
 app.get('/', (req, res) => {
     res.send("szychta.pl");
 })

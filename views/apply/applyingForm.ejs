@@ -1,0 +1,51 @@
+<%- include('../partials/head.ejs') %>
+<div class="container h-100">
+    <div>
+        <div>
+            <div>
+                <span>Aplikujesz na stanowisko: <%= jobAdvert.title %></span>
+            </div>
+            <form id = "applyForm">
+                <div>
+                    <label for="email">Email:</label>
+                    <input type="email" name="email" id="email" value="<%= applicant.email %>" />
+                </div>
+                <div>
+                    <label for="phoneNumber">Numer telefonu:</label>
+                    <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
+                </div>
+                <div>
+                    <label for="homeAddress">Adres:</label>
+                    <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
+                </div>
+                <% if(jobAdvert.additionalQuestions.length > 0) { %>
+                    <div>
+                        Pytania dodatkowe:
+                        <% jobAdvert.additionalQuestions.forEach( question => { %>
+                            <div>
+                                <span class = "question"><%= question %></span>
+                                <br>
+                                <input type="text" class = "questionAnswer">
+                            </div>
+                    </div>
+                <% })}; %>
+                <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
+                <% if(applicant.uploadedDocuments.length > 0) { %>
+                    <div>Wybierz dokumenty do załączenia: </div>
+                    <% applicant.uploadedDocuments.forEach( (document) => { %>
+                        <div>
+                            <span><%= document %>
+                                <input type="checkbox" class = "document" value="<%= document %>">
+                            </span>
+                        </div>
+                <% })}; %>
+                <button id="applyBtn" onclick="apply('<%= jobAdvert._id %>')" type = "button" class="btn">Aplikuj</button>
+            </form>
+            <div id="message"></div>
+        </div>
+    </div>
+</div>
+
+<script src="/js/apply.js"></script>
+
+<%- include('../partials/footer.ejs') %>
