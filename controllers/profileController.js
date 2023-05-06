@@ -51,7 +51,7 @@ const profile_get = async (req, res) => {
             res.sendStatus(404);
         } else {
             const hasProfilePic = fs.existsSync(`./public/uploads/${_id}/profilePicture.png`);
-            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic, user: req.session.applicant });
+            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic, user: req.session.applicant, scrollable: true });
         }
     }
     catch (e) {

@@ -34,3 +34,9 @@ html, body {
 #keywords-inputArray {
     margin: 0 auto;
 }
+
+.navbar {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
