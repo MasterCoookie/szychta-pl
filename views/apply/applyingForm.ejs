@@ -1,48 +1,53 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
 <div class="container h-100">
-    <div>
-        <div>
-            <div>
-                <span>Aplikujesz na stanowisko: <%= jobAdvert.title %></span>
-            </div>
-            <form id = "applyForm">
-                <div>
-                    <label for="email">Email:</label>
-                    <input type="email" name="email" id="email" value="<%= applicant.email %>" />
-                </div>
-                <div>
-                    <label for="phoneNumber">Numer telefonu:</label>
-                    <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" />
-                </div>
-                <div>
-                    <label for="homeAddress">Adres:</label>
-                    <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" />
-                </div>
-                <% if(jobAdvert.additionalQuestions.length > 0) { %>
+    <div class="row d-flex align-items-center justify-content-center h-100 text-center">
+        <div class="w-75 bg-white">
+            <div class="p-2">
+                    <div style="background-color: #445766;color: white;">Aplikujesz na stanowisko: <%= jobAdvert.title %></div>
+                <form id = "applyForm">
                     <div>
-                        Pytania dodatkowe:
+                        <label for="email" class="control-label col-sm-6 pt-2 pb-1 m-0">Email:</label>
+                        <input type="email" name="email" id="email" value="<%= applicant.email %>" class="form-control shadow bg-white rounded w-75 text-center mx-auto"/>
+                    </div>
+                    <div>
+                        <label for="phoneNumber" class="control-label col-sm-6 pt-1 pb-1 m-0">Numer telefonu:</label>
+                        <br>
+                        <input type="tel" name="phoneNumber" id="phoneNumber" value="<%= applicant.phoneNumber %>" class="form-control shadow bg-white rounded w-75 text-center mx-auto"/>
+                    </div>
+                    <div>
+                        <label for="homeAddress" class="control-label col-sm-6 pt-2 pb-1 m-0">Adres:</label>
+                        <br>
+                        <input type="text" name="homeAddress" id="homeAddress" value="<%= applicant.homeAddress %>" class="form-control shadow bg-white rounded w-75 text-center mx-auto"/>
+                    </div>
+                    <% if(jobAdvert.additionalQuestions.length > 0) { %>
+                        <br>
+                        <div style="background-color: #445766;color: white;">Pytania dodatkowe:</div>
                         <% jobAdvert.additionalQuestions.forEach( question => { %>
                             <div>
-                                <span class = "question"><%= question %></span>
-                                <br>
-                                <input type="text" class = "questionAnswer">
+                                <div class="question control-label pt-2 pb-1 m-0"><%= question %></div>
+                                <input type="text" class="questionAnswer form-control shadow bg-white rounded w-75 text-center mx-auto" >
                             </div>
+                    <% })}; %>
+                    <br>
+                    <div style="background-color: #445766;color: white;">Umiejętności:</div>
+                    <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
+                    <% if(applicant.uploadedDocuments.length > 0) { %>
+                        <div class = "pb-3 pl-3 pr-3">
+                            <div style="background-color: #445766;color: white;">Wybierz dokumenty do załączenia: </div>
+                            <% applicant.uploadedDocuments.forEach( (document) => { %>
+                                <div class="p-2">
+                                    <div><%= document %>
+                                        <input type="checkbox" class = "document" value="<%= document %>">
+                                    </div>
+                                </div>
+                    <% }) %></div><% }; %>
+                    <div>
+                        <button id="applyBtn" onclick="apply('<%= jobAdvert._id %>')" type = "button" class="btn">Aplikuj</button>
                     </div>
-                <% })}; %>
-                <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
-                <% if(applicant.uploadedDocuments.length > 0) { %>
-                    <div>Wybierz dokumenty do załączenia: </div>
-                    <% applicant.uploadedDocuments.forEach( (document) => { %>
-                        <div>
-                            <span><%= document %>
-                                <input type="checkbox" class = "document" value="<%= document %>">
-                            </span>
-                        </div>
-                <% })}; %>
-                <button id="applyBtn" onclick="apply('<%= jobAdvert._id %>')" type = "button" class="btn">Aplikuj</button>
-            </form>
-            <div id="message"></div>
+                </form>
+                <div id="message"></div>
+            </div>
         </div>
     </div>
 </div>
