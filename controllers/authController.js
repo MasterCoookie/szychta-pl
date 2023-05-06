@@ -98,7 +98,7 @@ const login_post = async (req, res) => {
 
 const login_get = (req, res) => {
     if(!req.session.authenticated){
-        res.render('auth/login', { title: 'Login' });
+        res.render('auth/login', { title: 'Login', user: null });
     } else {
         res.redirect('/');
     }
