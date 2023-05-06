@@ -15,7 +15,7 @@ const showApplyingForm = async (req, res) => {
             }
             else {
                 const jobAdvert = (await JobOffer.findById(req.query.id)).toObject();
-                res.render('apply/applyingForm', { title: 'Aplikuj', jobAdvert, applicant });
+                res.render('apply/applyingForm', { title: 'Aplikuj', jobAdvert, applicant, user: req.session.applicant ?? req.session.employer, scrollable: true });
             } 
         }
     }

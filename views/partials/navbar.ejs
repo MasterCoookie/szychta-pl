@@ -1,0 +1,30 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light" <% if(locals.scrollable) { %>style="position: sticky;"<% } %>>
+    <a class="navbar-brand" href="/">
+        <img src="/img/logo.png" alt="szychta.pl logo" class="mr-2"/>
+    </a>
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <form class="form-inline m-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Szukaj ofert" aria-label="Szukaj ofert">
+                    <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Szukaj</button>
+              </form>
+            </li>
+            <% if(locals.user) { %>
+                <li class="nav-item active"><a class="nav-link" href="#">Twoje Aplikacje</a></li>
+                <li class="nav-item active"><a class="nav-link" href="/profile">Profil</a></li>
+            <% } %>
+        </ul>
+        <div class="my-2 my-lg-0 mr-4">
+            <ul class="navbar-nav">
+                <% if(!locals.user) { %>
+                    <li class="nav-item active"><a href="/auth/login" class="nav-link">Zaloguj</a></li>
+                    <li class="nav-item active"><a href="/auth/register" class="nav-link">Zarejestruj</a></li>
+                <% } else { %>
+                    <li class="nav-item my-auto mr-3"><div >Zalogowano jako <%= user.name %></div></li>
+                    <li class="nav-item active"><a href="/auth/logout" class="nav-link">Wyloguj</a></li>
+                <% } %>
+            </ul>
+        </div>
+    </div>
+</nav>

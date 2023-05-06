@@ -28,7 +28,7 @@ const skill_post = async (req, res) => {
 
 const skillsCreator_get = (req, res) => {
     try {
-        res.render('skills/skillsCreator', { title: 'Create skill' });
+        res.render('skills/skillsCreator', { title: 'Create skill', user: req.session.employer });
     } catch (e) {
         console.log(e);
         res.sendStatus(500);

@@ -4,7 +4,7 @@
         <div id="skillsComponent" class="col-md-6 mx-auto text-center bg-white p-3">
             <form autocomplete="off">
                 <input type="text" id="skillsSearchBar" class="form-control shadow bg-white rounded"/>
-                <input type="hidden" name="pickedSkills" id="pickedSkills" />
+                <input autocomplete="off" type="hidden" name="pickedSkills" id="pickedSkills" value="<% if(locals.pickedSkills) { %><%= locals.pickedSkills.join(';') %>;<% } %>"/>
             </form>
             <div id="skillsResults" class="border h-75">
                 Zacznij wpisywać, aby szukać umiejętności

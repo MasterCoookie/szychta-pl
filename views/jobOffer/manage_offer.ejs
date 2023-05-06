@@ -1,5 +1,5 @@
 <%- include('../partials/head.ejs') %>
-
+<%- include('../partials/navbar.ejs') %>
 <div class="container h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 mx-auto text-center bg-white p-3">
@@ -8,12 +8,12 @@
                 <div class="form-group">
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="title">Tytuł ogłoszenia:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="text" name="title" id="title" value="<% if(locals.offer && offer.title != null) {%><%= offer.title %> <% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="text" name="title" id="title" value="<% if(locals.offer && offer.title != null) {%><%= offer.title %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
                     </div>
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="description">Opis ogłoszenia:</label>
                     <div class="col-sm-8 mx-auto">
-                        <textarea id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.offer && offer.description != null) {%><%= offer.description %> <% } %></textarea><br/>
+                        <textarea id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.offer && offer.description != null) {%><%= offer.description %><% } %></textarea><br/>
                     </div>
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0">Tryb pracy:</label>
@@ -28,24 +28,20 @@
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="salary">Wynagrodzenie:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="text" name="salary" id="salary" value="<% if(locals.offer && offer.salary != null) {%><%= offer.salary %> <% } %>" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="text" name="salary" id="salary" value="<% if(locals.offer && offer.salary != null) {%><%= offer.salary %><% } %>" class="form-control shadow bg-white rounded"/><br/>
                     </div>
                     
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="requirements">Wymagania:</label>
-                    <div class="col-sm-8 mx-auto" id="inputArray">
-                        <!-- TODO: implement requirements module -->
-                        <!-- temporary disabled field -->
-                        <input value="64397e2fbed0bea2e17824d2" disabled="" name="requirements" id="requirements"><br/>
-                    </div>
+                    <%- include('../partials/skillsComponent.ejs', {ableToCreate: false, pickedSkills: locals.pickedSkills}) %>
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="location">Lokalizacja:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="text" name="location" id="location" value="<% if(locals.offer && offer.location != null) {%><%= offer.location %> <% } %>" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="text" name="location" id="location" value="<% if(locals.offer && offer.location != null) {%><%= offer.location %><% } %>" class="form-control shadow bg-white rounded"/><br/>
                     </div>
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="industry">Branża:</label>
                     <div class="col-sm-8 mx-auto" id="industry">
-                        <input type="text" name="industry" id="industry" value="<% if(locals.offer && offer.industry != null) {%><%= offer.industry %> <% } %>" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="text" name="industry" id="industry" value="<% if(locals.offer && offer.industry != null) {%><%= offer.industry %><% } %>" class="form-control shadow bg-white rounded"/><br/>
                     </div>
 
 

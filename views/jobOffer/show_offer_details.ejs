@@ -1,5 +1,6 @@
 <%- include('../partials/head.ejs') %>
-<div class="container h-100">
+<%- include('../partials/navbar.ejs') %>
+<div class="container h-100" style="padding-top: 150px;">
     <div class="row d-flex align-items-up justify-content-center h-100">
         <div class="col-md-6 mx-auto text-center bg-white p-3">
             <h3 class="col-sm-8 mx-auto"><%=jobOffer.title %></h3>
@@ -11,7 +12,7 @@
                 <span class="errorMessageText" id="message"></span>
             </div>
             <a href="/advert/apply/?id=<%= jobOffer.id %>">
-                <button>Aplikuj</button>
+                <button class="btn">Aplikuj</button>
             </a>
         </div>
     </div>
