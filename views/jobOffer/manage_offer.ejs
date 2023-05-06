@@ -32,11 +32,7 @@
                     </div>
                     
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="requirements">Wymagania:</label>
-                    <div class="col-sm-8 mx-auto" id="inputArray">
-                        <!-- TODO: implement requirements module -->
-                        <!-- temporary disabled field -->
-                        <input value="64397e2fbed0bea2e17824d2" disabled="" name="requirements" id="requirements"><br/>
-                    </div>
+                    <%- include('../partials/skillsComponent.ejs', {ableToCreate: false}) %>
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="location">Lokalizacja:</label>
                     <div class="col-sm-8 mx-auto">

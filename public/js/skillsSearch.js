@@ -39,8 +39,11 @@ function initializeSkillsSearch(allowCreation = false, allowPicking = true) {
                             skillDOMElement.style.cursor = 'pointer';
                             skillDOMElement.style.backgroundColor = "rgba(0, 0, 0, 0.1)"
                             skillDOMElement.innerHTML = skill.name;
+                            const pickedSkillsDOMElement = document.getElementById('pickedSkills');
+                            if(pickedSkillsDOMElement.value.includes(skill._id + ';')) {
+                                skillDOMElement.className += ' disabled';
+                            }
                             skillDOMElement.addEventListener('click', function () {
-                                const pickedSkillsDOMElement = document.getElementById('pickedSkills');
                                 if(pickedSkillsDOMElement.value.includes(skill._id + ';')) {
                                     pickedSkillsDOMElement.value = pickedSkillsDOMElement.value.replace(skill._id + ';', '');
                                     skillDOMElement.className = skillDOMElement.className.replace(' disabled', '');
