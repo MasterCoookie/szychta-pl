@@ -9,6 +9,10 @@ function initializeModifyOfferSubmitListener (offer_id){
         const keywordsArrayInputs = Array.from(document.getElementsByClassName('keywords-array-input'));
         const keywordsArrayValues = JSON.stringify(keywordsArrayInputs.map(input => input.value));
         formData.append('keywords', keywordsArrayValues);
+
+        const skillsArrayInput = document.getElementById('pickedSkills');
+        formData.append('requirements', skillsArrayInput.value);
+
         const addQuestionsArrayInputs = Array.from(document.getElementsByClassName('additionalQuestions-array-input'));
         const addQuestionsArrayValues = JSON.stringify(addQuestionsArrayInputs.map(input => input.value));
         formData.append('additionalQuestions', addQuestionsArrayValues);
