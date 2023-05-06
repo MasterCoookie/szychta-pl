@@ -3,15 +3,51 @@
 <div class="container h-100" style="padding-top: 150px;">
     <div class="row d-flex align-items-up justify-content-center h-100">
         <div class="col-md-6 mx-auto text-center bg-white p-3">
-            <h3 class="col-sm-8 mx-auto"><%=jobOffer.title %></h3>
+            <h1 class="col-sm-8 mx-auto text-center"><%=jobOffer.title %></h3>
+            <% if (jobOffer.description) { %>
             <h5 class="col-sm-8 mx-auto"><%=jobOffer.description %></h5>
-            <h5 class="col-sm-8 mx-auto">Salary: <%=jobOffer.salary %></h5>
-            <h5 class="col-sm-8 mx-auto">Location: <%=jobOffer.location %></h5>
-            <h5 class="col-sm-8 mx-auto">Expiry Date<%=jobOffer.expiryDate %></h5>
+            <% } %>
+            <% if (jobOffer.mode.length>0) { %>
+            <div class="row">
+                <h5 class="col-sm-5 mx-auto text-left">Tryb pracy:</h5>
+                <% for (let i = 0; i < jobOffer.mode.length; i++) { %>
+                    <% if (jobOffer.mode[i]==0){ %>
+                        <h5 class="col-sm-5 mx-auto text-right">Stacjonarny</h5>
+                    <% } else if (jobOffer.mode[i]==1){ %>
+                        <h5 class="col-sm-5 mx-auto text-right">Zdalny</h5>
+                    <% } else{ %>
+                        <h5 class="col-sm-5 mx-auto text-right">Hybrydowy</h5>
+                <% }} %>
+            </div>
+            <% } %>
+            <% if (jobOffer.salary) { %>
+            <div class="row">
+                <h5 class="col-sm-5 mx-auto text-left">Wynagrodzenie:</h5>
+                <h5 class="col-sm-5 mx-auto text-right"> <%=jobOffer.salary %></h5>
+            </div>
+            <% } %>
+            <% if (jobOffer.location) { %>
+            <div class="row">
+                <h5 class="col-sm-5 mx-auto text-left">Lokalizacja:</h5>
+                <h5 class="col-sm-5 mx-auto text-right"> <%=jobOffer.location %></h5>
+            </div>
+            <% } %>
+            <% if (jobOffer.industry) { %>
+                <div class="row">
+                    <h5 class="col-sm-5 mx-auto text-left">Branża:</h5>
+                    <h5 class="col-sm-5 mx-auto text-right"> <%=jobOffer.industry%></h5>
+                </div>
+                <% } %>
+            <% if (jobOffer.expiryDate) { %>
+            <div class="row">
+                <h5 class="col-sm-5 mx-auto text-left">Oferta ważna do:</h5>
+                <h5 class="col-sm-5 mx-auto text-right"> <%=jobOffer.expiryDate.toISOString().split('T')[0]%></h5>
+            </div>
+            <% } %>
             <div class="col-sm-8 mx-auto">
                 <span class="errorMessageText" id="message"></span>
             </div>
-            <a href="/advert/apply/?id=<%= jobOffer.id %>">
+            <a href="/applicant/apply/?id=<%= jobOffer.id %>">
                 <button class="btn">Aplikuj</button>
             </a>
         </div>
