@@ -44,9 +44,9 @@ const addOffer_put = async (req, res) => {
 
     const requirementsArray = requirements.split(';').filter((value) => value != '');
 
-    let mode = await getModeArray(mode0, mode1, mode2);
+    let mode = getModeArray(mode0, mode1, mode2);
     try {
-        const jobOffer = await JobOffer.create({ title, description, mode, salary, requirements : requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
+        await JobOffer.create({ title, description, mode, salary, requirements : requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
         res.sendStatus(201);
     } catch (e) {
