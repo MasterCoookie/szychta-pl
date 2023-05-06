@@ -28,9 +28,11 @@ const showOffers_get = async (req, res) => {
 
 const showOfferDetails_get = async (req, res) => {
     try {
-        console.log(req.query);
-        const jobOffer = await JobOffer.findById(req.query._id);
-        console.log(jobOffer);
+        const jobOffer = await JobOffer.findById(req.query.id);
+        if (!jobOffer) {
+            res.sendStatus(404);
+            return;
+        }
         res.render('jobOffer/show_offer_details', { title: 'Show offer details', jobOffer });
     }
     catch (e) {
