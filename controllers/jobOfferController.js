@@ -67,7 +67,7 @@ const manageOffer_get = async (req, res) => {
         const offer_id = req.query.offer;
         if (offer_id) {
             const offer = (await JobOffer.findById(offer_id)).toObject();
-            res.render('jobOffer/manage_offer', { title: 'Edit offer', offer, user: req.session.employer, scrollable: true });
+            res.render('jobOffer/manage_offer', { title: 'Edit offer', offer, user: req.session.employer, scrollable: true, pickedSkills: offer.requirements.map(skill => skill.toString()) });
         } else {
             res.render('jobOffer/manage_offer', { title: 'Create offer', user: req.session.employer, scrollable: true });
         }
@@ -81,9 +81,13 @@ const modifyOffer_post = async (req, res) => {
     const { title, description, requirements, salary, location, industry, expiryDate, organisation_id, mode0, mode1, mode2, offer_id} = req.body;
     const additionalQuestions = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
     const keywords = req.body.keywords ? JSON.parse(req.body.keywords) : [];
-    let mode = await getModeArray(mode0, mode1, mode2);
+
+
+    const requirementsArray = requirements.split(';').filter((value) => value != '');
+
+    let mode = getModeArray(mode0, mode1, mode2);
     try {
-        const jobOffer = await JobOffer.findByIdAndUpdate(offer_id, { title, description, mode, salary, requirements, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
+        await JobOffer.findByIdAndUpdate(offer_id, { title, description, mode, salary, requirements: requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("Job offer %s modified", title);
         res.sendStatus(201);
     } catch (e) {
