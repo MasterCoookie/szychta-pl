@@ -17,7 +17,7 @@ const getModeArray = (_mode0, _mode1, _mode2) =>{
 const showOffers_get = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find();
-        res.render('jobOffer/show_offers', { title: 'Show offers', jobOffers });
+        res.render('jobOffer/show_offers', { title: 'Show offers', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true  });
         // empty list handled in frontend
     }
     catch (e) {
@@ -64,9 +64,9 @@ const manageOffer_get = async (req, res) => {
         const offer_id = req.query.offer;
         if (offer_id) {
             const offer = (await JobOffer.findById(offer_id)).toObject();
-            res.render('jobOffer/manage_offer', { title: 'Edit offer', offer });
+            res.render('jobOffer/manage_offer', { title: 'Edit offer', offer, user: req.session.employer, scrollable: true });
         } else {
-            res.render('jobOffer/manage_offer', { title: 'Create offer' });
+            res.render('jobOffer/manage_offer', { title: 'Create offer', user: req.session.employer, scrollable: true });
         }
     } catch (e) {
         console.log(e);
