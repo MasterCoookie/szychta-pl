@@ -34,10 +34,12 @@
                            <h5 class="col-sm-5 mx-auto text-left"></h5>
                         <%}%>
                 <% }})} %>
-                <div class = "row">
-                    <h5 class="col-sm-5 mx-auto text-left">Wymagane umiejętności:</h5>
-                    <div class="col-sm-5 mx-auto text-center"> <%- include('../partials/skillsLister.ejs', { skills: locals.skillsNames }) %></div>
-                    </div>
+            <% if (!jobOffer.skills?.length) { %>
+            <div class = "row">
+                <h5 class="col-sm-5 mx-auto text-left">Wymagane umiejętności:</h5>
+                <div class="col-sm-5 mx-auto text-center"> <%- include('../partials/skillsLister.ejs', { skills: locals.skillsNames }) %></div>
+                </div>
+            <% } %>
             <% if (jobOffer.salary) { %>
             <div class="row">
                 <h5 class="col-sm-5 mx-auto text-left">Wynagrodzenie:</h5>

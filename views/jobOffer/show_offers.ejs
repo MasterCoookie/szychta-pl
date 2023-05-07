@@ -1,0 +1,45 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+<div class="container bg-white" style="padding-top: 150px;">
+    <div class="row d-flex align-items-up justify-content-center h-100">
+        <h1 class="col-md-8 mx-auto text-center">Wyszukaj idealną ofertę</h1>
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th scope="col">Stanowisko</th>
+                        <th scope="col">Lokalizacja</th>
+                        <th scope="col">Tryb pracy</th>
+                        <th scope="col">Wynagrodzenie</th>
+                        <th scope="col">Szczegóły</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% jobOffers.forEach((jobOffer, index) => { %>
+                    <tr>
+                        <td><%= jobOffer.title %></td>
+                        <td><%= jobOffer.location %></td>
+                        <td>
+                            <% jobOffer.mode.forEach((mode, index)=> {%>
+                            <% if (mode==0){ %>
+                            Stacjonarny
+                            <% } else if (mode==1){ %>
+                            Hybrydowy
+                            <% } else{ %>
+                            Zdalny
+                            <% }}) %>
+                        </td>
+                        <td><%= jobOffer.salary %></td>
+                        <td>
+                            <a href="/applicant/view?id=<%=jobOffer._id%>" class="btn btn-primary">Szczegóły</a>
+                        </td>
+                    </tr>
+                    <% }) %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
