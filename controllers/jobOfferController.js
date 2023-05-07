@@ -1,5 +1,5 @@
 const JobOffer = require('../models/jobOfferModel');
-
+const Skill = require('../models/skillsModel');
 const getModeArray = (_mode0, _mode1, _mode2) =>{
     let mode = [];
     if (_mode0){
@@ -29,11 +29,15 @@ const showOffers_get = async (req, res) => {
 const showOfferDetails_get = async (req, res) => {
     try {
         const jobOffer = await JobOffer.findById(req.query.id);
+        const requierdSkills = await Skill.find({ _id: { $in: jobOffer.requirements } });
+        // TODO:
+        // get organistaion from id and send it over render
+        console.log(requierdSkills);
         if (!jobOffer) {
             res.sendStatus(404);
             return;
         }
-        res.render('jobOffer/show_offer_details', { title: 'Show offer details', jobOffer, user: req.session.applicant ?? req.session.employer });
+        res.render('jobOffer/show_offer_details', { title: 'Show offer details', jobOffer, user: req.session.applicant ?? req.session.employer, requierdSkills });
     }
     catch (e) {
         console.log(e);

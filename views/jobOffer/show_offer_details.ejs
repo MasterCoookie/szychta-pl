@@ -7,19 +7,32 @@
             <% if (jobOffer.description) { %>
             <h5 class="col-sm-8 mx-auto"><%=jobOffer.description %></h5>
             <% } %>
-            <% if (jobOffer.mode.length>0) { %>
+            <% if (jobOffer.mode) { %> 
             <div class="row">
-                <h5 class="col-sm-5 mx-auto text-left">Tryb pracy:</h5>
-                <% for (let i = 0; i < jobOffer.mode.length; i++) { %>
-                    <% if (jobOffer.mode[i]==0){ %>
+            <h5 class="col-sm-5 mx-auto text-left">Tryb pracy:</h5>
+            <% jobOffer.mode.forEach((mode, index)=> {%>                
+                    <% if (mode==0){ %>
                         <h5 class="col-sm-5 mx-auto text-right">Stacjonarny</h5>
-                    <% } else if (jobOffer.mode[i]==1){ %>
+                        </div>
+                        <% if (index!==jobOffer.mode.length-1){ %>
+                            <div class="row">
+                            <h5 class="col-sm-5 mx-auto text-left"></h5>
+                        <%}%>
+                    <% } else if (mode==1){ %>
                         <h5 class="col-sm-5 mx-auto text-right">Zdalny</h5>
+                        </div>
+                        <% if (index!==jobOffer.mode.length-1){ %>
+                            <div class="row">
+                            <h5 class="col-sm-5 mx-auto text-left"></h5>
+                        <%}%>
                     <% } else{ %>
                         <h5 class="col-sm-5 mx-auto text-right">Hybrydowy</h5>
-                <% }} %>
-            </div>
-            <% } %>
+                        </div>
+                        <% if (index!==jobOffer.mode.length-1){ %>
+                           <div class="row">
+                           <h5 class="col-sm-5 mx-auto text-left"></h5>
+                        <%}%>
+                <% }})} %>
             <% if (jobOffer.salary) { %>
             <div class="row">
                 <h5 class="col-sm-5 mx-auto text-left">Wynagrodzenie:</h5>
