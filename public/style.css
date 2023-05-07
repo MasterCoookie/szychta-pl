@@ -41,3 +41,7 @@ html, body {
     width: 100%;
     z-index: 1;
 }
+
+.skill-listed {
+    cursor: auto;
+}
