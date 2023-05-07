@@ -1,0 +1,5 @@
+<div>
+    <% if(locals.skills) { locals.skills.forEach(skill => {  %>
+        <div class="alert alert-secondary p-2 mx-1 my-2 skill-listed"><%= skill.name %></div>
+    <% }); } %>
+</div>

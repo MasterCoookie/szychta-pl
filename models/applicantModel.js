@@ -39,7 +39,7 @@ const applicantSchema = new mongoose.Schema({
 	},
     phoneNumber: {
         type: String,
-        validate: [isMobilePhone, "Phone number invalid"]
+        // validate: [isMobilePhone, "Phone number invalid"] //couses problems with no phone number in profile
     },
     birthDate: {
         type: Date, 
@@ -55,6 +55,7 @@ const applicantSchema = new mongoose.Schema({
         //   return isUrl(link);  
         // })
     },
+    skills: [mongoose.Schema.Types.ObjectId],
 });
 
 //add your model mehtods here
