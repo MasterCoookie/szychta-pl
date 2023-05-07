@@ -1,4 +1,5 @@
 const Applicant = require('../models/applicantModel');
+const Skill = require('../models/skillsModel');
 const fs = require('fs');
 
 const profile_post = async (req, res) => {
@@ -47,12 +48,13 @@ const profile_get = async (req, res) => {
     try {
         const _id = req.session.applicant._id;
         const applicant = (await Applicant.findById(_id)).toObject();
+        const applicantSkills = (await Skill.find({ _id: { $in: applicant.skills } })).map(skill => skill.name);
         if (!applicant) {
             // not found, return not found
             res.sendStatus(404);
         } else {
             const hasProfilePic = fs.existsSync(`./public/uploads/${_id}/profilePicture.png`);
-            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic, user: req.session.applicant, scrollable: true, pickedSkills: applicant.skills });
+            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic, user: req.session.applicant, scrollable: true, pickedSkills: applicant.skills, skillsNames: applicantSkills });
         }
     }
     catch (e) {
