@@ -2,6 +2,7 @@ const express = require('express');
 const profileController = require('../controllers/profileController');
 const uploadMiddleware = require('../middleware/uploadMiddleware');
 const authMiddleware = require('../middleware/authMiddleware');
+const jobOfferController = require('../controllers/jobOfferController');
 const multer = require('multer');
 
 const router = express.Router();
@@ -38,5 +39,7 @@ router.get('/profile', authMiddleware.require_login, profileController.profile_g
 router.post('/profile', [profilePicUploadMiddleware, authMiddleware.require_login], profileController.profile_post);
 router.delete('/profile/file_delete', authMiddleware.require_login, profileController.file_delete);
 router.get('/profile/docs', authMiddleware.require_login, profileController.docs_get);
+
+router.get('/offers', jobOfferController.showOffers_get);
 
 module.exports = router;
