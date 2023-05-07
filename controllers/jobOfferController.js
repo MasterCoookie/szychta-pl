@@ -29,14 +29,14 @@ const showOffers_get = async (req, res) => {
 const showOfferDetails_get = async (req, res) => {
     try {
         const jobOffer = await JobOffer.findById(req.query.id);
-        const requiredSkills = await Skill.find({ _id: { $in: jobOffer.requirements } });
+        const skillsNames = await Skill.find({ _id: { $in: jobOffer.requirements } });
         // TODO:
         // get organistaion from id and send it over render
         if (!jobOffer) {
             res.sendStatus(404);
             return;
         }
-        res.render('jobOffer/show_offer_details', { title: 'Show offer details', jobOffer, user: req.session.applicant ?? req.session.employer, requiredSkills });
+        res.render('jobOffer/show_offer_details', { title: 'Show offer details', jobOffer, user: req.session.applicant ?? req.session.employer, skillsNames });
     }
     catch (e) {
         console.log(e);
