@@ -48,7 +48,7 @@ const profile_get = async (req, res) => {
     try {
         const _id = req.session.applicant._id;
         const applicant = (await Applicant.findById(_id)).toObject();
-        const applicantSkills = (await Skill.find({ _id: { $in: applicant.skills } })).map(skill => skill.name);
+        const applicantSkills = (await Skill.find({ _id: { $in: applicant.skills } })).map(skill => skill.toObject());
         if (!applicant) {
             // not found, return not found
             res.sendStatus(404);
