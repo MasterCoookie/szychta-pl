@@ -4,14 +4,15 @@ const fs = require('fs');
 const profile_post = async (req, res) => {
     const _id = req.session.applicant._id;
 
-    const { name, surname, email, phoneNumber, birthDate, homeAddress } = req.body;
+    const { name, surname, email, phoneNumber, birthDate, homeAddress, skills } = req.body;
 
     const links = req.body.links ? JSON.parse(req.body.links) : [];
+    const skillsArray = skills.split(';').filter(skill => skill !== '');
 
     try {
         await Applicant.findByIdAndUpdate(
             _id,
-            { name, surname, email, phoneNumber, birthDate, homeAddress, links },
+            { name, surname, email, phoneNumber, birthDate, homeAddress, links, skills: skillsArray },
             { runValidators: true }
         );
 
@@ -51,7 +52,7 @@ const profile_get = async (req, res) => {
             res.sendStatus(404);
         } else {
             const hasProfilePic = fs.existsSync(`./public/uploads/${_id}/profilePicture.png`);
-            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic, user: req.session.applicant, scrollable: true });
+            res.render('profile/applicantProfile', { title: 'Your Profile', applicant, hasProfilePic, user: req.session.applicant, scrollable: true, pickedSkills: applicant.skills });
         }
     }
     catch (e) {
