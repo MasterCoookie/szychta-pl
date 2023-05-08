@@ -1,4 +1,4 @@
-function initializeModifyStageSubmitListener (offer_id){
+function initializeModifyStageSubmitListener (id, typeOfId){
     const form = document.getElementById('statusForm');
     const submitButton = document.getElementById('submitBtn');
 
@@ -6,26 +6,17 @@ function initializeModifyStageSubmitListener (offer_id){
         event.preventDefault();
         const request = new XMLHttpRequest();
         const formData = new FormData(form);
-        const keywordsArrayInputs = Array.from(document.getElementsByClassName('keywords-array-input'));
-        const keywordsArrayValues = JSON.stringify(keywordsArrayInputs.map(input => input.value));
-        formData.append('keywords', keywordsArrayValues);
-
-        const skillsArrayInput = document.getElementById('pickedSkills');
-        formData.append('requirements', skillsArrayInput.value);
-
-        const addQuestionsArrayInputs = Array.from(document.getElementsByClassName('additionalQuestions-array-input'));
-        const addQuestionsArrayValues = JSON.stringify(addQuestionsArrayInputs.map(input => input.value));
-        formData.append('additionalQuestions', addQuestionsArrayValues);
         request.onload = () => {
-            console.log(request.response);
+            console.log(request.response); // debug
         }
-        if (offer_id){
-            formData.append('offer_id', offer_id);
+        if (typeOfId == 's'){
+            formData.append('stage_id', id);
             console.log(formData); //debug
-            request.open('post', '/employer/modify_offer');
-        } else {
+            request.open('post', '/employer/modify_stage');
+        } else if (typeOfId == 'a'){
+            formData.append('application_id', id);
             console.log(formData); //debug
-            request.open('put', '/employer/add_offer');
+            request.open('put', '/employer/add_stage');
         }
         request.send(formData);
     });
