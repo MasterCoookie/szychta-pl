@@ -42,9 +42,9 @@
     <% var stage_id = locals.stage ? stage._id : null;%>
     <% var application_id = locals.application ? application._id : null;%>
     import { initializeModifyStageSubmitListener } from '/js/modifyStage.js';
-    if (<%=stage_id == null%>){
+    if (<%=stage_id != null%>){
         initializeModifyStageSubmitListener("<%=stage_id%>", 's');
-    } else if (<%=application_id == null%>){
+    } else if (<%=application_id != null%>){
         initializeModifyStageSubmitListener("<%=application_id%>", 'a');
     }
     
