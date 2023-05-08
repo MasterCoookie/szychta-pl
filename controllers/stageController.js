@@ -11,6 +11,7 @@ const manageStage_get = async (req, res) => {
         const stage_id = req.query.stage; // else modify existing
         if (application_id) {
             const application = (await Application.findById(application_id)).toObject();
+            //todo: add previous stage closing
             res.render('stage/manage_stage', { title: 'Dodaj etap rekrutacji', application, user: req.session.employer});
         } else if (stage_id) {
             const stage = (await Stage.findById(stage_id)).toObject();
