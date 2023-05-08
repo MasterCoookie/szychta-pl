@@ -13,14 +13,14 @@ const manageStage_get = async (req, res) => {
             const application = (await Application.findById(application_id)).toObject();
             if (application) {
                 //todo: add previous stage closing
-                res.render('stage/manage_stage', { title: 'Dodaj etap rekrutacji', application, user: req.session.employer});
+                res.render('stage/manage_stage', { title: 'Dodaj etap rekrutacji', application, user: req.session.employer, scrollable: true});
             } else {
                 res.sendStatus(404);
             }
         } else if (stage_id) {
             const stage = (await Stage.findById(stage_id)).toObject();
             if (stage) {
-                res.render('stage/manage_stage', { title: 'Modyfikuj etap rekrutacji', stage, user: req.session.employer});
+                res.render('stage/manage_stage', { title: 'Modyfikuj etap rekrutacji', stage, user: req.session.employer, scrollable: true});
             } else {
                 res.sendStatus(404);
             }
