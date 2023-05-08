@@ -17,7 +17,7 @@ const getModeArray = (_mode0, _mode1, _mode2) =>{
 const showOffers_get = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find();
-        res.render('jobOffer/show_offers', { title: 'Show offers', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true  });
+        res.render('jobOffer/show_offers', { title: 'Pokaż oferty', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true  });
         // empty list handled in frontend
     }
     catch (e) {
@@ -39,7 +39,7 @@ const showOfferDetails_get = async (req, res) => {
         }
         // TODO:
         // get organistaion from id and send it over render
-        res.render('jobOffer/show_offer_details', { title: 'Show offer details', jobOffer, user: req.session.applicant ?? req.session.employer, skillsNames });
+        res.render('jobOffer/show_offer_details', { title: 'Pokaż szczegóły oferty', jobOffer, user: req.session.applicant ?? req.session.employer, skillsNames });
     }
     catch (e) {
         console.log(e);
@@ -77,9 +77,9 @@ const manageOffer_get = async (req, res) => {
         const offer_id = req.query.offer;
         if (offer_id) {
             const offer = (await JobOffer.findById(offer_id)).toObject();
-            res.render('jobOffer/manage_offer', { title: 'Edit offer', offer, user: req.session.employer, scrollable: true, pickedSkills: offer.requirements.map(skill => skill.toString()) });
+            res.render('jobOffer/manage_offer', { title: 'Edycja oferty pracy', offer, user: req.session.employer, scrollable: true, pickedSkills: offer.requirements.map(skill => skill.toString()) });
         } else {
-            res.render('jobOffer/manage_offer', { title: 'Create offer', user: req.session.employer, scrollable: true });
+            res.render('jobOffer/manage_offer', { title: 'Tworzenie oferty pracy', user: req.session.employer, scrollable: true });
         }
     } catch (e) {
         console.log(e);
