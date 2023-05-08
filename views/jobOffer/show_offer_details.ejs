@@ -34,7 +34,7 @@
                            <h5 class="col-sm-5 mx-auto text-left"></h5>
                         <%}%>
                 <% }})} %>
-            <% if (!jobOffer.skills?.length) { %>
+            <% if (locals.skillsNames && locals.skillsNames.length) { %>
             <div class = "row">
                 <h5 class="col-sm-5 mx-auto text-left">Wymagane umiejętności:</h5>
                 <div class="col-sm-5 mx-auto text-center"> <%- include('../partials/skillsLister.ejs', { skills: locals.skillsNames }) %></div>

@@ -33,8 +33,8 @@ const showOfferDetails_get = async (req, res) => {
             res.sendStatus(404);
             return;
         }
-        const skillsNames = [];
-        if (jobOffer.skills) {
+        let skillsNames = [];
+        if (jobOffer.requirements) {
             skillsNames = await Skill.find({ _id: { $in: jobOffer.requirements } });
         }
         // TODO:
