@@ -5,7 +5,7 @@
     <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 mx-auto text-center bg-white p-3">
             <h1 class="textTitle">Edycja statusu aplikacji</h1>
-            <form class="form-horizontal" id="offerForm">
+            <form class="form-horizontal" id="statusForm">
                 <div class="form-group">
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="name">Nazwa etapu:</label>
                     <div class="col-sm-8 mx-auto">
@@ -45,7 +45,7 @@
     if (<%=stage_id == null%>){
         initializeModifyStageSubmitListener("<%=stage_id%>", 's');
     } else if (<%=application_id == null%>){
-        initializeModifyStageSubmitListener("<%=application_id%>", 's');
+        initializeModifyStageSubmitListener("<%=application_id%>", 'a');
     }
     
 </script>
