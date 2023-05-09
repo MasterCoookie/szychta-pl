@@ -1,0 +1,20 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+
+<div class="container h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100 text-center mx-auto">Aplikacje na stanowisko: <%= jobOffer.title %></div>
+    <% applications.forEach( application => { %>
+        <div>
+            <div>Godność: <%= applicantsWithId[application.applicant_id].name %> <%= applicantsWithId[application.applicant_id].surname %></div>
+            <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+            <div>Załączone dokumenty: <% application.relativeDocuments.forEach( document => { %>
+                    <%= document %>
+                <% }
+            ) %>
+            ) %></div>
+        </div>
+    <% }); %>
+</div>
+
+<%- include('../partials/footer.ejs') %>
