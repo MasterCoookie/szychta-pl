@@ -21,10 +21,8 @@ function initializeModifyOfferSubmitListener (offer_id){
         }
         if (offer_id){
             formData.append('offer_id', offer_id);
-            console.log(formData); //debug
             request.open('post', '/employer/modify_offer');
         } else {
-            console.log(formData); //debug
             request.open('put', '/employer/add_offer');
         }
         request.send(formData);
