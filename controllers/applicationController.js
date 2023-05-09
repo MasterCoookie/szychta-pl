@@ -27,7 +27,7 @@ const applicationsView_get = async (req, res) => {
             return acc;
         }
         const applicantsWithId = await getApplicantNames();  
-        res.render('applications/show_applications', { title: 'Wyświetl aplikacje', jobOffer, applications, applicantsWithId, user: req.session.applicant ?? req.session.employer, scrollable: true});
+        res.render('applications/show_applications', { title: 'Wyświetlanie aplikacji', jobOffer, applications, applicantsWithId, user: req.session.applicant ?? req.session.employer, scrollable: true});
     }
     catch (err) {
         console.log(err);
@@ -47,7 +47,7 @@ const applicationView_get = async (req, res) => {
         if (application.relativeSkills) {
             skillNames = await Skill.find({ _id: { $in: application.relativeSkills } });
         }
-        res.render('applications/show_application_details', { title: 'Pokaż aplikację', application, jobOffer, applicant, skillNames, user: req.session.applicant ?? req.session.employer, scrollable: true});
+        res.render('applications/show_application_details', { title: 'Zarządzanie aplikacją', application, jobOffer, applicant, skillNames, user: req.session.applicant ?? req.session.employer, scrollable: true});
     }
     catch(err) {
         console.log(err);
@@ -55,7 +55,7 @@ const applicationView_get = async (req, res) => {
     }
 }
 
-const show_applicant_applications = async (req, res) => {
+const show_applicant_applications_get = async (req, res) => {
     try {
         const applications = await Application.find({ applicant_id: req.session.applicant._id });
         const getJobOffers = async () => {
@@ -75,7 +75,7 @@ const show_applicant_applications = async (req, res) => {
         if(!applications || !jobOffersWithId) {
             res.sendStatus(404);
         }
-        res.render('applications/show_applicant_applications', { title: 'Wyświetl swoje aplikacje', applications, jobOffersWithId, user: req.session.applicant, scrollable: true});
+        res.render('applications/show_applicant_applications', { title: 'Wyświetlanie swoich aplikacji', applications, jobOffersWithId, user: req.session.applicant, scrollable: true});
     }
     catch(err) {
         console.log(err);
@@ -88,5 +88,5 @@ const show_applicant_applications = async (req, res) => {
 module.exports = {
     applicationsView_get,
     applicationView_get,
-    show_applicant_applications
+    show_applicant_applications_get
 }
