@@ -1,0 +1,18 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+<div class='container'>
+    <div>
+        <% applications.forEach( application => { %>
+            <div class='flex-item text-center'>
+            <div><%= jobOffersWithId[application.jobOffer_id].title %></div>
+            <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+            <div>Status aplikacji: <%= application.status %></div>
+            <!--TODO display organization but at the moment there is no organization model-->
+            </div>
+            <br>
+        <% }) %>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
