@@ -46,7 +46,6 @@ const applicationView_get = async (req, res) => {
         let skillNames = [];
         if (application.relativeSkills) {
             skillNames = await Skill.find({ _id: { $in: application.relativeSkills } });
-            console.log(skillNames);
         }
         res.render('applications/show_application_details', { title: 'Pokaż aplikację', application, jobOffer, applicant, skillNames, user: req.session.applicant ?? req.session.employer, scrollable: true});
     }

@@ -11,7 +11,7 @@
             <a href="/employer/show_application/?_id=<%=application._id%>" style="color:white">
                     <div>Godność: <%= applicantsWithId[application.applicant_id].name %> <%= applicantsWithId[application.applicant_id].surname %></div>
                     <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
-                    <% if(application.relativeDocuments.length > 0) { %>
+                    <% if(application.relativeDocuments) { %>
                         <div>Załączone dokumenty: <% application.relativeDocuments.forEach( document => { %>
                             <%= document %>
                         </div>
