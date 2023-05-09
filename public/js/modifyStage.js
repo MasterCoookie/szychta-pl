@@ -9,6 +9,8 @@ function initializeModifyStageSubmitListener (id, typeOfId){
         request.onload = () => {
             console.log(request.response); // debug
         }
+        const currentDate = new Date().toJSON().slice(0, 10);
+        formData.append('currentDate', currentDate);
         if (typeOfId == 's'){
             formData.append('stage_id', id);
             console.log(formData); //debug
@@ -16,7 +18,7 @@ function initializeModifyStageSubmitListener (id, typeOfId){
         } else if (typeOfId == 'a'){
             formData.append('application_id', id);
             console.log(formData); //debug
-            request.open('put', '/employer/add_stage');
+            request.open('post', '/employer/add_stage');
         }
         request.send(formData);
     });
