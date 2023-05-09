@@ -4,11 +4,23 @@
 <div class='container'>
     <div class='text-center'>Aplikacja na stanowisko: <%= jobOffer.title %></div>
     <div>
-        <div>
             <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
             <div>Godność: <%= applicant.name %> <%= applicant.surname %></div>
             <div>Email: <%= applicant.email %></div>
-        </div>
+            <div>Numer telefonu: <%= applicant.phoneNumber %></div>
+            <div>Adres: <%= applicant.address %></div>
+            <div>Data urodzenia: <%= applicant.birthDate.toString().slice(0, 15) %></div>
+            <% if(application.relativeDocuments.length > 0) { %>
+                <div>Załączone dokumenty: <% application.relativeDocuments.forEach( document => { %>
+                    <%= document %>
+                </div>
+            <% })}%>
+            <% if(applicant.links.length > 0) { %>
+                <div>Załączone linki:</div>
+                <% applicant.links.forEach( link => { %>
+                    <a href="<%=link%>"><%= link %></a>
+            <% })}%>
+            
     </div>
 </div>
 
