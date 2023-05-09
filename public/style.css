@@ -52,9 +52,9 @@ html, body {
 
 .nameAndSurname {
     border: none;
-    font-weight: bold;
     font-size: x-large;
     text-align: left;
+    padding-left: 0px;
 }
 
 .links-array-input {
@@ -63,6 +63,7 @@ html, body {
 
 .profileInputTextbox {
     border: none;
+    padding-left: 0px;
 }
 
 .contactDataDiv {
@@ -81,4 +82,8 @@ html, body {
     color: black;
     background-color: white;
     text-align: left;
+}
+
+.noPaddingLeft {
+    padding-left: 0px;
 }
