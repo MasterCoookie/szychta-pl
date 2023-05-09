@@ -23,7 +23,6 @@ const stageSchema = new mongoose.Schema({
     },
     status: {
 		type: Number, // 0 - not processed, 1 - in progress, 2 - returned, 3 - accepted, 4 - rejected
-		default: 0,
         min: [0, "Invalid status code"],
         max: [4, "Invalid status code"]
 	},
