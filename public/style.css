@@ -20,7 +20,7 @@ html, body {
 .form-control {
     border-radius: 25px !important;
 }
-  
+
 #skillsComponent {
     height: 370px;
     width: 370px;
@@ -44,4 +44,8 @@ html, body {
 
 .skill-listed {
     cursor: auto;
+}
+
+.container {
+    padding-top: 2em;
 }
