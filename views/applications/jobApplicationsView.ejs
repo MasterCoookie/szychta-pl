@@ -1,0 +1,26 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+
+<div class="container" style="background-color: white" >
+    <h3 class="d-flex justify-content-center flex-column text-center w-100">Aplikacje na stanowisko: <%= jobOffer.title %></h3>
+    <br>
+    <div>
+        <% applications.forEach( application => { %>
+        <div class="flex-item text-center" style="background-color: #445766">
+            <a href="/employer/show_application/?_id=<%=application._id%>" style="color:white">
+                    <div>Godność: <%= applicantsWithId[application.applicant_id].name %> <%= applicantsWithId[application.applicant_id].surname %></div>
+                    <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+                    <% if(application.relativeDocuments.length > 0) { %>
+                        <div>Załączone dokumenty: <% application.relativeDocuments.forEach( document => { %>
+                            <%= document %>
+                        </div>
+                    <% })}%>
+            </a>
+        </div>
+        <br>
+        <% }); %>
+    </div>
+</div>
+
+<%- include('../partials/footer.ejs') %>
