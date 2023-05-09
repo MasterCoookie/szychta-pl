@@ -45,3 +45,36 @@ html, body {
 .skill-listed {
     cursor: auto;
 }
+
+.nameAndSurname {
+    border: none;
+    font-weight: bold;
+    font-size: x-large;
+    text-align: left;
+}
+
+.links-array-input {
+    border: none;
+}
+
+.profileInputTextbox {
+    border: none;
+}
+
+.contactDataDiv {
+    text-align: left;
+}
+
+.profileIntersec {
+    color: white;
+    background-color: #445766;
+    text-align: left;
+    margin-left: 50;
+}
+
+.longprofileBtn {
+    border: none;
+    color: black;
+    background-color: white;
+    text-align: left;
+}
