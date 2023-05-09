@@ -3,12 +3,12 @@
 
 <div class="container h-100" style="padding-top: 50px;">
     <div class="row d-flex align-items-up justify-content-center h-100">
-        <div class="col-lg-11 mx-auto text-center bg-white p-3">
+        <div class="col-md-11 mx-auto text-center bg-white p-3">
             <h3>Opowiedz nam więcej o sobie</h3>
             <form class="form-horizontal" id="profileForm">
                 <div class="form-group">
                     <div class="row">
-                        <div class="col-lg-5">
+                        <div class="col-md-5">
                             <div id="saveResult"></div>
                             <img
                             <% if(hasProfilePic) { %>
@@ -16,40 +16,45 @@
                             <% } else { %>
                                 src="img/blank-profile-picture-973460_1280.webp"
                             <% } %>
-                            alt="Profile Picture" class="col-lg-5" id="profilePicturePreview" />
-                            <div class="col-lg-5">
+                            alt="Profile Picture" class="col-sm-10" id="profilePicturePreview" />
+                            <div>
                                 <input type="file" name="profilePicture" id="profilePicture" />
                                 <button class="btn" type="button" id="clearProfilePictureButton">x</button>
                             </div>
                         </div>
                         
-                        <div class="col-lg-6">
-                            <div class="col-sm-10">
-                                <input type="text" name="name" id="name" class="nameAndSurname" value="<%= applicant.name %>" />
-                            </div>
+                        <div class="col-md-6">
+                            <br>
+                            <div>
+                                <div class="noPaddingLeft col-md-6">
+                                    <input type="text" name="name" id="name" class="nameAndSurname" value="<%= applicant.name %>" />
+                                </div>
 
-                            <div class="col-sm-10">
-                                <input type="text" name="surname" id="surname" class="nameAndSurname" value="<%= applicant.surname %>" />
-                            </div>
+                                <div class="noPaddingLeft col-md-6">
+                                    <input type="text" name="surname" id="surname" class="nameAndSurname" value="<%= applicant.surname %>" />
+                                </div>
 
-                            <div class="col-sm-10">
-                                <input type="text" name="homeAddress" id="homeAddress" class="profileInputTextbox" value="<%= applicant.homeAddress %>" />
+                                <div class="noPaddingLeft col-md-6">
+                                    <input type="text" name="homeAddress" id="homeAddress" class="profileInputTextbox" value="<%= applicant.homeAddress %>" />
+                                </div>
                             </div>
+                            <br>
 
                             <div class="profileIntersec col-sm-12">
                                 <p>Dane kontaktowe</p>
                             </div>
+                            
 
-                            <div class="contactDataDiv">
-                                <label class="control-label col-sm-12 pt-2 pb-1 m-0 shadow"  for="email">E-mail:
+                            <div class="contactDataDiv shadow">
+                                <label class="control-label col-sm-12 pt-2 pb-1 m-0"  for="email">E-mail: 
                                     <input type="email" name="email" id="email" class="profileInputTextbox" value="<%= applicant.email %>" /></label>
                             </div>
-                            <div class="contactDataDiv">
-                                <label class="control-label col-sm-12 pt-2 pb-1 m-0 shadow" for="number">Telefon:
+                            <div class="contactDataDiv shadow">
+                                <label class="control-label col-sm-12 pt-2 pb-1 m-0" for="number">Telefon: 
                                     <input type="tel" name="phoneNumber" id="number" class="profileInputTextbox" value="<%= applicant.phoneNumber %>" /></label>
                             </div>
-                            <div class="contactDataDiv">
-                                <label class="control-label col-sm-12 pt-2 pb-1 m-0 shadow" for="birthdate">Ur:                                                          
+                            <div class="contactDataDiv shadow">
+                                <label class="control-label col-sm-12 pt-2 pb-1 m-0" for="birthdate">Ur:                                                          
                                     <input type="date" name="birthDate" id="birthdate" class="profileInputTextbox" <% if(applicant.birthDate != null) {%> value="<%= applicant.birthDate.toISOString().split('T')[0] %>"  <% } %>/></label>
                             </div>
                         </div>
@@ -57,23 +62,30 @@
 
                     <br>
 
-                    <div class="profileIntersec col-lg-11">
+                    <div class="profileIntersec col-md-11">
                         <label class="control-label col-sm-2" for="links">Załączniki:</label>
                     </div>
                     <!-- prefix: "links" -->
-                    <div class="col-lg-11" id="links-inputArray">
+                    <div class="col-md-11" id="links-inputArray">
                         <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
                         <% if(applicant.links != null) { for(let i = 0; i < applicant.links.length; i++) { %>
                             <input value="<%= applicant.links[i] %>" class="links-array-input" type="text" id="links-input<%= i %>" />
                             <button type="button" class="links-array-remove" id="links-<%= i %>">x</button>
                         <% }} %>
-                        <div class="col-lg-11">
-                            <button class="longprofileBtn shadow" id="links-arrayAdd">+ dodaj załącznik</button>
+                        <div class="col-md-11 shadow">
+                            <button class="longprofileBtn col-md-11 pt-2 pb-1 m-0" id="links-arrayAdd">+ dodaj załącznik</button>
                         </div>
                     </div>
 
-                    <label class="control-label col-sm-2" for="skillsSearchBar">Umiejętności:</label>
+                    <br>
+
+                    <div class="profileIntersec col-md-11">
+                        <label class="control-label col-sm-2" for="skillsSearchBar">Umiejętności:</label>
+                    </div>
+
                     <%- include('../partials/skillsComponent.ejs', {ableToCreate: false, pickedSkills: locals.pickedSkills}) %>
+
+
                     <div class="profileIntersec col-lg-11">
                         <p>Twoje Umiejętności:</p>
                     </div>
@@ -81,25 +93,25 @@
 
                 </div>
                 <div class="form-group">        
-                    <div class="col-sm-offset-2 col-sm-10 ">
-                        <input type="submit" id="saveProfileBtn" value="zapisz" class="btn btn-default" />
+                    <div class="col-md-11 ">
+                        <input type="submit" id="saveProfileBtn" value="zapisz" class="btn col-md-11" />
                     </div>
                 </div>
             </form>
             <form>
-                <div class="profileIntersec col-lg-11">
+                <div class="profileIntersec col-md-11">
                     <p>Twoje Pliki</p>
                 </div>
                 <div id="files">
                     <% if(applicant.uploadedDocuments != null) { for(let i = 0; i < applicant.uploadedDocuments.length; i++) { %>
                         <div id="file<%= i %>">
-                            <span id="filename<%= i %>"><%= applicant.uploadedDocuments[i] %></span>
+                            <span  class="col-md-11 shadow" id="filename<%= i %>"><%= applicant.uploadedDocuments[i] %></span>
                             <button type="button" class="file-remove" id="buttonFile-<%= i %>">x</button>
                         </div>
                     <% }} %>
                 </div>   
-                <div class="col-lg-11 shadow">
-                    <input class="longprofileBtn" type="button" id="loadFileXml" value="Dodaj Plik" onclick="document.getElementById('addfile').click();" />
+                <div class="col-md-11">
+                    <input class="longprofileBtn shadow col-md-11" type="button" id="loadFileXml" value="Dodaj Plik" onclick="document.getElementById('addfile').click();" />
                     <input type="file" style=display:none id="addfile" name="file"/>
                 </div>
             </form>
