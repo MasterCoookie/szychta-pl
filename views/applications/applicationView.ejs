@@ -1,0 +1,16 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+<div class='container'>
+    <div class='text-center'>Aplikacja na stanowisko: <%= jobOffer.title %></div>
+    <div>
+        <div>
+            <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+            <div>Godność: <%= applicant.name %> <%= applicant.surname %></div>
+            <div>Email: <%= applicant.email %></div>
+        </div>
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs') %>
