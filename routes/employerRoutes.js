@@ -18,8 +18,8 @@ router.post('/modify_offer', upload.none(), jobOfferController.modifyOffer_post)
 router.delete('/delete_offer', upload.none(), jobOfferController.offer_delete);
 
 //application related routes
-router.get('/show_applications', applicationController.applicationsView_get);
-router.get('/show_application', applicationController.applicationView_get);
+router.get('/show_applications', authMiddleware.require_login ,applicationController.applicationsView_get);
+router.get('/show_application', authMiddleware.require_login ,applicationController.applicationView_get);
 
 //stage related routes
 router.get('/manage_stage', stageController.manageStage_get);
