@@ -23,7 +23,7 @@ router.get('/show_application', applicationController.applicationView_get);
 
 //stage related routes
 router.get('/manage_stage', stageController.manageStage_get);
-router.put('/add_stage', upload.none(), stageController.addStage_put);
+router.post('/add_stage', upload.none(), stageController.addStage_post);
 router.post('/modify_stage', upload.none(), stageController.modifyStage_post);
 
 //employer related routes

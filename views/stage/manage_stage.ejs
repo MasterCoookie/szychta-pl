@@ -1,8 +1,52 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
 
-<!--
-    to create in another issue
--->
+<div class="container h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 mx-auto text-center bg-white p-3">
+            <h1 class="textTitle">Edycja statusu aplikacji</h1>
+            <form class="form-horizontal" id="statusForm">
+                <div class="form-group">
+                    <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="name">Nazwa etapu:</label>
+                    <div class="col-sm-8 mx-auto">
+                        <input type="text" name="name" id="name" value="<% if(locals.stage && stage.name != null) {%><%= stage.name %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
+                    </div>
+                    <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="description">Opis / komentarz:</label>
+                    <div class="col-sm-8 mx-auto">
+                        <textarea id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.stage && stage.description != null) {%><%= stage.description %><% } %></textarea><br/>
+                    </div>
 
+                    <label class="control-label col-sm-8 pt-2 pb-1 m-0">Status:</label>
+                    <div class="col-sm-8 mx-auto form-check">
+                        <input type="radio" id="status0" name="status" value="0" class="form-check-input" <% if(locals.stage && stage.status == 0 || !locals.stage) {%>checked=""<% } %>>
+                        <label for="status0" class="form-check-label"> Nie rozpatrzony</label><br/>
+                        <input type="radio" id="status1" name="status" value="1" class="form-check-input" <% if(locals.stage && stage.status == 1) {%>checked=""<% } %>>
+                        <label for="status1" class="form-check-label"> W trakcie rozpatrywania </label><br/>
+                        <input type="radio" id="status2" name="status" value="2" class="form-check-input" <% if(locals.stage && stage.status == 2) {%>checked=""<% } %>>
+                        <label for="status2" class="form-check-label"> Zwrócony </label><br/>
+                        <input type="radio" id="status3" name="status" value="3" class="form-check-input" <% if(locals.stage && stage.status == 3) {%>checked=""<% } %>>
+                        <label for="status3" class="form-check-label"> Zaakceptowany </label><br/>
+                        <input type="radio" id="status4" name="status" value="4" class="form-check-input" <% if(locals.stage && stage.status == 4) {%>checked=""<% } %>>
+                        <label for="status4" class="form-check-label"> Odrzucony </label><br/>
+                        <br/>                
+                    </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-12">
+                    <button type="submit" class="btn" id="submitBtn">Opublikuj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script type="module">
+    <% var stage_id = locals.stage ? stage._id : null;%>
+    <% var application_id = locals.application ? application._id : null;%>
+    import { initializeModifyStageSubmitListener } from '/js/modifyStage.js';
+    if (<%=stage_id != null%>){
+        initializeModifyStageSubmitListener("<%=stage_id%>", 's');
+    } else if (<%=application_id != null%>){
+        initializeModifyStageSubmitListener("<%=application_id%>", 'a');
+    }
+    
+</script>
 <%- include('../partials/footer.ejs') %>
