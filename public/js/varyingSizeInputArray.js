@@ -1,7 +1,7 @@
 function initializeVaryingSizeInputArray(prefix, startingLength, maxNumberOfElements) {
     window.addEventListener('load', function () {
 
-        const getInputTemplate = (index) => '<input class="' + prefix + '-array-input" type="text" id="' + prefix + 'input' + index + '" /><button type="button" class="' + prefix + '-array-remove btn btn-decolored" id="' + prefix + '-' + index + '">x</button>';
+        const getInputTemplate = (index) => '<input class="' + prefix + '-array-input col-lg-11" type="text" id="' + prefix + 'input' + index + '" /><button type="button" class="' + prefix + '-array-remove btn btn-decolored" id="' + prefix + '-' + index + '">x</button>';
         const inputArrayDOMElement = document.getElementById(prefix + '-inputArray');
         let arrayAddDOMElement = document.getElementById(prefix + '-arrayAdd');
         let currentIndex = startingLength;
