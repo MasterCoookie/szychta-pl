@@ -7,8 +7,7 @@ const addStage_post = async (req, res) => { //not put because of possibly updati
     try {
         const lastStage = await Stage.findOne({application_id: application_id}).sort({index:-1})
         if (lastStage){
-            console.log(lastStage);
-            await Stage.findOneAndUpdate(lastStage._id, {$set: {status: 3, lastChange: currentDate}}); // set previous stage as closed (accepted)
+            await Stage.updateOne({_id: lastStage._id}, {status: 3, lastChange: currentDate}); // set previous stage as closed (accepted)
             index = lastStage.index + 1;
         } else {
             index = 1;
@@ -17,7 +16,6 @@ const addStage_post = async (req, res) => { //not put because of possibly updati
         console.log("New stage %s created", name);
         res.sendStatus(201);
     } catch (e) {
-        console.log(e);
         let errors = [];
         if (e.errors) {
             Object.values(e.errors).forEach(({ properties }) => {

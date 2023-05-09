@@ -13,7 +13,7 @@
                     </div>
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="description">Opis / komentarz:</label>
                     <div class="col-sm-8 mx-auto">
-                        <textarea id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.offer && offer.description != null) {%><%= offer.description %><% } %></textarea><br/>
+                        <textarea id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.stage && stage.description != null) {%><%= stage.description %><% } %></textarea><br/>
                     </div>
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0">Status:</label>
@@ -24,9 +24,9 @@
                         <label for="status1" class="form-check-label"> W trakcie rozpatrywania </label><br/>
                         <input type="radio" id="status2" name="status" value="2" class="form-check-input" <% if(locals.stage && stage.status == 2) {%>checked=""<% } %>>
                         <label for="status2" class="form-check-label"> Zwrócony </label><br/>
-                        <input type="radio" id="status3" name="status" value="3" class="form-check-input" <% if(locals.stage && stage.status == 2) {%>checked=""<% } %>>
+                        <input type="radio" id="status3" name="status" value="3" class="form-check-input" <% if(locals.stage && stage.status == 3) {%>checked=""<% } %>>
                         <label for="status3" class="form-check-label"> Zaakceptowany </label><br/>
-                        <input type="radio" id="status4" name="status" value="4" class="form-check-input" <% if(locals.stage && stage.status == 2) {%>checked=""<% } %>>
+                        <input type="radio" id="status4" name="status" value="4" class="form-check-input" <% if(locals.stage && stage.status == 4) {%>checked=""<% } %>>
                         <label for="status4" class="form-check-label"> Odrzucony </label><br/>
                         <br/>                
                     </div>
