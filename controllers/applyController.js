@@ -27,8 +27,11 @@ const showApplyingForm = async (req, res) => {
 
 const apply_post = async(req, res)=>{
     const { email, phoneNumber, homeAddress, jobOffer_id, applicationDate } = req.body;
-    let { relativeDocuments } = req.body;
+    //let { relativeDocuments } = req.body;
+    let relativeDocuments = req.body.relativeDocuments ? req.body.relativeDocuments : [];
+    if(relativeDocuments.length != 0) {
     relativeDocuments = relativeDocuments.split(',');
+    }
     const questionAnswers = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
     const relativeSkills = req.body.keywords ? JSON.parse(req.body.keywords) : [];
     const applicant_id = req.session.applicant._id;
