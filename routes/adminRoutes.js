@@ -9,14 +9,14 @@ const upload = multer();
 router.put('/add_organisation', upload.none(), adminController.addOrganisation_put);
 router.post('/modify_organisation', adminController.modifyOrganistation_post);
 router.get('/manage_organisation', adminController.manageOrganisation_get);
-router.delete('/delete_organisation', upload.none(), adminController.organisation_delete);
+router.post('/delete_organisation', adminController.delete_organisation_post);
 
 router.put('/add_employer', upload.none(), adminController.addEmployer_put);
 router.post('/modify_employer', adminController.modifyEmployer_post);
 router.get('/manage_employer', adminController.manageEmployer_get);
-router.delete('/delete_employer', upload.none(), adminController.employer_delete);
+router.post('/delete_employer', upload.none(), adminController.employer_delete);
 
 router.get('/adminPanel',authMiddleware.require_login, adminController.panel_get);
-
+router.get('/show_organisations', adminController.show_organisations);
 
 module.exports = router;

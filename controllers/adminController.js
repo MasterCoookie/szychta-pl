@@ -3,7 +3,7 @@ const Organisation = require('../models/organisationModel');
 // Should this be splitted into employerController and organisationController?
 const manageEmployer_get = async (req, res) => {
     try {
-        const employer_id = req.query.org;
+        const employer_id = req.query._id;
         const all_organisations = (await Organisation.find({})).map(org => org.toObject());
         if (employer_id) {
             const employer = (await Employer.findById(employer_id)).toObject();
@@ -28,7 +28,7 @@ const manageEmployer_get = async (req, res) => {
 }
 const manageOrganisation_get = async (req, res) => {
     try {
-        const organisation_id = req.query.org;
+        const organisation_id = req.query._id;
         if (organisation_id) {
             const organisation = (await Organisation.findById(organisation_id)).toObject();
             res.render('organisation/manage_organisation', { title: 'Edycja organizacji', organisation: organisation, user: req.session.employer, scrollable: true });
@@ -125,18 +125,20 @@ const employer_delete = async (req, res) => {
     const { _id } = req.body;
     try {
         await Employer.init();
-        await Employer.deleteOne({ _id });
+        await Employer.findByIdAndDelete(_id);
+        res.sendStatus(200);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
     }
 }
 
-const organisation_delete = async (req, res) => {
+const delete_organisation_post = async (req, res) => {
     const { _id } = req.body;
     try {
         await Organisation.init();
-        await Organisation.deleteOne({ _id });
+        await Organisation.findByIdAndDelete(_id);
+        res.sendStatus(200);
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
@@ -151,6 +153,16 @@ const panel_get = async (req, res) => {
         res.redirect('/');
     }
 }
+
+const show_organisations = async (req, res) => {
+    try {
+        const organisations = (await Organisation.find({})).map(org => org.toObject());
+        res.render('admin/show_organisations', { title: 'Organizacje', organisations, user: req.session.employer });
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
 module.exports = {
     manageEmployer_get,
     addEmployer_put,
@@ -159,6 +171,7 @@ module.exports = {
     manageOrganisation_get,
     addOrganisation_put,
     modifyOrganistation_post,
-    organisation_delete,
-    panel_get
+    delete_organisation_post,
+    panel_get,
+    show_organisations
 }
