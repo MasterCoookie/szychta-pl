@@ -84,3 +84,8 @@ html, body {
     padding-left: 0px;
     padding-right: 50px;
 }
+
+.tableHeader {
+    color: white;
+    background-color: #445766;
+}

@@ -57,7 +57,15 @@ const applicationView_get = async (req, res) => {
 
 const show_applicant_applications_get = async (req, res) => {
     try {
-        const applications = await Application.find({ applicant_id: req.session.applicant._id });
+        const criterion = req.query.criterion;
+        let mySorter = {};
+        if (criterion === "oldest") {
+            mySorter = { applicationDate:1 };
+        } else if (criterion === "newest") {
+            mySorter = { applicationDate:-1 };
+        }
+        console.log(criterion);
+        const applications = await Application.find({ applicant_id: req.session.applicant._id }).sort(mySorter);
         const getJobOffers = async () => {
             let acc = {};
             for (let i = 0; i < applications.length; i++) {
