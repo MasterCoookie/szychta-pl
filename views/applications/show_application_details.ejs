@@ -1,0 +1,52 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+
+<div class='container'>
+    <div class='text-center'>Aplikacja na stanowisko: <%= jobOffer.title %></div>
+    <div>
+            <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+            <!-- Do uzupełnienia przez Macibola -->
+            <div>Stan aplikacji: </div>
+            <div>Godność: <%= applicant.name %> <%= applicant.surname %></div>
+            <div>Email: <%= applicant.email %></div>
+            <% if(applicant.phoneNumber) {%>
+            <div>Numer telefonu: <%= applicant.phoneNumber %></div>
+            <% } %>
+            <% if(applicant.address) {%>
+            <div>Adres: <%= applicant.address %></div>
+            <% } %>
+            <% if(applicant.birthDate) {%>
+            <div>Data urodzenia: <%= applicant.birthDate.toString().slice(0, 15) %></div>
+            <% } %>
+            <% if(application.relativeDocuments.length > 0) { %>
+                <div>Załączone dokumenty: <% application.relativeDocuments.forEach( document => { %>
+                    <%= document %>
+                </div>
+            <% })}%>
+            <% if(applicant.links.length > 0) { %>
+                <div>Załączone linki:</div>
+                <% applicant.links.forEach( link => { %>
+                    <a href="<%=link%>"><%= link %></a>
+            <% })}%>
+            <% if(application.questionAnswers) { %>
+                <div>Odpowiedzi na pytania: </div>
+                <div>
+                <% for(let key in application.questionAnswers) {%>
+                    <div>Pytanie: <%= key.toString() %></div>
+                    <div>Odpowiedź: <%= application.questionAnswers[key] %></div>
+                    </div>
+            <% }} %>
+            <% if (locals.skillNames && locals.skillNames.length) { %>
+                <div>
+                    <div>Wymagane umiejętności:</div>
+                    <div> <%- include('../partials/skillsLister.ejs', { skills: locals.skillNames }) %></div>
+                </div>
+            <% } %>
+            <!-- Do uzupełnienia przez Macibola -->
+            <button></button>
+            <button></button>
+    </div>
+</div>
+
+
+<%- include('../partials/footer.ejs') %>
