@@ -1,50 +1,56 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
 
-<div class='container'>
-    <div class='text-center'>Aplikacja na stanowisko: <%= jobOffer.title %></div>
-    <div>
-            <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
-            <!-- Do uzupełnienia przez Macibola -->
-            <div>Stan aplikacji: </div>
-            <div>Godność: <%= applicant.name %> <%= applicant.surname %></div>
-            <div>Email: <%= applicant.email %></div>
-            <% if(applicant.phoneNumber) {%>
-            <div>Numer telefonu: <%= applicant.phoneNumber %></div>
-            <% } %>
-            <% if(applicant.address) {%>
-            <div>Adres: <%= applicant.address %></div>
-            <% } %>
-            <% if(applicant.birthDate) {%>
-            <div>Data urodzenia: <%= applicant.birthDate.toString().slice(0, 15) %></div>
-            <% } %>
-            <% if(application.relativeDocuments.length > 0) { %>
-                <div>Załączone dokumenty: <% application.relativeDocuments.forEach( document => { %>
-                    <%= document %>
-                </div>
-            <% })}%>
-            <% if(applicant.links.length > 0) { %>
-                <div>Załączone linki:</div>
-                <% applicant.links.forEach( link => { %>
-                    <a href="<%=link%>"><%= link %></a>
-            <% })}%>
-            <% if(application.questionAnswers) { %>
-                <div>Odpowiedzi na pytania: </div>
-                <div>
-                <% for(let key in application.questionAnswers) {%>
-                    <div>Pytanie: <%= key.toString() %></div>
-                    <div>Odpowiedź: <%= application.questionAnswers[key] %></div>
+<div class="container h-100 w-75 d-flex align-items-center justify-content-center mt-4" >
+    <div class="p-3 w-100 flex-item" style="background-color: white;">
+        <div class="text-center p-2" style="background-color: #445766;color: white;">Aplikacja na stanowisko: <%= jobOffer.title %></div>
+        <div class="flex-item text-center">
+                <!-- TODO Better date display -->
+                <div class="p-2">Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+                <!-- Do uzupełnienia przez Macibola -->
+                <div class="p-2">Stan aplikacji: </div>
+                <div class="p-2">Godność: <%= applicant.name %> <%= applicant.surname %></div>
+                <div class="p-2">Email: <%= applicant.email %></div>
+                <% if(applicant.phoneNumber) {%>
+                <div class="p-2">Numer telefonu: <%= applicant.phoneNumber %></div>
+                <% } %>
+                <% if(applicant.address) {%>
+                <div class="p-2">Adres: <%= applicant.address %></div>
+                <% } %>
+                <% if(applicant.birthDate) {%>
+                <div class="p-2">Data urodzenia: <%= applicant.birthDate.toString().slice(0, 15) %></div>
+                <% } %>
+                <% if(application.relativeDocuments.length > 0) { %>
+                    <div class="text-center p-2" style="background-color: #445766;color: white;">Załączone dokumenty: </div><% application.relativeDocuments.forEach( document => { %>
+                    <div class="p-2">
+                        <%= document %>
                     </div>
-            <% }} %>
-            <% if (locals.skillNames && locals.skillNames.length) { %>
-                <div>
-                    <div>Wymagane umiejętności:</div>
-                    <div> <%- include('../partials/skillsLister.ejs', { skills: locals.skillNames }) %></div>
+                <% })}%>
+                <% if(applicant.links.length > 0) { %>
+                    <div class="text-center p-2" style="background-color: #445766;color: white;">Załączone linki:</div>
+                    <% applicant.links.forEach( link => { %>
+                        <a href="<%=link%>" class="p-2" target="_blank"><%= link %></a>
+                <% })}%>
+                <% if(application.questionAnswers) { %>
+                    <div class="text-center p-2" style="background-color: #445766;color: white;">Odpowiedzi na pytania: </div>
+                    <div>
+                    <% for(let key in application.questionAnswers) {%>
+                        <div class="font-weight-bold p-1">Pytanie: <%= key.toString() %></div>
+                        <div>Odpowiedź: <%= application.questionAnswers[key] %></div>
+                    </div>
+                <% }} %>
+                <% if (locals.skillNames && locals.skillNames.length) { %>
+                    <div>
+                        <div class="text-center p-2 mt-2" style="background-color: #445766;color: white;">Wybrane umiejętności:</div>
+                        <div> <%- include('../partials/skillsLister.ejs', { skills: locals.skillNames }) %></div>
+                    </div>
+                <% } %>
+                <!-- Do uzupełnienia przez Macibola -->
+                <div class="flex-item text-center">
+                <button class="btn">Button</button>
+                <button class="btn">Button</button>
                 </div>
-            <% } %>
-            <!-- Do uzupełnienia przez Macibola -->
-            <button></button>
-            <button></button>
+            </div>
     </div>
 </div>
 
