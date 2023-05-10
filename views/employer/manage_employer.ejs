@@ -14,15 +14,15 @@
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="surname">Nazwisko:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="text" id="surname" name="surname" rows="8" cols="64" class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.surname != null) {%><%= employer.surname %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="text" id="surname" name="surname"  class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.surname != null) {%><%= employer.surname %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
                     </div>
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="surname">Email:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="email" id="email" name="email" rows="8" cols="64" class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.email != null) {%><%= employer.email %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="email" id="email" name="email" class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.email != null) {%><%= employer.email %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
                     </div>
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="organisation_id">Organizacja:</label>
                     <div class="col-sm-8 mx-auto">
-                        <select type="text" id="organisation_id" name="organisation_id" rows="8" cols="64" class="form-control shadow bg-white rounded" value="<% if(locals.organisation && organisation.name != null) {%><%= organisation.name %><% } %>" required="" class="form-control shadow bg-white rounded">
+                        <select  id="organisation_id" name="organisation_id" class="form-control shadow bg-white rounded" value="<% if(locals.organisation && organisation.name != null) {%><%= organisation.name %><% } %>" required="" class="form-control shadow bg-white rounded">
                             <%if (all_organisations && all_organisations.length > 0){ 
                                 all_organisations.forEach( org => { %>
                             <option value="<%=org._id%>"><%=org.name%></option>
@@ -31,7 +31,7 @@
                     </div>
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="permissionLevel">Poziom dostępu:</label>
                     <div class="col-sm-8 mx-auto">
-                        <select type="text" id="permissionLevel" name="permissionLevel" rows="8" cols="64" class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.permissionLevel != null) {%><%= employer.permissionLevel %><% } %>" required="" class="form-control shadow bg-white rounded">
+                        <select  id="permissionLevel" name="permissionLevel"  class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.permissionLevel != null) {%><%= employer.permissionLevel %><% } %>" required="" class="form-control shadow bg-white rounded">
                             <option value="1">Sekretarka</option>
                             <option value="2">Rekruter</option>
                             <option value="3">Admin</option>
@@ -40,7 +40,7 @@
                     <%if(locals.passwordGenerator){%>
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="password">Hasło:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="text" id="surname" name="password" rows="8" cols="64" class="form-control shadow bg-white rounded" value="<%=passwordGenerator()%>" required="" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="text" id="password" name="password" class="form-control shadow bg-white rounded" value="<%=passwordGenerator()%>" required="" class="form-control shadow bg-white rounded"/><br/>
                     </div>
                     <%}%>
                 </div>

@@ -8,7 +8,7 @@
             <%}else{%>
                 <h1 class="textTitle">Edytuj organizację</h1>
             <%}%>
-            <form class="form-horizontal" id="offerForm">
+            <form class="form-horizontal" id="orgForm">
                 <div class="form-group">
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="name">Nazwa organizacji:</label>
                     <div class="col-sm-8 mx-auto">
@@ -29,7 +29,7 @@
 </div>
 
 <script type="module">
-    <% var organisation_id = locals.organisation ? organisation._id : null;%>
+    <% const organisation_id = locals.organisation ? organisation._id : null;%>
     import { initializeModifyOrganisationSubmitListener } from '/js/modifyOrganisation.js';
     initializeModifyOrganisationSubmitListener("<%=organisation_id%>");
 </script>

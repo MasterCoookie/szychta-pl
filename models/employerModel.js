@@ -31,7 +31,7 @@ const employerSchema = new mongoose.Schema({
     },
     organisation_id:{
         type: mongoose.Schema.Types.ObjectId,
-        required: [true, "Please provide an organisation"]
+        required: false
         // TODO: validator?
     },
     password: {

@@ -9,7 +9,7 @@ const upload = multer();
 router.put('/add_organisation', upload.none(), adminController.addOrganisation_put);
 router.post('/modify_organisation', adminController.modifyOrganistation_post);
 router.get('/manage_organisation', adminController.manageOrganisation_get);
-router.post('/delete_organisation', adminController.delete_organisation_post);
+router.post('/delete_organisation', adminController.deleteOrganisation_post);
 
 router.put('/add_employer', upload.none(), adminController.addEmployer_put);
 router.post('/modify_employer', adminController.modifyEmployer_post);
