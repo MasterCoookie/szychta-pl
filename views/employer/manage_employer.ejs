@@ -18,7 +18,7 @@
                     </div>
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="surname">Email:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="text" id="email" name="email" rows="8" cols="64" class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.email != null) {%><%= employer.email %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="email" id="email" name="email" rows="8" cols="64" class="form-control shadow bg-white rounded" value="<% if(locals.employer && employer.email != null) {%><%= employer.email %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
                     </div>
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="organisation_id">Organizacja:</label>
                     <div class="col-sm-8 mx-auto">
@@ -53,7 +53,7 @@
 </div>
 
 <script type="module">
-    <% var employer_id = locals.employer ? employer._id : null;%>
+    <% const employer_id = locals.employer ? employer._id : null;%>
     import { initializeModifyEmployerSubmitListener } from '/js/modifyEmployer.js';
     initializeModifyEmployerSubmitListener("<%=employer_id%>");
 </script>
