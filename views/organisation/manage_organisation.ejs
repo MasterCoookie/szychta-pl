@@ -1,0 +1,32 @@
+<%- include('../partials/head.ejs') %>
+<%- include('../partials/navbar.ejs') %>
+<div class="container h-100">
+    <div class="row d-flex align-items-center justify-content-center h-100">
+        <div class="col-md-8 mx-auto text-center bg-white p-3">
+            <h1 class="textTitle">Dodaj organizację</h1>
+            <form class="form-horizontal" id="offerForm">
+                <div class="form-group">
+                    <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="name">Nazwa organizacji:</label>
+                    <div class="col-sm-8 mx-auto">
+                        <input type="text" name="name" id="name" value="<% if(locals.organisation && organisation.name != null) {%><%= organisation.name %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
+                    </div>
+
+                    <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="description">Opis organizacji:</label>
+                    <div class="col-sm-8 mx-auto">
+                        <textarea id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.organisation && organisation.description != null) {%><%= organisation.description %><% } %></textarea><br/>
+                    </div>
+                </div>
+                <div class="col-sm-offset-2 col-sm-12">
+                    <button type="submit" class="btn" id="submitBtn">Opublikuj</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script type="module">
+    <% var organisation_id = locals.organisation ? organisation._id : null;%>
+    import { initializeModifyOrganisationSubmitListener } from '/js/modifyOrganisation.js';
+    initializeModifyOrganisationSubmitListener("<%=organisation_id%>");
+</script>
+<%- include('../partials/footer.ejs') %>
