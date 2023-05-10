@@ -29,7 +29,7 @@
                 <% if(applicant.links.length > 0) { %>
                     <div class="text-center p-2" style="background-color: #445766;color: white;">Załączone linki:</div>
                     <% applicant.links.forEach( link => { %>
-                        <a href="<%=link%>" class="p-2"><%= link %></a>
+                        <a href="<%=link%>" class="p-2" target="_blank"><%= link %></a>
                 <% })}%>
                 <% if(application.questionAnswers) { %>
                     <div class="text-center p-2" style="background-color: #445766;color: white;">Odpowiedzi na pytania: </div>
