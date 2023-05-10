@@ -16,7 +16,20 @@ const getModeArray = (_mode0, _mode1, _mode2) =>{
 
 const showOffers_get = async (req, res) => {
     try {
-        const jobOffers = await JobOffer.find();
+        var query = {};
+        if (req.query.keywords) {
+            query.keywords = { $in: req.query.keywords };
+        }
+        if (req.query.location) {
+            query.location = { $regex: req.query.location, $options: 'i' };
+        }
+        if (req.query.mode0 || req.query.mode1 || req.query.mode2) {
+            query.mode = getModeArray(req.query.mode0, req.query.mode1, req.query.mode2);
+        }
+        if (req.query.experience) {
+            query.experience = { $gte: req.query.experience };
+        }
+        var jobOffers = await JobOffer.find(query);
         res.render('jobOffer/show_offers', { title: 'Pokaż oferty', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true  });
         // empty list handled in frontend
     }
