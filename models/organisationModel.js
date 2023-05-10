@@ -4,7 +4,8 @@ const organisationSchema = new mongoose.Schema({
     name: {
         type: String,
         required: [true, "Please provide a name for an organisation"],
-        maxlength: [256, 'Name too long']
+        maxlength: [256, 'Name too long'],
+        unique: true
     },
     description: {
         type: String,
