@@ -10,8 +10,8 @@ const upload = multer();
 const router = express.Router();
 
 router.get('/view', jobOfferController.showOfferDetails_get);
-router.get('/apply', authMiddleware.require_login , applyController.showApplyingForm);
-router.post('/apply', upload.none() , applyController.apply_post);
+router.get('/apply', authMiddleware.require_login, applyController.showApplyingForm);
+router.post('/apply', [authMiddleware.require_login, upload.none()], applyController.apply_post);
 router.get('/show_applications', authMiddleware.require_login , applicationController.show_applicant_applications_get);
 
 module.exports = router;
