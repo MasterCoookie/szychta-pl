@@ -8,6 +8,7 @@ const authRoutes = require('./routes/authRoutes');
 const employerRoutes = require('./routes/employerRoutes');
 const skillsRoutes = require('./routes/skillsRoutes');
 const applicantRoutes = require('./routes/applicantRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 const app = express();
 
@@ -53,7 +54,7 @@ app.use('/employer', employerRoutes);
 app.use('/skills', skillsRoutes);
 app.use('/', mainRoutes);
 app.use('/applicant', applicantRoutes);
-
+app.use('/admin', adminRoutes);
 
 app.get('/', (req, res) => {
     res.send("szychta.pl");
