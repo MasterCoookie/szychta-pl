@@ -88,7 +88,7 @@
     initializeVaryingSizeInputArray('keywords', 0, 16);
 </script>
 <script type="module">
-    <% var offer_id = locals.offer ? offer._id : null;%>
+    <% const offer_id = locals.offer ? offer._id : null;%>
     import { initializeModifyOfferSubmitListener } from '/js/modifyOffer.js';
     initializeModifyOfferSubmitListener("<%=offer_id%>");
 </script>
