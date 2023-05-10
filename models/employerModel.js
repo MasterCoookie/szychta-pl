@@ -29,6 +29,11 @@ const employerSchema = new mongoose.Schema({
         validate: [isEmail, "Email invalid"],
         unique: [true, "Email already in use"],
     },
+    organisation_id:{
+        type: mongoose.Schema.Types.ObjectId,
+        required: [true, "Please provide an organisation"]
+        // TODO: validator?
+    },
     password: {
 		type: String,
 		required: [true, 'Please enter a password'],
