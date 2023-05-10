@@ -3,7 +3,11 @@
 <div class="container h-100">
     <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 mx-auto text-center bg-white p-3">
-            <h1 class="textTitle">Dodaj organizację</h1>
+            <%if(!locals.organisation){%>
+                <h1 class="textTitle">Dodaj organizację</h1>
+            <%}else{%>
+                <h1 class="textTitle">Edytuj organizację</h1>
+            <%}%>
             <form class="form-horizontal" id="offerForm">
                 <div class="form-group">
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="name">Nazwa organizacji:</label>
