@@ -14,7 +14,7 @@ const manageEmployer_get = async (req, res) => {
                 const length = 8;
                 const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+?><:{}[]";
                 let retVal = "";
-                for (var i = 0, n = charset.length; i < length; ++i) {
+                for (let i = 0, n = charset.length; i < length; ++i) {
                     retVal += charset.charAt(Math.floor(Math.random() * n));
                 } 
                 return retVal;
@@ -44,7 +44,7 @@ const addOrganisation_put = async (req, res) => {
     const { name, description } = req.body;
 
     try {
-        const org = await Organisation.create({ name, description });
+        Organisation.create({ name, description });
         console.log("New organisation %s created", name);
         res.sendStatus(201);
     } catch (e) {
@@ -63,7 +63,7 @@ const addEmployer_put  =  async(req, res) =>{
     const { email, password, name, surname, permissionLevel, organisation_id } = req.body;
 
     try{
-        const employer = await Employer.create({ email, password, name, surname,permissionLevel,organisation_id });
+       await Employer.create({ email, password, name, surname,permissionLevel,organisation_id });
         console.log("New employer %s %s with permission level %s created", name, surname, permissionLevel);
         res.status(201);
     } catch(e) {
@@ -105,7 +105,7 @@ const modifyOrganistation_post = async (req, res) => {
 const modifyEmployer_post = async (req, res) => {
     const {name, surname, email, permissionLevel, organisation_id, employer_id} = req.body;
     try{
-        await Employer.findByIdAndUpdate(employer_id, {name, surname, email, permissionLevel,organisation_id});
+        await Employer.findByIdAndUpdate(employer_id, {name, surname, email, permissionLevel, organisation_id});
         console.log("Employer %s modified", name);
         res.sendStatus(201);
     } catch (e) {
@@ -133,7 +133,7 @@ const employer_delete = async (req, res) => {
     }
 }
 
-const delete_organisation_post = async (req, res) => {
+const deleteOrganisation_post = async (req, res) => {
     const { _id } = req.body;
     try {
         await Organisation.init();
@@ -171,7 +171,7 @@ module.exports = {
     manageOrganisation_get,
     addOrganisation_put,
     modifyOrganistation_post,
-    delete_organisation_post,
+    deleteOrganisation_post,
     panel_get,
     show_organisations
 }

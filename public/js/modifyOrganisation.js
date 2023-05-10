@@ -1,5 +1,5 @@
 function initializeModifyOrganisationSubmitListener (organisation_id){
-    const form = document.getElementById('offerForm');
+    const form = document.getElementById('orgForm');
     const submitButton = document.getElementById('submitBtn');
 
     submitButton.addEventListener('click', (event) => {
