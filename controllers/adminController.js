@@ -11,9 +11,9 @@ const manageEmployer_get = async (req, res) => {
             res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, organisation,all_organisations, user: req.session.employer, scrollable: true });
         } else {
             const passwordGenerator = ()=>{
-                var length = 8,
-                charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+?><:{}[]";
-                var retVal = "";
+                const length = 8;
+                const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+?><:{}[]";
+                let retVal = "";
                 for (var i = 0, n = charset.length; i < length; ++i) {
                     retVal += charset.charAt(Math.floor(Math.random() * n));
                 } 
