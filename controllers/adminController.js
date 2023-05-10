@@ -64,7 +64,7 @@ const addEmployer_put  =  async(req, res) =>{
 
     try{
         const employer = await Employer.create({ email, password, name, surname,permissionLevel,organisation_id });
-        console.log("New employer %s %s with permission level %s created", name, surname , permissionLevel);
+        console.log("New employer %s %s with permission level %s created", name, surname, permissionLevel);
         res.status(201);
     } catch(e) {
         let errors=[];
@@ -138,7 +138,7 @@ const delete_organisation_post = async (req, res) => {
     try {
         await Organisation.init();
         await Organisation.findByIdAndDelete(_id);
-        res.sendStatus(200);
+        res.redirect('/admin/show_organisations'); // TODO implement message about succesful deletion
     } catch (e) {
         console.log(e);
         res.sendStatus(500);
