@@ -13,7 +13,7 @@ router.delete('/delete_organisation', upload.none(), adminController.organisatio
 
 router.put('/add_employer', upload.none(), adminController.addEmployer_put);
 router.post('/modify_employer', adminController.modifyEmployer_post);
-router.get('manage_employer', adminController.manageEmployer_get);
+router.get('/manage_employer', adminController.manageEmployer_get);
 router.delete('/delete_employer', upload.none(), adminController.employer_delete);
 
 router.get('/adminPanel',authMiddleware.require_login, adminController.panel_get);
