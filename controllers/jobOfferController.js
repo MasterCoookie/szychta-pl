@@ -61,7 +61,7 @@ const showOfferDetails_get = async (req, res) => {
 }
 
 const addOffer_put = async (req, res) => {
-    const { title, description, requirements, salary, location, industry, expiryDate, organisation_id, mode0, mode1, mode2} = req.body;
+    const { title, description, requirements, salary, location, industry, expiryDate, mode0, mode1, mode2} = req.body;
     const additionalQuestions = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
     const keywords = req.body.keywords ? JSON.parse(req.body.keywords) : [];
 
@@ -69,6 +69,7 @@ const addOffer_put = async (req, res) => {
 
     let mode = getModeArray(mode0, mode1, mode2);
     try {
+        const organisation_id = req.session.employer.organisation_id;
         await JobOffer.create({ title, description, mode, salary, requirements : requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
         res.sendStatus(201);
@@ -101,7 +102,7 @@ const manageOffer_get = async (req, res) => {
 }
 
 const modifyOffer_post = async (req, res) => {
-    const { title, description, requirements, salary, location, industry, expiryDate, organisation_id, mode0, mode1, mode2, offer_id} = req.body;
+    const { title, description, requirements, salary, location, industry, expiryDate, mode0, mode1, mode2, offer_id} = req.body;
     const additionalQuestions = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
     const keywords = req.body.keywords ? JSON.parse(req.body.keywords) : [];
 
@@ -110,6 +111,7 @@ const modifyOffer_post = async (req, res) => {
 
     let mode = getModeArray(mode0, mode1, mode2);
     try {
+        const organisation_id = req.session.employer.organisation_id;
         await JobOffer.findByIdAndUpdate(offer_id, { title, description, mode, salary, requirements: requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("Job offer %s modified", title);
         res.sendStatus(201);
