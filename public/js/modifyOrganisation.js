@@ -12,7 +12,7 @@ function initializeModifyOrganisationSubmitListener (organisation_id){
                 organisationSaveResultDOMElement.innerHTML = 'Dodano';
                 organisationSaveResultDOMElement.classList.remove('alert-danger');
                 organisationSaveResultDOMElement.classList.add('alert-info');
-                skillFormDOMElement.reset();
+                form.reset();
             } else if(request.status < 500) {
                 organisationSaveResultDOMElement.innerHTML = 'Błędne dane!';
                 organisationSaveResultDOMElement.classList.add('alert-danger');

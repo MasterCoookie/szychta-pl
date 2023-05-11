@@ -19,7 +19,7 @@ function initializeModifyEmployerSubmitListener (employer_id){
                 employerSaveResultDOMElement.innerHTML = 'Dodano';
                 employerSaveResultDOMElement.classList.remove('alert-danger');
                 employerSaveResultDOMElement.classList.add('alert-info');
-                skillFormDOMElement.reset();
+                form.reset();
             } else if(event.target.status < 500) {
                 employerSaveResultDOMElement.innerHTML = 'Błędne dane!';
                 employerSaveResultDOMElement.classList.add('alert-danger');
