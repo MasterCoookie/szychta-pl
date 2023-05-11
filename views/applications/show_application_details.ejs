@@ -8,7 +8,7 @@
             <!-- TODO Better date display -->
             <div class="p-2">Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
             <!-- Do uzupełnienia przez Macibola -->
-            <div class="p-2">Stan aplikacji: </div>
+            <div class="p-2">Stan aplikacji: <%= lastStage.name %>(<%= lastStage.getStatus() %>)</div>
             <div class="p-2">Godność: <%= applicant.name %> <%= applicant.surname %></div>
             <div class="p-2">Email: <%= applicant.email %></div>
             <% if(applicant.phoneNumber) {%>
@@ -46,8 +46,8 @@
                 </div>
             <% } %>
             <div class="flex-item text-center">
-                <a href = ""><button class="btn">Stwórz nowy etap (i bieżący obecny)</button></a>
-                <a href = ""><button class="btn">Modyfikuj bieżący etap</button></a>
+                <a href = "../manage_stage?application=<%= application._id %>"><button class="btn">Stwórz nowy etap (i zakończ bieżący)</button></a>
+                <a href = "../manage_stage?stage=<%= lastStage._id %>"><button class="btn">Modyfikuj bieżący etap</button></a>
             </div>
         </div>
     </div>
