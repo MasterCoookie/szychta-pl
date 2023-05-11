@@ -23,6 +23,7 @@
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="organisation_id">Organizacja:</label>
                     <div class="col-sm-8 mx-auto">
                         <select  id="organisation_id" name="organisation_id" class="form-control shadow bg-white rounded" value="<% if(locals.organisation && organisation.name != null) {%><%= organisation.name %><% } %>" required="" class="form-control shadow bg-white rounded">
+                            <option value="<%=null%>">Brak</option>
                             <%if (all_organisations && all_organisations.length > 0){ 
                                 all_organisations.forEach( org => { %>
                             <option value="<%=org._id%>"><%=org.name%></option>

@@ -60,12 +60,12 @@ const addOrganisation_put = async (req, res) => {
     }
 }
 const addEmployer_put  =  async(req, res) =>{
-    const { email, password, name, surname, permissionLevel, organisation_id } = req.body;
-
+    const { email, password, name, surname, permissionLevel } = req.body;
+    let organisation_id = req.body.organisation_id ? req.body.organisation_id : null;
     try{
-        await Employer.create({ email, password, name, surname,permissionLevel,organisation_id });
+        await Employer.create({ email, password, name, surname, permissionLevel, organisation_id });
         console.log("New employer %s %s with permission level %s created", name, surname, permissionLevel);
-        res.status(201);
+        res.sendStatus(201);
     } catch(e) {
         let errors=[];
          if (e.code === 11000) {
@@ -74,7 +74,7 @@ const addEmployer_put  =  async(req, res) =>{
         
         if(e.errors) {
             Object.values(e.errors).forEach(({ properties }) => {
-                if (properties.message) {
+                if (properties && properties.message) {
                     errors.push(properties.message);
                 }
             });
