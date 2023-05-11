@@ -32,7 +32,7 @@ function initializeModifyStageSubmitListener (id, typeOfId){
                 messageField.classList.add('alert-danger');
                 messageField.classList.remove('alert-info');
             }
-        }
+        });
     });
 }
 
