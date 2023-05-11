@@ -5,9 +5,7 @@
     <div class="p-3 w-100 flex-item" style="background-color: white;">
         <div class="text-center p-2" style="background-color: #445766;color: white;">Aplikacja na stanowisko: <%= jobOffer.title %></div>
         <div class="flex-item text-center">
-            <!-- TODO Better date display -->
             <div class="p-2">Data aplikacji: <%= new Date(application.applicationDate).toLocaleString("pl-PL") %></div>
-            <!-- Do uzupełnienia przez Macibola -->
             <div class="p-2">Stan aplikacji: <%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>, ostatnia aktualizacja <%= lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970" %>)</div>
             <div class="p-2">Godność: <%= applicant.name %> <%= applicant.surname %></div>
             <div class="p-2">Email: <%= applicant.email %></div>
