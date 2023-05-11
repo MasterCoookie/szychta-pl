@@ -6,9 +6,9 @@
         <div class="text-center p-2" style="background-color: #445766;color: white;">Aplikacja na stanowisko: <%= jobOffer.title %></div>
         <div class="flex-item text-center">
             <!-- TODO Better date display -->
-            <div class="p-2">Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+            <div class="p-2">Data aplikacji: <%= new Date(application.applicationDate).toLocaleString("pl-PL") %></div>
             <!-- Do uzupełnienia przez Macibola -->
-            <div class="p-2">Stan aplikacji: <%= lastStage.name %>(<%= lastStage.getStatus() %>)</div>
+            <div class="p-2">Stan aplikacji: <%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>, ostatnia aktualizacja <%= lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970" %>)</div>
             <div class="p-2">Godność: <%= applicant.name %> <%= applicant.surname %></div>
             <div class="p-2">Email: <%= applicant.email %></div>
             <% if(applicant.phoneNumber) {%>
@@ -18,7 +18,7 @@
             <div class="p-2">Adres: <%= applicant.address %></div>
             <% } %>
             <% if(applicant.birthDate) {%>
-            <div class="p-2">Data urodzenia: <%= applicant.birthDate.toString().slice(0, 15) %></div>
+            <div class="p-2">Data urodzenia: <%= new Date(applicant.birthDate).toLocaleDateString("pl-PL") %></div>
             <% } %>
             <% if(application.relativeDocuments.length > 0) { %>
                 <div class="text-center p-2" style="background-color: #445766;color: white;">Załączone dokumenty: </div><% application.relativeDocuments.forEach( document => { %>
@@ -46,8 +46,8 @@
                 </div>
             <% } %>
             <div class="flex-item text-center">
-                <a href = "../manage_stage?application=<%= application._id %>"><button class="btn">Stwórz nowy etap (i zakończ bieżący)</button></a>
-                <a href = "../manage_stage?stage=<%= lastStage._id %>"><button class="btn">Modyfikuj bieżący etap</button></a>
+                <a href = "../employer/manage_stage?application=<%= application._id %>"><button class="btn">Stwórz nowy etap (i zakończ bieżący)</button></a>
+                <a href = "<%= lastStage ? "../employer/manage_stage?stage="+lastStage._id : "#" %>"><button class="btn">Modyfikuj bieżący etap</button></a>
             </div>
         </div>
     </div>
