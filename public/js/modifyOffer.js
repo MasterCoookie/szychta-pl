@@ -39,7 +39,7 @@ function initializeModifyOfferSubmitListener (offer_id){
                 messageField.classList.add('alert-danger');
                 messageField.classList.remove('alert-info');
             }
-        }
+        });
     });
 }
 
