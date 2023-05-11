@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { isEmail } = require('validator');
 const bcrypt = require('bcrypt');
+const Schema = mongoose.Schema;
 
 const pwdValid = (password) => {
     if(/^\d+$/.test(password) || /^[a-zA-Z]+$/.test(password)) {
@@ -12,7 +13,7 @@ const pwdValid = (password) => {
     return true;
 }
 
-const employerSchema = new mongoose.Schema({
+const employerSchema = new Schema({
     name: {
         type: String,
         required: [true, "Please provide a name"],
@@ -30,7 +31,7 @@ const employerSchema = new mongoose.Schema({
         unique: [true, "Email already in use"],
     },
     organisation_id:{
-        type: mongoose.Schema.Types.ObjectId,
+        type: Schema.Types.ObjectId,
         // TODO: validator?
     },
     password: {
