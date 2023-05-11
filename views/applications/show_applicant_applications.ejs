@@ -3,11 +3,14 @@
 
 <div class='container'>
     <div>
-        <% applications.forEach( application => { %>
+        <% applications.forEach( application => { 
+            const lastStage = jobOffersWithId[application.lastStage];
+            const date = lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970";
+            %>
             <div class='flex-item text-center'>
                 <div><%= jobOffersWithId[application.jobOffer_id].title %></div>
-                <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
-                <div>Status aplikacji: <%= application.status %></div>
+                <div>Data aplikacji: <%= new Date(application.applicationDate).toLocaleString("pl-PL") %></div>
+                <div>Stan aplikacji: <%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>, ostatnia aktualizacja <%= date %>)</div>
                 <!--TODO display organization but at the moment there is no organization model-->
             </div>
             <br>

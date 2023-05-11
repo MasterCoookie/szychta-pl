@@ -66,6 +66,7 @@ const show_applicant_applications_get = async (req, res) => {
                 const jobOffer = await JobOffer.findById(applications[i].jobOffer_id.toString());
                 if (jobOffer) {
                     acc[applications[i].jobOffer_id] = jobOffer;
+                    acc[applications[i].lastStage] = await Stage.findOne({application_id: applications[i]._id}).sort({index:-1});
                 }
                 else {
                     res.sendStatus(404);
