@@ -12,7 +12,7 @@ const manageEmployer_get = async (req, res) => {
         } else {
             const passwordGenerator = ()=>{
                 const length = 8;
-                const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+?><:{}[]";
+                const charset = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()_+?><:{}[]=-";
                 let retVal = "";
                 for (let i = 0, n = charset.length; i < length; ++i) {
                     retVal += charset.charAt(Math.floor(Math.random() * n));
@@ -44,7 +44,7 @@ const addOrganisation_put = async (req, res) => {
     const { name, description } = req.body;
 
     try {
-        Organisation.create({ name, description });
+        await Organisation.create({ name, description });
         console.log("New organisation %s created", name);
         res.sendStatus(201);
     } catch (e) {
@@ -63,7 +63,7 @@ const addEmployer_put  =  async(req, res) =>{
     const { email, password, name, surname, permissionLevel, organisation_id } = req.body;
 
     try{
-       await Employer.create({ email, password, name, surname,permissionLevel,organisation_id });
+        await Employer.create({ email, password, name, surname,permissionLevel,organisation_id });
         console.log("New employer %s %s with permission level %s created", name, surname, permissionLevel);
         res.status(201);
     } catch(e) {
