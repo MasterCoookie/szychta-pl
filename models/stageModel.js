@@ -32,6 +32,20 @@ const stageSchema = new mongoose.Schema({
     },
 });
 
+stageSchema.methods.getStatus = function() {
+    if (this.status === 0){
+        return "Nierozpatrzony";
+    } else if (this.status === 1){
+        return "W trakcie rozpatrywania";
+    } else if (this.status === 2){
+        return "Zwrócony";
+    } else if (this.status === 3){
+        return "Zaakceptowany";
+    } else if (this.status === 4){
+        return "Odrzucony";
+    }
+};
+
 const Stage = mongoose.model('Stage', stageSchema);
 
 module.exports = Stage;
