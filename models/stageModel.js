@@ -7,7 +7,7 @@ const stageSchema = new mongoose.Schema({
         type: Schema.Types.ObjectId,
         required: [true, "Stage cannot be an orphan"]
     },
-    index: { // which stage it is (for given application), will be handled controller-side
+    index: { // which stage it is (for given application), is handled controller-side
         type: Number,
         required: [true, "Stage must have an index"]
     }, 
@@ -26,7 +26,7 @@ const stageSchema = new mongoose.Schema({
         min: [0, "Invalid status code"],
         max: [4, "Invalid status code"]
 	},
-    lastChange: { // will be handled controller-side
+    lastChange: { // is handled controller-side
         type: Date,
         required: [true, "Stage is changed in our universe, where time has significant impact on living beings"]
     },
