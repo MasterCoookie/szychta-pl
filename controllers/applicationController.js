@@ -2,6 +2,7 @@ const JobOffer = require('../models/jobOfferModel');
 const Application = require('../models/applicationModel');
 const Applicant = require('../models/applicantModel');
 const Skill = require('../models/skillsModel');
+const Stage = require('../models/stageModel');
 
 const applicationsView_get = async (req, res) => {
     try {
@@ -40,6 +41,7 @@ const applicationView_get = async (req, res) => {
         const application = await Application.findById( req.query._id );
         const jobOffer = await JobOffer.findById( application.jobOffer_id );
         const applicant = await Applicant.findById( application.applicant_id );
+        const lastStage = await Stage.findOne({application_id: application._id}).sort({index:-1})
         if(!application || !jobOffer || !applicant) {
             res.sendStatus(404);
         }
@@ -47,7 +49,7 @@ const applicationView_get = async (req, res) => {
         if (application.relativeSkills) {
             skillNames = await Skill.find({ _id: { $in: application.relativeSkills } });
         }
-        res.render('applications/show_application_details', { title: 'Zarządzanie aplikacją', application, jobOffer, applicant, skillNames, user: req.session.applicant ?? req.session.employer, scrollable: true});
+        res.render('applications/show_application_details', { title: 'Zarządzanie aplikacją', application, jobOffer, applicant, skillNames, lastStage, user: req.session.applicant ?? req.session.employer, scrollable: true});
     }
     catch(err) {
         console.log(err);
@@ -64,6 +66,7 @@ const show_applicant_applications_get = async (req, res) => {
                 const jobOffer = await JobOffer.findById(applications[i].jobOffer_id.toString());
                 if (jobOffer) {
                     acc[applications[i].jobOffer_id] = jobOffer;
+                    acc[applications[i].lastStage] = await Stage.findOne({application_id: applications[i]._id}).sort({index:-1});
                 }
                 else {
                     res.sendStatus(404);

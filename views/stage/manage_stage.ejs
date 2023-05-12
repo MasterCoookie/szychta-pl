@@ -19,7 +19,7 @@
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0">Status:</label>
                     <div class="col-sm-8 mx-auto form-check">
                         <input type="radio" id="status0" name="status" value="0" class="form-check-input" <% if(locals.stage && stage.status == 0 || !locals.stage) {%>checked=""<% } %>>
-                        <label for="status0" class="form-check-label"> Nie rozpatrzony</label><br/>
+                        <label for="status0" class="form-check-label"> Nierozpatrzony</label><br/>
                         <input type="radio" id="status1" name="status" value="1" class="form-check-input" <% if(locals.stage && stage.status == 1) {%>checked=""<% } %>>
                         <label for="status1" class="form-check-label"> W trakcie rozpatrywania </label><br/>
                         <input type="radio" id="status2" name="status" value="2" class="form-check-input" <% if(locals.stage && stage.status == 2) {%>checked=""<% } %>>
@@ -35,6 +35,9 @@
                     <button type="submit" class="btn" id="submitBtn">Opublikuj</button>
                 </div>
             </form>
+            <div class="col-sm-offset-2 col-sm-12" id="messageField">
+                <!-- response message -->
+            </div>
         </div>
     </div>
 </div>
