@@ -21,7 +21,9 @@
             <% if(application.relativeDocuments.length > 0) { %>
                 <div class="text-center p-2" style="background-color: #445766;color: white;">Załączone dokumenty: </div><% application.relativeDocuments.forEach( document => { %>
                 <div class="p-2">
-                    <%= document %>
+                    <a href="/uploads/<%= applicant._id %>/docs/<%= document %>" download>
+                        <%= document %>
+                    </a>
                 </div>
             <% })}%>
             <% if(applicant.links.length > 0) { %>
