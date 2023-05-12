@@ -10,9 +10,14 @@
                     <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Szukaj</button>
               </form>
             </li>
-            <% if(locals.user) { %>
+            <% if(locals.user) if(locals.user.level === 0) { %>
                 <li class="nav-item active"><a class="nav-link" href="/applicant/show_applications">Twoje Aplikacje</a></li>
                 <li class="nav-item active"><a class="nav-link" href="/profile">Profil</a></li>
+            <% } else { %>
+                <li class="nav-item active"><a class="nav-link" href="/employer/employerPanel">Panel Pracownika</a></li>
+                <% if(locals.user.level === 3) { %>
+                    <li class="nav-item active"><a class="nav-link" href="/admin/adminPanel">Panel Administratora</a></li>
+                <% } %>
             <% } %>
         </ul>
         <div class="my-2 my-lg-0 mr-4">
