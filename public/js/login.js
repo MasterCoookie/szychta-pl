@@ -1,7 +1,7 @@
 const loginForm = document.getElementById('loginForm');
 const loginButton = document.getElementById('loginBtn');
 
-loginButton.addEventListener('click', (event) => {
+searchButton.addEventListener('click', (event) => {
     event.preventDefault();
     const request = new XMLHttpRequest();
     const formData = new FormData(loginForm);
@@ -17,7 +17,7 @@ loginButton.addEventListener('click', (event) => {
             document.getElementById('message').innerHTML = response.msg;
         }
     });
-    
+
     request.open('post', '/auth/login');
     request.send(formData);
 });

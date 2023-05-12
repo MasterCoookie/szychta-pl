@@ -1,5 +1,7 @@
 const JobOffer = require('../models/jobOfferModel');
 const Skill = require('../models/skillsModel');
+const ejs = require('ejs');
+
 const getModeArray = (_mode0, _mode1, _mode2) =>{
     let mode = [];
     if (_mode0){
@@ -14,22 +16,34 @@ const getModeArray = (_mode0, _mode1, _mode2) =>{
     return mode;
 }
 
-const showOffers_get = async (req, res) => {
+const showOffersFiltered_post = async (req, res) => {
     try {
         let query = {};
-        if (req.query.keywords) {
-            query.keywords = { $in: req.query.keywords };
+        if (req.body.keywords) {
+            query.keywords = { $in: req.body.keywords };
         }
-        if (req.query.location) {
-            query.location = { $regex: req.query.location, $options: 'i' };
+        if (req.body.location) {
+            query.location = { $regex: req.body.location, $options: 'i' };
         }
-        if (req.query.mode0 || req.query.mode1 || req.query.mode2) {
-            query.mode = getModeArray(req.query.mode0, req.query.mode1, req.query.mode2);
+        if (req.body.mode0 || req.body.mode1 || req.body.mode2) {
+            query.mode = getModeArray(req.body.mode0, req.body.mode1, req.body.mode2);
         }
-        if (req.query.industry) {
-            query.industry = { $in: req.query.industry };
+        if (req.body.industry) {
+            query.industry = { $in: req.body.industry };
         }
         const jobOffers = await JobOffer.find(query);
+        const html = await ejs.renderFile('./views/jobOffer/offers_list.ejs', {jobOffers})
+        res.send(html);
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+const showOffers_get = async (req, res) => {
+    try {
+        const jobOffers = await JobOffer.find();
         res.render('jobOffer/show_offers', { title: 'Pokaż oferty', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true  });
         // empty list handled in frontend
     }
@@ -141,6 +155,7 @@ const offer_delete = async (req, res) => {
 
 module.exports = {
     showOffers_get,
+    showOffersFiltered_post,
     showOfferDetails_get,
     manageOffer_get,
     addOffer_put,
