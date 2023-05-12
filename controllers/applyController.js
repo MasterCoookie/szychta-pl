@@ -1,6 +1,7 @@
 const JobOffer = require('../models/jobOfferModel');
 const Applicant = require('../models/applicantModel');
 const Application = require('../models/applicationModel');
+const Stage = require('../models/stageModel');
 
 const showApplyingForm = async (req, res) => {
     try {
@@ -37,9 +38,12 @@ const apply_post = async(req, res)=>{
     const applicant_id = req.session.applicant._id;
     console.log(relativeDocuments);
     try {
-        await Application.create({ email, phoneNumber, homeAddress, jobOffer_id, applicationDate, questionAnswers, relativeSkills, applicant_id, relativeDocuments });
+        const createdApplication = await Application.create({ email, phoneNumber, homeAddress, jobOffer_id, applicationDate, questionAnswers, relativeSkills, applicant_id, relativeDocuments });
+        const applicationID = createdApplication._id;
+        await Stage.create({application_id: applicationID, index: 1, name: "Złożono", status: 0, lastChange: Date.now()});
         res.sendStatus(201);
     } catch (e) {
+        console.log(e)
         let errors = [];
         if (e.errors) {
             Object.values(e.errors).forEach(({ properties }) => {

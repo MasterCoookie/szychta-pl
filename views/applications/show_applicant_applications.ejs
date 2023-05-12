@@ -4,7 +4,7 @@
 <div class='container'>
     <div>
         <% applications.forEach( application => { 
-            const lastStage = jobOffersWithId[application.lastStage];
+            const lastStage = stages[application.jobOffer_id];
             const date = lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970";
             %>
             <div class='flex-item text-center'>

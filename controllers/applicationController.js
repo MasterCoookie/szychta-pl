@@ -61,24 +61,27 @@ const show_applicant_applications_get = async (req, res) => {
     try {
         const applications = await Application.find({ applicant_id: req.session.applicant._id });
         const getJobOffers = async () => {
-            let acc = {};
+            let offers = {};
+            let stages = {}
             for (let i = 0; i < applications.length; i++) {
                 const jobOffer = await JobOffer.findById(applications[i].jobOffer_id.toString());
                 if (jobOffer) {
-                    acc[applications[i].jobOffer_id] = jobOffer;
-                    acc[applications[i].lastStage] = await Stage.findOne({application_id: applications[i]._id}).sort({index:-1});
+                    offers[applications[i].jobOffer_id] = jobOffer;
+                    stages[applications[i].jobOffer_id] = await Stage.findOne({application_id: applications[i]._id}).sort({index:-1});
                 }
                 else {
                     res.sendStatus(404);
                 }
             }
-            return acc;
+            return {'offers' : offers, 'stages' : stages};
         }
-        const jobOffersWithId = await getJobOffers();
+        const arrays = await getJobOffers();
+        const jobOffersWithId = arrays.offers;
+        const stages = arrays.stages;
         if(!applications || !jobOffersWithId) {
             res.sendStatus(404);
         }
-        res.render('applications/show_applicant_applications', { title: 'Wyświetlanie swoich aplikacji', applications, jobOffersWithId, user: req.session.applicant, scrollable: true});
+        res.render('applications/show_applicant_applications', { title: 'Wyświetlanie swoich aplikacji', applications, jobOffersWithId, stages, user: req.session.applicant, scrollable: true});
     }
     catch(err) {
         console.log(err);
