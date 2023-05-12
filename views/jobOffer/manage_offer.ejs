@@ -68,15 +68,15 @@
                     <div class="col-sm-8 mx-auto">
                         <input type="date" name="expiryDate" id="expiryDate" value="<% if(locals.offer && offer.expiryDate != null) {%><%=offer.expiryDate.toISOString().split('T')[0]%><% } %>" class="form-control shadow bg-white rounded"/><br/>
                     </div>
-
                         <!-- TODO: implement requirements module -->
-                        <!-- temporary disabled field -->
-                        <input value="64397e2fbed0bea2e17824d2" type="hidden" name="organisation_id" id="organisation_id">
                 </div>
                 <div class="col-sm-offset-2 col-sm-12">
                     <button type="submit" class="btn" id="submitBtn">Opublikuj</button>
                 </div>
             </form>
+            <div class="col-sm-offset-2 col-sm-12" id="messageField">
+                    <!-- response message -->
+            </div>
         </div>
     </div>
 </div>
@@ -88,7 +88,7 @@
     initializeVaryingSizeInputArray('keywords', 0, 16);
 </script>
 <script type="module">
-    <% var offer_id = locals.offer ? offer._id : null;%>
+    <% const offer_id = locals.offer ? offer._id : null;%>
     import { initializeModifyOfferSubmitListener } from '/js/modifyOffer.js';
     initializeModifyOfferSubmitListener("<%=offer_id%>");
 </script>

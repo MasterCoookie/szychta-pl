@@ -9,12 +9,10 @@
                     <option value="alphabetically">Alfabetycznie</option>
                     <option value="oldest">Od Najstarszej</option>
                     <option value="newest">Od Najnowszej</option>
-                    <option value="status">Względem statusu</option>
+                    <option value="status">Względem stanu</option>
                 </select>
                 <button id="sortBtn" type="submit" class="btn col-md-4" style="margin-top: 10px;">Zatwierdź</button> 
             </form>
-
-            <br>
 
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -22,16 +20,21 @@
                         <tr>
                             <th class="tableHeader" scope="col">Nazwa oferty</th>
                             <th class="tableHeader" scope="col">Data aplikacji</th>
-                            <th class="tableHeader" scope="col">Status aplikacji</th>
+                            <th class="tableHeader" scope="col">Stan aplikacji</th>
+                            <th class="tableHeader" scope="col">Ostatnia aktualizacja</th>
                             <th class="tableHeader" scope="col">Organizacja</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <% applications.forEach( application => { %>
+                        <% applications.forEach( application => { 
+                            const lastStage = jobOffersWithId[application.lastStage];
+                            const date = lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970";
+                            %>
                         <tr>
                                 <td><%= jobOffersWithId[application.jobOffer_id].title %></td>
-                                <td><%= application.applicationDate.toString().slice(0, 15) %></td>
-                                <td><%= application.status %></td>
+                                <td><%= new Date(application.applicationDate).toLocaleString("pl-PL") %></td>
+                                <td><%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %></td>
+                                <td><%= date %></td>
                                 <td>Organizacja</td><!--TODO display organization but at the moment there is no organization model-->
                         </tr>    
                         <% }) %>
