@@ -96,9 +96,9 @@ const sort_applications_get = async (req,res) => {
             {
                 $lookup: {
                     from: "joboffers",
-                    localField: "jobAdvertID",
+                    localField: "jobOffer_id",
                     foreignField: "_id",
-                    as: "sort"
+                    as: "joinedjoboffers"
                 }
             }
         ]);
