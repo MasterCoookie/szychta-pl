@@ -25,7 +25,6 @@ const jobOfferSchema = new mongoose.Schema({
         type: String
         //possibbly-TODO external locations database
     },
-    experience: Number,
     industry: String,
     additionalQuestions: [String],
     keywords: [String],
