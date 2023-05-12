@@ -9,10 +9,11 @@
                     <option value="alphabetically">Alfabetycznie</option>
                     <option value="oldest">Od Najstarszej</option>
                     <option value="newest">Od Najnowszej</option>
-                    <option value="status">Względem stanu</option>
-                </select>
-                <button id="sortBtn" type="submit" class="btn col-md-4" style="margin-top: 10px;">Zatwierdź</button> 
+                    <option value="stage">Względem stanu</option>
+                    <option value="update">Względem ostatniej aktualizacji</option>
+                </select> 
             </form>
+            <br>
 
             <div class="table-responsive">
                 <table class="table table-hover">
@@ -25,19 +26,20 @@
                             <th class="tableHeader" scope="col">Organizacja</th>
                         </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="tableBody">
                         <% applications.forEach( application => { 
-                            const lastStage = jobOffersWithId[application.lastStage];
+                            const lastStage = stages[application.jobOffer_id];
                             const date = lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970";
-                            %>
+                            const name = jobOffersWithId[application.jobOffer_id].title
+                        %>
                         <tr>
-                                <td><%= jobOffersWithId[application.jobOffer_id].title %></td>
+                                <td><%= name %></td>
                                 <td><%= new Date(application.applicationDate).toLocaleString("pl-PL") %></td>
-                                <td><%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %></td>
+                                <td><%= lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>)</td>
                                 <td><%= date %></td>
-                                <td>Organizacja</td><!--TODO display organization but at the moment there is no organization model-->
+                                <td>Organizacja</td><!--TODO display organization but at the moment there is no organization model-->        
                         </tr>    
-                        <% }) %>
+                        <%}) %>
                     </tbody>
                 </table>
             </div>  
