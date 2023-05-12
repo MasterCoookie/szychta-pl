@@ -43,7 +43,6 @@ const apply_post = async(req, res)=>{
         await Stage.create({application_id: applicationID, index: 1, name: "Złożono", status: 0, lastChange: Date.now()});
         res.sendStatus(201);
     } catch (e) {
-        console.log(e)
         let errors = [];
         if (e.errors) {
             Object.values(e.errors).forEach(({ properties }) => {
