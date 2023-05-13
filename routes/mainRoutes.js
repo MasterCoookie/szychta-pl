@@ -41,6 +41,6 @@ router.delete('/profile/file_delete', authMiddleware.require_login, profileContr
 router.get('/profile/docs', authMiddleware.require_login, profileController.docs_get);
 
 router.post('/offers/filtered', upload.none(), jobOfferController.showOffersFiltered_post);
-router.get('/offers', jobOfferController.showOffers_get);
+router.get('/', jobOfferController.showOffers_get);
 
 module.exports = router;
