@@ -61,7 +61,7 @@ const showEmployerOffers_get = async (req, res) => {
         const employer = await Employer.findById(req.session.employer._id);
         let jobOffers = [];
         if(employer.organisation_id != null){
-        jobOffers = await JobOffer.find({ organisation_id: employer.organisation_id });
+            jobOffers = await JobOffer.find({ organisation_id: employer.organisation_id });
         }
         res.render('employer/showCurrentOffers', { title: 'Aktualne oferty pracy', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true, employer: true });
     }
@@ -73,7 +73,7 @@ const showEmployerOffers_get = async (req, res) => {
 
 const showOfferDetails_get = async (req, res) => {
     try {
-        const jobOffer = await JobOffer.findById(req.query.id);
+        const jobOffer = await JobOffer.findById(req.query._id);
         if (!jobOffer) {
             res.sendStatus(404);
             return;
@@ -123,7 +123,7 @@ const addOffer_put = async (req, res) => {
 
 const manageOffer_get = async (req, res) => {
     try {
-        const offer_id = req.query.offer;
+        const offer_id = req.query._id;
         if (offer_id) {
             const offer = (await JobOffer.findById(offer_id)).toObject();
             res.render('jobOffer/manage_offer', { title: 'Edycja oferty pracy', offer, user: req.session.employer, scrollable: true, pickedSkills: offer.requirements.map(skill => skill.toString()) });
