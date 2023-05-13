@@ -180,7 +180,6 @@ const show_employers = async (req, res) => {
 const deleteEmployer_post = async (req, res) => {
     const { _id } = req.body;
     try {
-        await Employer.init();
         await Employer.findByIdAndDelete(_id);
         res.redirect('/admin/show_employers'); // TODO implement message about succesful deletion
     } catch (e) {
