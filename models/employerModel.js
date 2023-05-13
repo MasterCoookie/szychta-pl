@@ -32,7 +32,7 @@ const employerSchema = new Schema({
     },
     organisation_id:{
         type: Schema.Types.ObjectId,
-        // TODO: validator?
+        ref: 'Organisation',
     },
     password: {
 		type: String,

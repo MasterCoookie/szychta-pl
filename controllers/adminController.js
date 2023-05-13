@@ -7,8 +7,13 @@ const manageEmployer_get = async (req, res) => {
         const all_organisations = (await Organisation.find({})).map(org => org.toObject());
         if (employer_id) {
             const employer = (await Employer.findById(employer_id)).toObject();
-            const organisation = (await Organisation.findById(employer.organisation_id)).toObject();
-            res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, organisation,all_organisations, user: req.session.employer, scrollable: true });
+            if(employer.organisation_id) {
+                const organisation = (await Organisation.findById(employer.organisation_id)).toObject();
+                res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, organisation,all_organisations, user: req.session.employer, scrollable: true });
+            }           
+            else{
+                res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, all_organisations, user: req.session.employer, scrollable: true });
+            }
         } else {
             const passwordGenerator = ()=>{
                 const length = 8;
@@ -163,6 +168,26 @@ const show_organisations = async (req, res) => {
         res.sendStatus(500);
     }
 }
+const show_employers = async (req, res) => {
+    try {
+        const employers = (await Employer.find().populate('organisation_id')).map(org => org.toObject());
+        res.render('admin/show_employers', { title: 'Pracodawcy', employers, user: req.session.employer });
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+const deleteEmployer_post = async (req, res) => {
+    const { _id } = req.body;
+    try {
+        await Employer.init();
+        await Employer.findByIdAndDelete(_id);
+        res.redirect('/admin/show_employers'); // TODO implement message about succesful deletion
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
 module.exports = {
     manageEmployer_get,
     addEmployer_put,
@@ -173,5 +198,7 @@ module.exports = {
     modifyOrganistation_post,
     deleteOrganisation_post,
     panel_get,
-    show_organisations
+    show_organisations,
+    show_employers,
+    deleteEmployer_post,
 }
