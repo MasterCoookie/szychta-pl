@@ -5,7 +5,7 @@ const Stage = require('../models/stageModel');
 
 const showApplyingForm = async (req, res) => {
     try {
-        if(req.query.id == null) {
+        if(req.query._id == null) {
             res.sendStatus(404);
         }
         else {
@@ -15,7 +15,7 @@ const showApplyingForm = async (req, res) => {
                 res.sendStatus(404);
             }
             else {
-                const jobAdvert = (await JobOffer.findById(req.query.id)).toObject();
+                const jobAdvert = (await JobOffer.findById(req.query._id)).toObject();
                 res.render('apply/applyingForm', { title: 'Aplikuj', jobAdvert, applicant, user: req.session.applicant ?? req.session.employer, scrollable: true });
             } 
         }

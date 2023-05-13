@@ -69,7 +69,7 @@ const login_post = async (req, res) => {
                 if(employer) {
                     console.log("Logged in %s as employer", email);
                     sessionController.authenticationAfterLoggingIn(req);
-                    sessionController.saveEmployerInfoToSession(req, employer.name, employer.surname, employer.email, employer.permissionLevel, employer._id);
+                    sessionController.saveEmployerInfoToSession(req, employer.name, employer.surname, employer.email, employer.permissionLevel, employer._id, employer.organisation_id);
                     res.status(202).json({ redirect: 'panel' });
                 } else {
                 res.status(400).json({ msg: 'Niewłaściwe dane' });
