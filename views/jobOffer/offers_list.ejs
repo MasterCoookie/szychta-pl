@@ -1,9 +1,9 @@
 <% jobOffers.forEach((jobOffer, index) => { %>
     <tr>
         <% if (jobOffer.organisation_id) {%>
-            <td style="text-align: center; vertical-align: middle;"><img src="img/logos/<%=jobOffer.organisation_id%>.png" onerror="this.onerror=null; this.src='img/logos/default.png'" style="width: 50px; height: 50px; border-radius: 50%;"></td>
+            <td style="text-align: center; vertical-align: middle;"><img src="/img/logos/<%=jobOffer.organisation_id%>.png" onerror="this.onerror=null; this.src='img/logos/default.png'" style="width: 50px; height: 50px; border-radius: 50%;"></td>
         <% } else { %>
-            <td style="text-align: center; vertical-align: middle;"><img src="img/logos/default.png" style="width: 50px; height: 50px; border-radius: 50%;"></td>
+            <td style="text-align: center; vertical-align: middle;"><img src="/img/logos/default.png" style="width: 50px; height: 50px; border-radius: 50%;"></td>
         <% } %>
         <td>
             <div style="font-weight: bolder;"><%= jobOffer.title %></div>
