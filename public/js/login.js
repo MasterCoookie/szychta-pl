@@ -1,7 +1,7 @@
 const loginForm = document.getElementById('loginForm');
 const loginButton = document.getElementById('loginBtn');
 
-searchButton.addEventListener('click', (event) => {
+loginButton.addEventListener('click', (event) => {
     event.preventDefault();
     const request = new XMLHttpRequest();
     const formData = new FormData(loginForm);
