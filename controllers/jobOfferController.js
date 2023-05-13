@@ -18,18 +18,20 @@ const getModeArray = (_mode0, _mode1, _mode2) =>{
 
 const showOffersFiltered_post = async (req, res) => {
     try {
+        const request = req.body;
         let query = {};
-        if (req.body.keywords) {
-            query.keywords = { $in: req.body.keywords };
+        if (request.keywords) {
+            request.keywords = request.keywords.split(' ');
+            query.keywords = { $in: request.keywords };
         }
-        if (req.body.location) {
-            query.location = { $regex: req.body.location, $options: 'i' };
+        if (request.location) {
+            query.location = { $regex: request.location, $options: 'i' };
         }
-        if (req.body.mode0 || req.body.mode1 || req.body.mode2) {
-            query.mode = getModeArray(req.body.mode0, req.body.mode1, req.body.mode2);
+        if (request.mode0 || request.mode1 || request.mode2) {
+            query.mode = { $in: getModeArray(request.mode0, request.mode1, request.mode2)};
         }
-        if (req.body.industry) {
-            query.industry = { $in: req.body.industry };
+        if (request.industry) {
+            query.industry = { $in: request.industry };
         }
         const jobOffers = await JobOffer.find(query);
         const html = await ejs.renderFile('./views/jobOffer/offers_list.ejs', {jobOffers})

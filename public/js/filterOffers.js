@@ -7,11 +7,9 @@ searchButton.addEventListener('click', (event) => {
     const request = new XMLHttpRequest();
     const formData = new FormData(searchForm);
 
-    console.log(formData);
     request.open('post', '/offers/filtered');
     request.send(formData);
     request.onload = () => {
-        //todo: add error handling
         filteredOffers.innerHTML = request.responseText;
     }
 });
