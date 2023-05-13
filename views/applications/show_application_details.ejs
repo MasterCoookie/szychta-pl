@@ -8,7 +8,7 @@
             <div class="p-2">Data aplikacji: <%= new Date(application.applicationDate).toLocaleString("pl-PL") %></div>
             <div class="p-2">Stan aplikacji: <%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>, ostatnia aktualizacja <%= lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970" %>)</div>
             <div class="p-2">Godność: <%= applicant.name %> <%= applicant.surname %></div>
-            <div class="p-2">Email: <%= applicant.email %></div>
+            <div class="p-2">Email: <%= application.email %></div>
             <% if(application.phoneNumber) {%>
             <div class="p-2">Numer telefonu: <%= application.phoneNumber %></div>
             <% } %>
