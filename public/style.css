@@ -46,10 +46,6 @@ html, body {
     cursor: auto;
 }
 
-.container {
-    padding-top: 2em;
-}
-
 .nameAndSurname {
     border: none;
     font-size: x-large;
