@@ -52,7 +52,7 @@ const docsUploadStorage = multer.diskStorage({
         cb(null, path);
     },
     filename: function(req, file, cb) {
-        cb(null, req.body.org_id + '.png');
+        cb(null, 'draft.png');
     }
  });
 
