@@ -103,7 +103,7 @@ const addOffer_put = async (req, res) => {
     try {
         const organisation_id = req.session.employer.organisation_id;
         if(!organisation_id){
-            
+            return res.sendStatus(400);
         }
         await JobOffer.create({ title, description, mode, salary, requirements : requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
