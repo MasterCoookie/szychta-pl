@@ -12,12 +12,12 @@
                 <div class="form-group">
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="name">Nazwa organizacji:</label>
                     <div class="col-sm-8 mx-auto">
-                        <input type="text" name="name" id="name" value="<% if(locals.organisation && organisation.name != null) {%><%= organisation.name %><% } %>" required="" class="form-control shadow bg-white rounded"/><br/>
+                        <input type="text" name="name" id="name" value="<% if(locals.organisation && organisation.name != null) {%><%= organisation.name %><% } %>" required="" class="form-control shadow bg-white rounded" autocomplete="off" /><br/>
                     </div>
 
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="description">Opis organizacji:</label>
                     <div class="col-sm-8 mx-auto">
-                        <textarea id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.organisation && organisation.description != null) {%><%= organisation.description %><% } %></textarea><br/>
+                        <textarea autocomplete="off" id="description" name="description" rows="8" cols="64" class="form-control shadow bg-white rounded"><% if(locals.organisation && organisation.description != null) {%><%= organisation.description %><% } %></textarea><br/>
                     </div>
                 </div>
                 <label class="control-label col-sm-8 pb-1 m-0" for="logo">Logo organizacji:</label>
