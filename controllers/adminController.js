@@ -1,5 +1,6 @@
 const Employer = require('../models/employerModel');
 const Organisation = require('../models/organisationModel');
+fs = require('fs');
 // Should this be splitted into employerController and organisationController?
 const manageEmployer_get = async (req, res) => {
     try {
@@ -86,10 +87,14 @@ const addEmployer_put  =  async(req, res) =>{
     }
 };
 const modifyOrganistation_post = async (req, res) => {
-    const {name, description, org_id} = req.body;
+    const { name, description, organisation_id } = req.body;
     try {
-        await Organisation.findByIdAndUpdate(org_id, { name, description});
+        await Organisation.findByIdAndUpdate(organisation_id, { name, description });
         console.log("Organisation %s modified", name);
+        if(req.file) {
+            fs.existsSync(__dirname + '\\..\\public\\img\\logos\\' + organisation_id + '.png') && fs.unlinkSync(__dirname + '\\..\\public\\img\\logos\\' + organisation_id + '.png');
+            fs.existsSync(__dirname + '\\..\\public\\img\\logos\\draft.png') && fs.renameSync(__dirname + '\\..\\public\\img\\logos\\draft.png', __dirname + '\\..\\public\\img\\logos\\' + organisation_id + '.png');
+        }
         res.sendStatus(201);
     } catch (e) {
         let errors = [];
