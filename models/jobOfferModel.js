@@ -14,7 +14,7 @@ const jobOfferSchema = new mongoose.Schema({
     },
     mode: {
         type: [Number],
-        //validate: [(val) => val.length > 0 , 'Must have minimum one type in range 1-3'] // must be turned off until sufficient module is implemented 
+        //validate: [(val) => val.length > 0 , 'Must have minimum one type in range 1-3'] // must be turned off until sufficient module is implemented
     },
     salary: String,
     requirements: {

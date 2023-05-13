@@ -1,5 +1,7 @@
 const JobOffer = require('../models/jobOfferModel');
 const Skill = require('../models/skillsModel');
+const ejs = require('ejs');
+
 const getModeArray = (_mode0, _mode1, _mode2) =>{
     let mode = [];
     if (_mode0){
@@ -12,6 +14,33 @@ const getModeArray = (_mode0, _mode1, _mode2) =>{
         mode.push(2);
     }
     return mode;
+}
+
+const showOffersFiltered_post = async (req, res) => {
+    try {
+        const request = req.body;
+        let query = {};
+        if (request.keywords) {
+            request.keywords = request.keywords.split(' ');
+            query.keywords = { $in: request.keywords };
+        }
+        if (request.location) {
+            query.location = { $regex: request.location, $options: 'i' };
+        }
+        if (request.mode0 || request.mode1 || request.mode2) {
+            query.mode = { $in: getModeArray(request.mode0, request.mode1, request.mode2)};
+        }
+        if (request.industry) {
+            query.industry = { $in: request.industry };
+        }
+        const jobOffers = await JobOffer.find(query);
+        const html = await ejs.renderFile('./views/jobOffer/offers_list.ejs', {jobOffers})
+        res.send(html);
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
 }
 
 const showOffers_get = async (req, res) => {
@@ -128,6 +157,7 @@ const offer_delete = async (req, res) => {
 
 module.exports = {
     showOffers_get,
+    showOffersFiltered_post,
     showOfferDetails_get,
     manageOffer_get,
     addOffer_put,

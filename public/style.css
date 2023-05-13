@@ -20,7 +20,7 @@ html, body {
 .form-control {
     border-radius: 25px !important;
 }
-  
+
 #skillsComponent {
     height: 370px;
     width: 370px;
@@ -83,4 +83,8 @@ html, body {
 .noPaddingLeft {
     padding-left: 0px;
     padding-right: 50px;
+}
+
+.container {
+    padding-top: 2em;
 }

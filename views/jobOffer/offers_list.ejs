@@ -1,0 +1,23 @@
+<% jobOffers.forEach((jobOffer, index) => { %>
+    <tr>
+        <td style="text-align: center; vertical-align: middle;">LOGO</td>
+        <td>
+            <div style="font-weight: bolder;"><%= jobOffer.title %></div>
+            <div><%= jobOffer.location %></div>
+            <div>
+                <% jobOffer.mode.forEach((mode, index)=> {%>
+                <% if (mode==0){ %>
+                Stacjonarny
+                <% } else if (mode==1){ %>
+                Hybrydowy
+                <% } else{ %>
+                Zdalny
+                <% }}) %>
+                </div>
+            <div><%= jobOffer.salary %></div>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <a href="/applicant/view?id=<%=jobOffer._id%>" class="btn">Szczegóły</a>
+        </td>
+    </tr>
+<% }) %>
