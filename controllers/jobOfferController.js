@@ -61,7 +61,7 @@ const showEmployerOffers_get = async (req, res) => {
         const employer = await Employer.findById(req.session.employer._id);
         let jobOffers = [];
         if(employer.organisation_id != null){
-        jobOffers = await JobOffer.find({ organisation_id: employer.organisation_id });
+            jobOffers = await JobOffer.find({ organisation_id: employer.organisation_id });
         }
         res.render('employer/showCurrentOffers', { title: 'Aktualne oferty pracy', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true, employer: true });
     }
