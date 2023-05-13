@@ -31,7 +31,7 @@ const jobOfferSchema = new mongoose.Schema({
     expiryDate: Date,
     organisation_id: {
         type: Schema.Types.ObjectId,
-        //required: [true, "Offer cannot be an orphan"] // must be turned off until sufficient module is implemented
+        required: [true, "Offer cannot be an orphan"] // must be turned off until sufficient module is implemented
     }
 });
 

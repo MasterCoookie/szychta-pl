@@ -18,7 +18,7 @@ function apply(jobAdvertID) {
     formData.append("relativeDocuments", filesArray);
     formData.append("jobOffer_id", jobAdvertID);
     formData.append("keywords", JSON.stringify(keywords));
-    const currentDate = new Date().toJSON().slice(0, 10);
+    const currentDate = new Date();
     formData.append("applicationDate", currentDate);
 
     request.addEventListener('load', (event) => {

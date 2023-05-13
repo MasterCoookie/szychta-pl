@@ -17,7 +17,11 @@
             <div><%= jobOffer.salary %></div>
         </td>
         <td style="text-align: center; vertical-align: middle;">
-            <a href="/applicant/view?id=<%=jobOffer._id%>" class="btn">Szczegóły</a>
+            <% if(employer){ %>
+                <a href="/employer/show_applications/?_id=<%=jobOffer._id%>" class="btn">Wyświetl aplikacje</a>
+            <% } else{ %>
+                <a href="/applicant/view?id=<%=jobOffer._id%>" class="btn">Szczegóły</a>
+            <% } %>
         </td>
     </tr>
 <% }) %>
