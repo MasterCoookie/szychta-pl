@@ -5,9 +5,12 @@ const manageEmployer_get = async (req, res) => {
     try {
         const employer_id = req.query._id;
         const all_organisations = (await Organisation.find({})).map(org => org.toObject());
+        let organisation = {};
         if (employer_id) {
-            const employer = (await Employer.findById(employer_id)).toObject();
-            const organisation = (await Organisation.findById(employer.organisation_id)).toObject();
+            const employer = (await Employer.findById(employer_id)).toObject()
+            if(employer.organisation_id) {
+            organisation = (await Organisation.findById(employer.organisation_id)).toObject();
+            }
             res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, organisation,all_organisations, user: req.session.employer, scrollable: true });
         } else {
             const passwordGenerator = ()=>{
