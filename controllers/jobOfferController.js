@@ -34,8 +34,8 @@ const showOffersFiltered_post = async (req, res) => {
         if (request.industry) {
             query.industry = { $in: request.industry };
         }
-        const jobOffers = await JobOffer.find(query);
-        const html = await ejs.renderFile('./views/jobOffer/offers_list.ejs', {jobOffers})
+        const jobOffers = query != {} ? await JobOffer.find(query) : await JobOffer.find();
+        const html = await ejs.renderFile(__dirname + '\\..\\views\\jobOffer\\offers_list.ejs', {jobOffers, employer: false})
         res.send(html);
     }
     catch (e) {
