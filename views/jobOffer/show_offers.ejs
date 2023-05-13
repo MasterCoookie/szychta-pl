@@ -13,19 +13,19 @@
                     <input type="text" placeholder="lokalizacja" id="location" name="location" class="form-control shadow bg-white rounded"/>
                 </div>
                 <div class="col mx-auto" style="padding-top: 10px;">
-                    <div class="col-sm-8 mx-auto form-check">
+                    <div class="col-sm-4 mx-auto form-check" style="align-items: center;">
                         <input type="checkbox" id="inOffice" name="mode0" class="btn-check" autocomplete="off" <% if(locals.offer && offer.mode.includes(0)) {%>checked=""<% } %>>
-                        <label for="inOffice" class="form-check-label"> Stacjonarny</label>
+                        <label for="inOffice" class="form-check-label"> stacjonarnie</label>
                         <input type="checkbox" id="hybrid" name="mode1" class="btn-check" autocomplete="off" <% if(locals.offer && offer.mode.includes(1)) {%>checked=""<% } %>>
-                        <label for="hybrid" class="form-check-label"> Hybrydowy </label>
+                        <label for="hybrid" class="form-check-label"> hybrydowo </label>
                         <input type="checkbox" id="remote" name="mode2" class="btn-check" autocomplete="off" <% if(locals.offer && offer.mode.includes(2)) {%>checked=""<% } %>>
-                        <label for="remote" class="form-check-label"> Zdalny   </label>
+                        <label for="remote" class="form-check-label"> zdalnie</label>
                     </div>
                 </div>
                 <div class="col mx-auto" style="padding-top: 10px;">
                     <input type="text" placeholder="branża" id="indistry" name="industry" class="form-control shadow bg-white rounded"/>
                 </div>
-                <div class="col-sm-3 mx-auto" style="padding-top: 10px; padding-bottom: 10px;">
+                <div class="col-sm-2 mx-auto" style="padding-top: 10px; padding-bottom: 10px;">
                     <button id="searchBtn" type="submit" class="btn">Wyszukaj</button>
                 </div>
         </form>
