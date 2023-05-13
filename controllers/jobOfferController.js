@@ -1,5 +1,6 @@
 const JobOffer = require('../models/jobOfferModel');
 const Skill = require('../models/skillsModel');
+const Employer = require('../models/employerModel');
 const ejs = require('ejs');
 
 const getModeArray = (_mode0, _mode1, _mode2) =>{
@@ -55,6 +56,21 @@ const showOffers_get = async (req, res) => {
     }
 }
 
+const showEmployerOffers_get = async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer._id);
+        let jobOffers = [];
+        if(employer.organisation_id != null){
+        jobOffers = await JobOffer.find({ organisation_id: employer.organisation_id });
+        }
+        res.render('employer/showCurrentOffers', { title: 'Aktualne oferty pracy', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true });
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
 const showOfferDetails_get = async (req, res) => {
     try {
         const jobOffer = await JobOffer.findById(req.query.id);
@@ -86,6 +102,9 @@ const addOffer_put = async (req, res) => {
     let mode = getModeArray(mode0, mode1, mode2);
     try {
         const organisation_id = req.session.employer.organisation_id;
+        if(!organisation_id){
+            
+        }
         await JobOffer.create({ title, description, mode, salary, requirements : requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
         res.sendStatus(201);
@@ -162,5 +181,6 @@ module.exports = {
     manageOffer_get,
     addOffer_put,
     modifyOffer_post,
-    offer_delete
+    offer_delete,
+    showEmployerOffers_get
 }
