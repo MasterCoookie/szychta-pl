@@ -9,11 +9,11 @@
             <div class="p-2">Stan aplikacji: <%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>, ostatnia aktualizacja <%= lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970" %>)</div>
             <div class="p-2">Godność: <%= applicant.name %> <%= applicant.surname %></div>
             <div class="p-2">Email: <%= applicant.email %></div>
-            <% if(applicant.phoneNumber) {%>
-            <div class="p-2">Numer telefonu: <%= applicant.phoneNumber %></div>
+            <% if(application.phoneNumber) {%>
+            <div class="p-2">Numer telefonu: <%= application.phoneNumber %></div>
             <% } %>
-            <% if(applicant.address) {%>
-            <div class="p-2">Adres: <%= applicant.address %></div>
+            <% if(application.homeAddress) {%>
+            <div class="p-2">Adres: <%= application.homeAddress %></div>
             <% } %>
             <% if(applicant.birthDate) {%>
             <div class="p-2">Data urodzenia: <%= new Date(applicant.birthDate).toLocaleDateString("pl-PL") %></div>
