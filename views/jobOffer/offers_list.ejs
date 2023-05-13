@@ -30,9 +30,10 @@
         </td>
         <td style="text-align: center; vertical-align: middle;">
             <% if(employer){ %>
+                <a href="/employer/manage_offer/?_id=<%=jobOffer._id%>" class="btn">Zmodyfikuj ofertę</a>
                 <a href="/employer/show_applications/?_id=<%=jobOffer._id%>" class="btn">Wyświetl aplikacje</a>
             <% } else{ %>
-                <a href="/applicant/view?id=<%=jobOffer._id%>" class="btn">Szczegóły</a>
+                <a href="/applicant/view?_id=<%=jobOffer._id%>" class="btn">Szczegóły</a>
             <% } %>
         </td>
     </tr>
