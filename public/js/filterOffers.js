@@ -13,3 +13,10 @@ searchButton.addEventListener('click', (event) => {
         filteredOffers.innerHTML = request.responseText;
     }
 });
+
+window.addEventListener('load', () => {
+    const searchBar = document.getElementById('keywords');
+    if(searchBar.value){
+        searchButton.click();
+    }
+});
