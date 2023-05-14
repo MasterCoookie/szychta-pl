@@ -7,7 +7,7 @@ window.addEventListener('load', function () {
         e.preventDefault();
         const formData = new FormData(profileFormDOMElement);
 
-        const arrayInputs = Array.from(document.getElementsByClassName('array-input'));
+        const arrayInputs = Array.from(document.getElementsByClassName('links-array-input'));
         const arrayValues = JSON.stringify(arrayInputs.map(input => input.value));
         const skills = document.getElementById('pickedSkills').value;
 
