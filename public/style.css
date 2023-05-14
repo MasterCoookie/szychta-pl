@@ -23,7 +23,11 @@ html, body {
 
 #skillsComponent {
     height: 370px;
-    width: 370px;
+    width: 460px;
+}
+
+#skillsResults {
+    overflow-y: scroll;
 }
 
 #newSkillClickText  {

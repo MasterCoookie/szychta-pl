@@ -7,7 +7,7 @@
     </div>
         <form class="form-horizontal" id="searchForm" method="get">
                 <div class="col mx-auto">
-                    <input type="text" placeholder="wpisz słowa kluczowe, które opiszą stanowisko pracy" id="keywords" name="keywords" class="form-control shadow bg-white rounded"/>
+                    <input type="text" placeholder="wpisz słowa kluczowe, które opiszą stanowisko pracy" id="keywords" name="keywords" class="form-control shadow bg-white rounded" autocomplete="off" value="<%= locals.search %>"/>
                 </div>
                 <div class="col mx-auto" style="padding-top: 10px;">
                     <input type="text" placeholder="lokalizacja" id="location" name="location" class="form-control shadow bg-white rounded"/>
