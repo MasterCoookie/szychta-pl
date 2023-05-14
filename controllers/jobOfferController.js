@@ -47,7 +47,7 @@ const showOffersFiltered_post = async (req, res) => {
 const showOffers_get = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find();
-        res.render('jobOffer/show_offers', { title: 'Pokaż oferty', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true, employer: false  });
+        res.render('jobOffer/show_offers', { title: 'Pokaż oferty', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true, employer: false, search: req.query.search  });
         // empty list handled in frontend
     }
     catch (e) {
