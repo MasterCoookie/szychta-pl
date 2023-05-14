@@ -46,8 +46,8 @@
                 </div>
             <% } %>
             <div class="flex-item text-center">
-                <a href = "../employer/manage_stage?application=<%= application._id %>"><button class="btn">Stwórz nowy etap (i zakończ bieżący)</button></a>
-                <a href = "<%= lastStage ? "../employer/manage_stage?stage="+lastStage._id : "#" %>"><button class="btn">Modyfikuj bieżący etap</button></a>
+                <a href = "/employer/manage_stage?application=<%= application._id %>"><button class="btn">Stwórz nowy etap (i zakończ bieżący)</button></a>
+                <a href = "<%= lastStage ? "/employer/manage_stage?stage="+lastStage._id : "#" %>"><button class="btn">Modyfikuj bieżący etap</button></a>
             </div>
         </div>
     </div>
