@@ -51,10 +51,4 @@ window.addEventListener('load', function () {
         }
     });
 
-
-    // const deleteFileButtons = Array.from(document.getElementsByClassName('file-remove'));
-    // deleteFileButtons.forEach(element => {
-    //     element.addEventListener('click', deleteListener);
-    // });
-
 });
