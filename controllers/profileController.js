@@ -1,6 +1,7 @@
 const Applicant = require('../models/applicantModel');
 const Skill = require('../models/skillsModel');
 const fs = require('fs');
+const bcrypt = require('bcrypt');
 
 const profile_post = async (req, res) => {
     const _id = req.session.applicant._id;
@@ -155,10 +156,34 @@ const docs_upload_post = async (req, res) => {
     }
 }
 
+const passwordUpdate_post = async (req, res) => {
+    const _id = req.session.applicant._id;
+    const applicant = (await Applicant.findById(_id));
+    if (!applicant) {
+        // not found, return not found
+        console.log("Applicant not found!");
+        res.sendStatus(404);
+    } else {
+        const { oldPassword, newPassword, repeatNewPassword } = req.body;
+        try {
+            if (! await bcrypt.compare(oldPassword, applicant.password)) {
+                res.sendStatus(400).json({ errors: ['Wrong password'] });
+            } else {
+                applicant.password = newPassword;
+                await applicant.save();
+                res.sendStatus(200);
+            }
+        } catch (e) {
+            console.log(e);
+            res.sendStatus(500);
+        }
+    }
+}
 module.exports = {
     profile_post,
     profile_get,
     docs_upload_post,
     file_delete,
     docs_get,
+    passwordUpdate_post
 };
