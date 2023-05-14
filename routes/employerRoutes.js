@@ -20,6 +20,7 @@ router.delete('/delete_offer', [authMiddleware.require_secretary, upload.none()]
 //application related routes
 router.get('/show_applications', authMiddleware.require_login ,applicationController.applicationsView_get);
 router.get('/show_application', authMiddleware.require_login ,applicationController.applicationView_get);
+router.post('/sort_applications',[authMiddleware.require_secretary, upload.none()], applicationController.employer_sort_applications_post);
 
 //stage related routes
 router.get('/manage_stage', authMiddleware.require_secretary, stageController.manageStage_get);

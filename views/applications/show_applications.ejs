@@ -2,26 +2,28 @@
 <%- include('../partials/navbar.ejs') %>
 
 
-<div class="container" style="background-color: white" >
-    <h3 class="d-flex justify-content-center flex-column text-center w-100">Aplikacje na stanowisko: <%= jobOffer.title %></h3>
-    <br>
-    <div>
-        <% applications.forEach( application => { %>
-        <div class="flex-item text-center" style="background-color: #445766">
-            <a href="/employer/show_application/?_id=<%=application._id%>" style="color:white">
-                    <div>Aplikujący: <%= applicantsWithId[application.applicant_id].name %> <%= applicantsWithId[application.applicant_id].surname %></div>
-                    <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
-                    <% if(application.relativeDocuments) { %>
-                        <div>Załączone dokumenty: </div><% application.relativeDocuments.forEach( document => { %>
-                            <div>
-                            <%= document %>
-                            </div>
-                    <% })}%>
-            </a>
+<div class="container h-1500" style="padding-top: 50px;">
+    <div class="row d-flex align-items-up justify-content-center h-100">
+        <div class="col-md-8 mx-auto text-center bg-white p-3">
+            <h3 class="d-flex justify-content-center flex-column text-center w-100">Aplikacje na stanowisko: <%= jobOffer.title %></h3>
+            <br>
+            <h3 class="d-flex justify-content-center flex-column text-center w-100">Wybierz kryterium sortowania</h3>
+            <form class="form-horizontal" id="sortForm" method="post">
+                <select class="col-md-8 shadow" id="criterion" name="criterion">
+                    <option value="alphabetically">Alfabetycznie</option>
+                    <option value="oldest">Od Najstarszej</option>
+                    <option value="newest">Od Najnowszej</option>
+                </select> 
+                <input class="col-sm-0" type="hidden" id="jobOfferid" name="jobOfferid" value="<%=jobOffer._id%>"/>
+            </form>
+            <br>
+            <div id = "applicationlist">
+                <%- include('employer_application_list.ejs')%>
+            </div>
         </div>
-        <br>
-        <% }); %>
     </div>
 </div>
+
+<script src='/js/applicationEmplSorter.js'></script>
 
 <%- include('../partials/footer.ejs') %>

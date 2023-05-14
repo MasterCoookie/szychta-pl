@@ -3,7 +3,6 @@ const Application = require('../models/applicationModel');
 const Applicant = require('../models/applicantModel');
 const Skill = require('../models/skillsModel');
 const Stage = require('../models/stageModel');
-const Organistaion = require('../models/organisationModel');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
 
@@ -142,7 +141,66 @@ const sort_applications_post = async (req,res) => {
         if(!applications || !jobOffersWithId) {
             res.sendStatus(404);
         }
-        const html = await ejs.renderFile(__dirname + '\\..\\views\\applications\\application_list.ejs', { applications, jobOffersWithId, stages});
+        const html = await ejs.renderFile(__dirname + '\\..\\views\\applications\\application_list.ejs', { applications, jobOffersWithId, stages });
+        res.send(html);
+    }
+    catch(err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+}
+
+const employer_sort_applications_post = async (req, res) => {
+    const {criterion, jobOfferid} = req.body; 
+    try{
+        let mySorter = {};
+        if (criterion === "oldest") {
+            mySorter = { applicationDate:1 };
+        } else if (criterion === "newest") {
+            mySorter = { applicationDate:-1 };
+        } else if (criterion === "alphabetically") {
+            mySorter = {"applicant.surname": 1};
+        } else {
+            mySorter = { applicationDate:-1 };
+        }
+        const jobOffer = await JobOffer.findById(jobOfferid);
+        if (!jobOffer) {
+            res.sendStatus(404);
+        }
+        const applications = await Application.aggregate([
+            {
+                $lookup: {
+                    from: "applicants",
+                    localField: "applicant_id",
+                    foreignField: "_id",
+                    as: "applicant"
+                }
+            },
+            {
+                $match: { jobOffer_id: new mongoose.Types.ObjectId(jobOfferid) }
+            },
+            {
+                $sort: mySorter
+            }
+        ]);
+        if(!applications) {
+            res.sendStatus(404);
+        }
+        const getApplicantNames = async () => {
+            let acc = {};
+            for (let i = 0; i < applications.length; i++) {
+                const applicant = await Applicant.findById(applications[i].applicant_id.toString());
+                if (applicant) {
+                    acc[applications[i].applicant_id] = applicant;
+                }
+                else {
+                    res.sendStatus(404);
+                }
+            }
+            return acc;
+        }
+        const applicantsWithId = await getApplicantNames(); 
+        const html = await ejs.renderFile(__dirname + '\\..\\views\\applications\\employer_application_list.ejs', { applicantsWithId, applications, jobOffer });
         res.send(html);
     }
     catch(err) {
@@ -152,10 +210,10 @@ const sort_applications_post = async (req,res) => {
 }
 
 
-
 module.exports = {
     applicationsView_get,
     applicationView_get,
     show_applicant_applications_get,
-    sort_applications_post
+    sort_applications_post,
+    employer_sort_applications_post
 }

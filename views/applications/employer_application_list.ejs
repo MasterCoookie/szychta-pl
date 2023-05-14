@@ -1,0 +1,15 @@
+<% applications.forEach( application => { %>
+    <div class="flex-item text-center" style="background-color: #445766">
+        <a href="/employer/show_application/?_id=<%=application._id%>" style="color:white">
+                <div>Aplikujący: <%= applicantsWithId[application.applicant_id].name %> <%= applicantsWithId[application.applicant_id].surname %></div>
+                <div>Data aplikacji: <%= application.applicationDate.toString().slice(0, 15) %></div>
+                <% if(application.relativeDocuments) { %>
+                    <div>Załączone dokumenty: </div><% application.relativeDocuments.forEach( document => { %>
+                        <div>
+                        <%= document %>
+                        </div>
+                <% })}%>
+        </a>
+    </div>
+    <br>
+<% }); %>
