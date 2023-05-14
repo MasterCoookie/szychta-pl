@@ -1,14 +1,21 @@
 const Employer = require('../models/employerModel');
 const Organisation = require('../models/organisationModel');
+fs = require('fs');
 // Should this be splitted into employerController and organisationController?
 const manageEmployer_get = async (req, res) => {
     try {
         const employer_id = req.query._id;
         const all_organisations = (await Organisation.find({})).map(org => org.toObject());
+        let organisation = {};
         if (employer_id) {
             const employer = (await Employer.findById(employer_id)).toObject();
-            const organisation = (await Organisation.findById(employer.organisation_id)).toObject();
-            res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, organisation,all_organisations, user: req.session.employer, scrollable: true });
+            if(employer.organisation_id) {
+                const organisation = (await Organisation.findById(employer.organisation_id)).toObject();
+                res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, organisation,all_organisations, user: req.session.employer, scrollable: true });
+            }           
+            else{
+                res.render('employer/manage_employer', { title: 'Edycja konta pracowniczego', employer, all_organisations, user: req.session.employer, scrollable: true });
+            }
         } else {
             const passwordGenerator = ()=>{
                 const length = 8;
@@ -83,10 +90,14 @@ const addEmployer_put  =  async(req, res) =>{
     }
 };
 const modifyOrganistation_post = async (req, res) => {
-    const {name, description, org_id} = req.body;
+    const { name, description, organisation_id } = req.body;
     try {
-        await Organisation.findByIdAndUpdate(org_id, { name, description});
+        await Organisation.findByIdAndUpdate(organisation_id, { name, description });
         console.log("Organisation %s modified", name);
+        if(req.file) {
+            fs.existsSync(__dirname + '\\..\\public\\img\\logos\\' + organisation_id + '.png') && fs.unlinkSync(__dirname + '\\..\\public\\img\\logos\\' + organisation_id + '.png');
+            fs.existsSync(__dirname + '\\..\\public\\img\\logos\\draft.png') && fs.renameSync(__dirname + '\\..\\public\\img\\logos\\draft.png', __dirname + '\\..\\public\\img\\logos\\' + organisation_id + '.png');
+        }
         res.sendStatus(201);
     } catch (e) {
         let errors = [];
@@ -163,6 +174,25 @@ const show_organisations = async (req, res) => {
         res.sendStatus(500);
     }
 }
+const show_employers = async (req, res) => {
+    try {
+        const employers = (await Employer.find().populate('organisation_id')).map(org => org.toObject());
+        res.render('admin/show_employers', { title: 'Pracodawcy', employers, user: req.session.employer });
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+const deleteEmployer_post = async (req, res) => {
+    const { _id } = req.body;
+    try {
+        await Employer.findByIdAndDelete(_id);
+        res.redirect('/admin/show_employers'); // TODO implement message about succesful deletion
+    } catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
 module.exports = {
     manageEmployer_get,
     addEmployer_put,
@@ -173,5 +203,7 @@ module.exports = {
     modifyOrganistation_post,
     deleteOrganisation_post,
     panel_get,
-    show_organisations
+    show_organisations,
+    show_employers,
+    deleteEmployer_post,
 }

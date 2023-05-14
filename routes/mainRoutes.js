@@ -39,7 +39,8 @@ router.get('/profile', authMiddleware.require_login, profileController.profile_g
 router.post('/profile', [profilePicUploadMiddleware, authMiddleware.require_login], profileController.profile_post);
 router.delete('/profile/file_delete', authMiddleware.require_login, profileController.file_delete);
 router.get('/profile/docs', authMiddleware.require_login, profileController.docs_get);
-
-router.get('/offers', jobOfferController.showOffers_get);
+router.post('/profile/password_update', [authMiddleware.require_login, upload.none()], profileController.passwordUpdate_post);
+router.post('/offers/filtered', upload.none(), jobOfferController.showOffersFiltered_post);
+router.get('/', jobOfferController.showOffers_get);
 
 module.exports = router;

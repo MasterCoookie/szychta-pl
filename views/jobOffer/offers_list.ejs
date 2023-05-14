@@ -1,0 +1,40 @@
+<% if (jobOffers.length <= 0) {%>
+    <h3 class="alert alert-danger text-center">Nie znaleziono ofert<% if(locals.employer) { %> dla Twojej organizacji<% } %></h3>
+<% } else jobOffers.forEach((jobOffer, index) => { %>
+    <tr>
+        <% if (jobOffer.organisation_id) {%>
+            <td style="text-align: center; vertical-align: middle;"><img src="/img/logos/<%=jobOffer.organisation_id%>.png" onerror="this.onerror=null; this.src='img/logos/default.png'" style="width: 50px; height: 50px; border-radius: 50%;"></td>
+        <% } else { %>
+            <td style="text-align: center; vertical-align: middle;"><img src="/img/logos/default.png" style="width: 50px; height: 50px; border-radius: 50%;"></td>
+        <% } %>
+        <td>
+            <div style="font-weight: bolder;"><%= jobOffer.title %></div>
+            <div>
+                <img src="/assets/icons/house-fill.svg" width="16" height="16">
+                <%= jobOffer.location %></div>
+            <div>
+                <img src="/assets/icons/building-fill.svg" width="16" height="16">
+                <% jobOffer.mode.forEach((mode, index)=> {%>
+                <% if (mode==0){ %>
+                stacjonarnie
+                <% } else if (mode==1){ %>
+                hybrydowo
+                <% } else{ %>
+                zdalnie
+                <% }}) %>
+                </div>
+            <div>
+                <img src="/assets/icons/cash-coin.svg" alt="Bootstrap" width="16" height="16">
+                <%= jobOffer.salary %>
+            </div>
+        </td>
+        <td style="text-align: center; vertical-align: middle;">
+            <% if(employer){ %>
+                <a href="/employer/manage_offer/?_id=<%=jobOffer._id%>" class="btn">Zmodyfikuj ofertę</a>
+                <a href="/employer/show_applications/?_id=<%=jobOffer._id%>" class="btn">Wyświetl aplikacje</a>
+            <% } else{ %>
+                <a href="/applicant/view?_id=<%=jobOffer._id%>" class="btn">Szczegóły</a>
+            <% } %>
+        </td>
+    </tr>
+<% }) %>

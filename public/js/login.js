@@ -17,7 +17,7 @@ loginButton.addEventListener('click', (event) => {
             document.getElementById('message').innerHTML = response.msg;
         }
     });
-    
+
     request.open('post', '/auth/login');
     request.send(formData);
 });

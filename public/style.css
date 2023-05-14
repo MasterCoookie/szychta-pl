@@ -20,10 +20,14 @@ html, body {
 .form-control {
     border-radius: 25px !important;
 }
-  
+
 #skillsComponent {
     height: 370px;
-    width: 370px;
+    width: 460px;
+}
+
+#skillsResults {
+    overflow-y: scroll;
 }
 
 #newSkillClickText  {
@@ -88,4 +92,7 @@ html, body {
 .tableHeader {
     color: white;
     background-color: #445766;
+}
+.container {
+    padding-top: 2em;
 }

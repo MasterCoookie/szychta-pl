@@ -3,7 +3,7 @@ window.addEventListener('load', function () {
     const FileToAddDOMElement = document.getElementById('addfile');
     const filesDOMElement = document.getElementById('files');
     const getInputTemplate = (index, name) => '<div id="file' + index + '">' + '<span id="filename' + index + '">' + name + '</span><button type="button" class="files-remove" id="buttonFile-' + index + '">x</button></div>';
-
+    renderFiles();
     function deleteListener(e) {
         const clickedIndex = e.target.id.split('-')[1];
         const removedID = 'file' + clickedIndex;
@@ -15,9 +15,9 @@ window.addEventListener('load', function () {
         delrequest.open('DELETE', '/profile/file_delete');
         delrequest.setRequestHeader('Content-Type', 'application/json');
         delrequest.send(JSON.stringify({ filename: removedFileName.innerHTML }));
-        delrequest.onload = () => {
-            console.log(delrequest.response);
-        }
+        //delrequest.onload = () => { // JK SAID THIS IS NOT NEEDED AS REMOVED FILE IS NO LONGER DISPLAYED
+        //    console.log(delrequest.response);
+        //}
         renderFiles();
     }
 
@@ -28,11 +28,12 @@ window.addEventListener('load', function () {
         new_request.onload = () => {
             const array = JSON.parse(new_request.response);
             filesDOMElement.innerHTML = '';
-            array.forEach(element => {
-                filesDOMElement.innerHTML += getInputTemplate(currentIndex - 1, element);
-                const grabbedElement = document.getElementById('buttonFile-' + (currentIndex - 1));
-                grabbedElement.addEventListener('click', deleteListener);
-                currentIndex++;
+             array.forEach(element => {
+                 filesDOMElement.innerHTML += getInputTemplate(currentIndex - 1, element);
+             });
+            const deleteFileButtons = Array.from(document.getElementsByClassName('files-remove'));
+            deleteFileButtons.forEach(element => {
+                element.addEventListener('click', deleteListener);
             });
         };
     }
@@ -40,7 +41,6 @@ window.addEventListener('load', function () {
 
     FileToAddDOMElement.addEventListener('change', function (e) {
         const file = e.target.files[0];
-        console.log("dupa");
         let formData = new FormData();
         formData.append('doc', file);
         request = new XMLHttpRequest();
@@ -49,12 +49,6 @@ window.addEventListener('load', function () {
         request.onload = () => {
             renderFiles();
         }
-    });
-
-
-    const deleteFileButtons = Array.from(document.getElementsByClassName('file-remove'));
-    deleteFileButtons.forEach(element => {
-        element.addEventListener('click', deleteListener);
     });
 
 });

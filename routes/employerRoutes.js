@@ -11,7 +11,7 @@ const router = express.Router();
 const upload = multer();
 
 //job offer related routes
-router.get('/show_offers', jobOfferController.showOffers_get);
+router.get('/show_offers', jobOfferController.showEmployerOffers_get);
 router.get('/manage_offer', authMiddleware.require_secretary, jobOfferController.manageOffer_get);
 router.put('/add_offer', [authMiddleware.require_secretary, upload.none()], jobOfferController.addOffer_put);
 router.post('/modify_offer', [authMiddleware.require_secretary, upload.none()], jobOfferController.modifyOffer_post);

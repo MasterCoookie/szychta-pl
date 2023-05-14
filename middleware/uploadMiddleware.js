@@ -46,6 +46,15 @@ const docsUploadStorage = multer.diskStorage({
     }
  });
 
+ const logoUploadStorage = multer.diskStorage({
+    destination: function(req, file, cb) {
+        const path = __dirname + '\\..\\public\\img\\logos\\';
+        cb(null, path);
+    },
+    filename: function(req, file, cb) {
+        cb(null, 'draft.png');
+    }
+ });
 
  const docsUpload = multer({
     storage: docsUploadStorage,
@@ -69,4 +78,15 @@ const docsUploadStorage = multer.diskStorage({
     }
  });
 
- module.exports = { docsUpload, profilePicUpload };
+ const logoUpload = multer({
+    storage: logoUploadStorage,
+    limits: {
+        filesize: 25000000
+    },
+    fileFilter: (req, res, cb) => {
+        // TODO: limit file extensions
+        cb(null, true);
+    }
+ });
+
+ module.exports = { docsUpload, profilePicUpload, logoUpload };

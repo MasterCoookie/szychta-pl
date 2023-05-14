@@ -1,5 +1,8 @@
 const JobOffer = require('../models/jobOfferModel');
 const Skill = require('../models/skillsModel');
+const Employer = require('../models/employerModel');
+const ejs = require('ejs');
+
 const getModeArray = (_mode0, _mode1, _mode2) =>{
     let mode = [];
     if (_mode0){
@@ -14,11 +17,53 @@ const getModeArray = (_mode0, _mode1, _mode2) =>{
     return mode;
 }
 
+const showOffersFiltered_post = async (req, res) => {
+    try {
+        const request = req.body;
+        let query = {};
+        if (request.keywords) {
+            request.keywords = request.keywords.split(' ');
+            query.keywords = { $in: request.keywords };
+        }
+        if (request.location) {
+            query.location = { $regex: request.location, $options: 'i' };
+        }
+        if (request.mode0 || request.mode1 || request.mode2) {
+            query.mode = { $in: getModeArray(request.mode0, request.mode1, request.mode2)};
+        }
+        if (request.industry) {
+            query.industry = { $in: request.industry };
+        }
+        const jobOffers = query != {} ? await JobOffer.find(query) : await JobOffer.find();
+        const html = await ejs.renderFile(__dirname + '\\..\\views\\jobOffer\\offers_list.ejs', {jobOffers, employer: false})
+        res.send(html);
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
 const showOffers_get = async (req, res) => {
     try {
         const jobOffers = await JobOffer.find();
-        res.render('jobOffer/show_offers', { title: 'Pokaż oferty', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true  });
+        res.render('jobOffer/show_offers', { title: 'Pokaż oferty', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true, employer: false, search: req.query.search  });
         // empty list handled in frontend
+    }
+    catch (e) {
+        console.log(e);
+        res.sendStatus(500);
+    }
+}
+
+const showEmployerOffers_get = async (req, res) => {
+    try {
+        const employer = await Employer.findById(req.session.employer._id);
+        let jobOffers = [];
+        if(employer.organisation_id != null){
+            jobOffers = await JobOffer.find({ organisation_id: employer.organisation_id });
+        }
+        res.render('employer/showCurrentOffers', { title: 'Aktualne oferty pracy', jobOffers, user: req.session.applicant ?? req.session.employer, scrollable: true, employer: true });
     }
     catch (e) {
         console.log(e);
@@ -28,7 +73,7 @@ const showOffers_get = async (req, res) => {
 
 const showOfferDetails_get = async (req, res) => {
     try {
-        const jobOffer = await JobOffer.findById(req.query.id);
+        const jobOffer = await JobOffer.findById(req.query._id);
         if (!jobOffer) {
             res.sendStatus(404);
             return;
@@ -57,6 +102,9 @@ const addOffer_put = async (req, res) => {
     let mode = getModeArray(mode0, mode1, mode2);
     try {
         const organisation_id = req.session.employer.organisation_id;
+        if(!organisation_id){
+            return res.sendStatus(400);
+        }
         await JobOffer.create({ title, description, mode, salary, requirements : requirementsArray, location, industry, additionalQuestions, keywords, expiryDate, organisation_id});
         console.log("New job offer %s created", title);
         res.sendStatus(201);
@@ -75,7 +123,7 @@ const addOffer_put = async (req, res) => {
 
 const manageOffer_get = async (req, res) => {
     try {
-        const offer_id = req.query.offer;
+        const offer_id = req.query._id;
         if (offer_id) {
             const offer = (await JobOffer.findById(offer_id)).toObject();
             res.render('jobOffer/manage_offer', { title: 'Edycja oferty pracy', offer, user: req.session.employer, scrollable: true, pickedSkills: offer.requirements.map(skill => skill.toString()) });
@@ -128,9 +176,11 @@ const offer_delete = async (req, res) => {
 
 module.exports = {
     showOffers_get,
+    showOffersFiltered_post,
     showOfferDetails_get,
     manageOffer_get,
     addOffer_put,
     modifyOffer_post,
-    offer_delete
+    offer_delete,
+    showEmployerOffers_get
 }

@@ -5,7 +5,7 @@ const Stage = require('../models/stageModel');
 
 const showApplyingForm = async (req, res) => {
     try {
-        if(req.query.id == null) {
+        if(req.query._id == null) {
             res.sendStatus(404);
         }
         else {
@@ -15,7 +15,7 @@ const showApplyingForm = async (req, res) => {
                 res.sendStatus(404);
             }
             else {
-                const jobAdvert = (await JobOffer.findById(req.query.id)).toObject();
+                const jobAdvert = (await JobOffer.findById(req.query._id)).toObject();
                 res.render('apply/applyingForm', { title: 'Aplikuj', jobAdvert, applicant, user: req.session.applicant ?? req.session.employer, scrollable: true });
             } 
         }
@@ -36,8 +36,12 @@ const apply_post = async(req, res)=>{
     const questionAnswers = req.body.additionalQuestions ? JSON.parse(req.body.additionalQuestions) : [];
     const relativeSkills = req.body.keywords ? JSON.parse(req.body.keywords) : [];
     const applicant_id = req.session.applicant._id;
-    console.log(relativeDocuments);
     try {
+        const ifApplied = await Application.find({applicant_id: applicant_id ,jobOffer_id: jobOffer_id});
+        if(ifApplied.length > 0) {
+            res.status(400).json({ errors: ["Już aplikowałeś na to ogłoszenie"] });
+            return;
+        }
         const createdApplication = await Application.create({ email, phoneNumber, homeAddress, jobOffer_id, applicationDate, questionAnswers, relativeSkills, applicant_id, relativeDocuments });
         const applicationID = createdApplication._id;
         await Stage.create({application_id: applicationID, index: 1, name: "Złożono", status: 0, lastChange: Date.now()});

@@ -30,9 +30,18 @@ const require_admin = (req, res, next) => {
     }
 }
 
+const prevent_employer = (req, res, next) => {
+    if(req.session.employer) {
+        res.send('You can\'t proceed as an employer');
+    } else {
+        next();
+    }
+}
+
 module.exports = {
     require_login,
     require_secretary,
     require_recruiter,
-    require_admin
+    require_admin,
+    prevent_employer
 }

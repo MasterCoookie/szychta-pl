@@ -1,45 +1,45 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
 
-<div class="container bg-white" style="padding-top: 150px;">
+<div class="container bg-white" style="padding-top: 20px;">
     <div class="row d-flex align-items-up justify-content-center h-100">
-        <h1 class="col-md-8 mx-auto text-center">Wyszukaj idealną ofertę</h1>
+        <p style="font-size: 30px; font-weight: bolder;">Wyszukaj idealną ofertę</p>
+    </div>
+        <form class="form-horizontal" id="searchForm" method="get">
+                <div class="col mx-auto">
+                    <input type="text" placeholder="wpisz słowa kluczowe, które opiszą stanowisko pracy" id="keywords" name="keywords" class="form-control shadow bg-white rounded" autocomplete="off" value="<%= locals.search %>"/>
+                </div>
+                <div class="col mx-auto" style="padding-top: 10px;">
+                    <input type="text" placeholder="lokalizacja" id="location" name="location" class="form-control shadow bg-white rounded"/>
+                </div>
+                <div class="col mx-auto" style="padding-top: 10px;">
+                    <div class="col-sm-4 mx-auto form-check" style="align-items: center;">
+                        <input type="checkbox" id="inOffice" name="mode0" class="btn-check" autocomplete="off" <% if(locals.offer && offer.mode.includes(0)) {%>checked=""<% } %>>
+                        <label for="inOffice" class="form-check-label"> stacjonarnie</label>
+                        <input type="checkbox" id="hybrid" name="mode1" class="btn-check" autocomplete="off" <% if(locals.offer && offer.mode.includes(1)) {%>checked=""<% } %>>
+                        <label for="hybrid" class="form-check-label"> hybrydowo </label>
+                        <input type="checkbox" id="remote" name="mode2" class="btn-check" autocomplete="off" <% if(locals.offer && offer.mode.includes(2)) {%>checked=""<% } %>>
+                        <label for="remote" class="form-check-label"> zdalnie</label>
+                    </div>
+                </div>
+                <div class="col mx-auto" style="padding-top: 10px;">
+                    <input type="text" placeholder="branża" id="indistry" name="industry" class="form-control shadow bg-white rounded"/>
+                </div>
+                <div class="col-sm-2 mx-auto" style="padding-top: 10px; padding-bottom: 10px;">
+                    <button id="searchBtn" type="submit" class="btn">Wyszukaj</button>
+                </div>
+        </form>
+    <div class="row d-flex align-items-up justify-content-center h-100">
         <div class="table-responsive">
             <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Stanowisko</th>
-                        <th scope="col">Lokalizacja</th>
-                        <th scope="col">Tryb pracy</th>
-                        <th scope="col">Wynagrodzenie</th>
-                        <th scope="col">Szczegóły</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% jobOffers.forEach((jobOffer, index) => { %>
-                    <tr>
-                        <td><%= jobOffer.title %></td>
-                        <td><%= jobOffer.location %></td>
-                        <td>
-                            <% jobOffer.mode.forEach((mode, index)=> {%>
-                            <% if (mode==0){ %>
-                            Stacjonarny
-                            <% } else if (mode==1){ %>
-                            Hybrydowy
-                            <% } else{ %>
-                            Zdalny
-                            <% }}) %>
-                        </td>
-                        <td><%= jobOffer.salary %></td>
-                        <td>
-                            <a href="/applicant/view?id=<%=jobOffer._id%>" class="btn btn-primary">Szczegóły</a>
-                        </td>
-                    </tr>
-                    <% }) %>
+                <tbody id="filteredOffers">
+                    <%- include('offers_list.ejs') %>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
+
+<script src="/js/filterOffers.js"></script>
 
 <%- include('../partials/footer.ejs') %>

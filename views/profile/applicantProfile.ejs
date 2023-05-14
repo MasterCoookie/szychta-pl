@@ -63,24 +63,24 @@
                     <br>
 
                     <div class="profileIntersec col-md-11">
-                        <label class="control-label col-sm-2" for="links">Załączniki:</label>
+                        <label class="control-label col-sm-2 my-auto" for="links">Linki:</label>
                     </div>
                     <!-- prefix: "links" -->
                     <div class="col-md-11" id="links-inputArray">
                         <!-- TODO: Initialize varingSizeInputArray.js script currentArrayLen variable -->
                         <% if(applicant.links != null) { for(let i = 0; i < applicant.links.length; i++) { %>
                             <input value="<%= applicant.links[i] %>" class="links-array-input" type="text" id="links-input<%= i %>" />
-                            <button type="button" class="links-array-remove" id="links-<%= i %>">x</button>
+                            <button type="button" class="links-array-remove btn btn-decolored" id="links-<%= i %>">x</button>
                         <% }} %>
                         <div class="col-md-11 shadow">
-                            <button class="longprofileBtn col-md-11 pt-2 pb-1 m-0" id="links-arrayAdd">+ dodaj załącznik</button>
+                            <button class="longprofileBtn col-md-11 pt-2 pb-1 m-0" id="links-arrayAdd">+ dodaj link</button>
                         </div>
                     </div>
 
                     <br>
 
                     <div class="profileIntersec col-md-11">
-                        <label class="control-label col-sm-2" for="skillsSearchBar">Umiejętności:</label>
+                        <label class="control-label col-sm-2 my-auto" for="skillsSearchBar">Umiejętności:</label>
                     </div>
 
                     <%- include('../partials/skillsComponent.ejs', {ableToCreate: false, pickedSkills: locals.pickedSkills}) %>
@@ -115,6 +115,25 @@
                     <input type="file" style=display:none id="addfile" name="file"/>
                 </div>
             </form>
+            <form id="changePasswordform">
+                <div class="profileIntersec col-md-11">
+                    <p>Zmień hasło</p>
+                </div>
+                <div class="contactDataDiv shadow">
+                    <label class="control-label col-sm-12 pt-2 pb-1 m-0"  for="oldPassword">Podaj stare hasło: 
+                        <input type="password" name="oldPassword" id="oldPassword" class="profileInputTextbox" /></label>
+                </div>
+                <div class="contactDataDiv shadow">
+                    <label class="control-label col-sm-12 pt-2 pb-1 m-0" for="newPassword">Podaj nowe hasło: 
+                        <input type="password" name="newPassword" id="newPassword" class="profileInputTextbox"  /></label>
+                </div>
+                <div class="contactDataDiv shadow">
+                    <label class="control-label col-sm-12 pt-2 pb-1 m-0" for="repeatNewPassword">Powtórz nowe hasło:                                                          
+                        <input type="password" name="repeatNewPassword" id="repeatNewPassword" class="profileInputTextbox"/></label>
+                </div>
+            </form>
+            <input type="submit" id="savePasswordBtn" value="zapisz" class="btn col-md-11" />
+                <div id="passwordSaveResult" class="mt-2"></div>
         </div>    
     </div>    
 </div>
@@ -126,4 +145,5 @@
 <script src="js/profilePicturePreview.js"></script>
 <script src="js/addFile.js"></script>
 <script src="js/submitProfileForm.js"></script>
+<script src="js/changePassword.js"></script>
 <%- include('../partials/footer.ejs') %>
