@@ -1,6 +1,6 @@
 const passwordForm = document.getElementById('changePasswordform');
 const passwordButton = document.getElementById('savePasswordBtn');
-let passwordMessage = document.getElementById('passwordSaveResult');
+const passwordMessage = document.getElementById('passwordSaveResult');
 
 passwordButton.addEventListener('click', (event) => {
     event.preventDefault();
