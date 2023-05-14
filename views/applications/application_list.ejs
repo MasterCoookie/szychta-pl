@@ -1,0 +1,13 @@
+<% applications.forEach( application => { 
+    const lastStage = stages[application.jobOffer_id];
+    const date = lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970";
+    const name = jobOffersWithId[application.jobOffer_id].title
+%>
+<tr>
+        <td><%= name %></td>
+        <td><%= new Date(application.applicationDate).toLocaleString("pl-PL") %></td>
+        <td><%= lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>)</td>
+        <td><%= date %></td>
+        <td>Organizacja</td><!--TODO display organization but at the moment there is no organization model-->        
+</tr>    
+<%}) %>

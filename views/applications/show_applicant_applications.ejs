@@ -4,13 +4,12 @@
 <div class="container h-1500" style="padding-top: 50px;">
     <div class="row d-flex align-items-up justify-content-center h-100">
         <div class="col-md-8 mx-auto text-center bg-white p-3">
-            <form class="form-horizontal" id="sortForm">
+            <form class="form-horizontal" id="sortForm" method="post">
                 <select class="col-md-8 shadow" id="criterion" name="criterion">
+                    
                     <option value="alphabetically">Alfabetycznie</option>
                     <option value="oldest">Od Najstarszej</option>
                     <option value="newest">Od Najnowszej</option>
-                    <option value="stage">Względem stanu</option>
-                    <option value="update">Względem ostatniej aktualizacji</option>
                 </select> 
             </form>
             <br>
@@ -27,19 +26,7 @@
                         </tr>
                     </thead>
                     <tbody id="tableBody">
-                        <% applications.forEach( application => { 
-                            const lastStage = stages[application.jobOffer_id];
-                            const date = lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970";
-                            const name = jobOffersWithId[application.jobOffer_id].title
-                        %>
-                        <tr>
-                                <td><%= name %></td>
-                                <td><%= new Date(application.applicationDate).toLocaleString("pl-PL") %></td>
-                                <td><%= lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>)</td>
-                                <td><%= date %></td>
-                                <td>Organizacja</td><!--TODO display organization but at the moment there is no organization model-->        
-                        </tr>    
-                        <%}) %>
+                        <%- include('application_list.ejs')%>
                     </tbody>
                 </table>
             </div>  
@@ -47,6 +34,6 @@
     </div>
 </div>
 
-<script src="/js/applicationSorter.js"></script>
+<script src='/js/applicationSorter.js'></script>
 
 <%- include('../partials/footer.ejs') %>

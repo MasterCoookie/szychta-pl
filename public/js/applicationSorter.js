@@ -1,15 +1,14 @@
 
 const sortForm = document.getElementById('sortForm');
 const sortCriterion = document.getElementById("criterion");
+const tableBody = document.getElementById("tableBody");
 
 sortCriterion.addEventListener('change', (event) => {
-    //event.preventDefault();
     const request = new XMLHttpRequest();
     const formData = new FormData(sortForm);
-    console.log(formData.get('criterion'));
-    request.open('GET', '/applicant/sort_applications');
-    request.send();
+    request.open('POST', '/applicant/sort_applications');
+    request.send(formData);
     request.onload = () => {
-        console.log(request.response);
+        tableBody.innerHTML = request.response;
     }
 });

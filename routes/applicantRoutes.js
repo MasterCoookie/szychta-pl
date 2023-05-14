@@ -13,6 +13,6 @@ router.get('/view', jobOfferController.showOfferDetails_get);
 router.get('/apply', [authMiddleware.require_login, authMiddleware.prevent_employer], applyController.showApplyingForm);
 router.post('/apply', [authMiddleware.require_login, upload.none()], applyController.apply_post);
 router.get('/show_applications', authMiddleware.require_login , applicationController.show_applicant_applications_get);
-router.get('/sort_applications', authMiddleware.require_login , applicationController.sort_applications_get)
+router.post('/sort_applications', [authMiddleware.require_login, upload.none()] , applicationController.sort_applications_post)
 
 module.exports = router;
