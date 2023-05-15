@@ -86,9 +86,10 @@ const login_post = async (req, res) => {
                     } else {
                         res.status(400).json({ msg: 'Niewłaściwe dane' });
                     }
+                } else {
+                    res.status(400).json({ msg: 'Nie ma konta stworzonego <br> na podany e-mail' });
                 }
             }
-            res.status(400).json({ msg: 'Nie ma konta stworzonego <br> na podany e-mail' })
         } catch (e) {
             res.status(400).json({ msg: 'Niewłaściwe dane' });
         }
