@@ -1,53 +1,55 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
 
-<div class="container bg-white" style="padding-top: 150px;">
+<div class="container" style="padding-top: 150px; padding-bottom: 50px;">
     <div class="row d-flex align-items-up justify-content-center h-100">
-        <h3 class="col-md-8 mx-auto text-center">Przeglądaj konta pracownicze</h3>
-        <div class="table-responsive">
-            <table class="table table-hover">
-                <thead>
-                    <tr>
-                        <th scope="col">Imię</th>
-                        <th scope="col">Nazwisko</th>
-                        <th scope="col">Email</th>
-                        <th scope="col">Organizacja</th>
-                        <th scope="col">Poziom dostępu</th>
-                        <th scope="col">Edycja</th>
-                        <th scope="col">Usuń</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <% employers.forEach(employer => { %>
-                    <tr>
-                        <td><%= employer.name %></td>
-                        <td><%= employer.surname %></td>
-                        <td><%= employer.email %></td>
-                        <% if(employer.organisation_id){ %>
-                        <td><%= employer.organisation_id.name %></td>
-                        <%}else{%>
-                        <td>Brak organizacji</td>
-                        <%}%>
-                        <%if(employer.permissionLevel==1){%>
-                        <td>Sekretarka</td>
-                        <%}else if(employer.permissionLevel==2){%>
-                        <td>Rekruter</td>
-                        <%}else if(employer.permissionLevel==3){%>
-                        <td>Administrator</td>
-                        <%}%>
-                        <td>
-                            <a href="/admin/manage_employer?_id=<%=employer._id%>" class="btn btn-primary">Edytuj</a>
-                        </td>
-                        <td>
-                            <form action="/admin/delete_employer" method="post">
-                                <input type="hidden" name="_id" value="<%=employer._id%>"/>
-                                <button type="submit" class="btn btn-danger">Usuń</button>
-                            </form>
-                        </td>
-                    </tr>
-                    <% }) %>
-                </tbody>
-            </table>
+        <div class="col-md-12 mx-auto text-center bg-white p-3">
+            <h3 class="col-md-8 mx-auto text-center">Przeglądaj konta pracownicze</h3>
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th scope="col">Imię</th>
+                            <th scope="col">Nazwisko</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Organizacja</th>
+                            <th scope="col">Poziom dostępu</th>
+                            <th scope="col">Edycja</th>
+                            <th scope="col">Usuń</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% employers.forEach(employer => { %>
+                        <tr>
+                            <td><%= employer.name %></td>
+                            <td><%= employer.surname %></td>
+                            <td><%= employer.email %></td>
+                            <% if(employer.organisation_id){ %>
+                            <td><%= employer.organisation_id.name %></td>
+                            <%}else{%>
+                            <td>Brak organizacji</td>
+                            <%}%>
+                            <%if(employer.permissionLevel==1){%>
+                            <td>Sekretarka</td>
+                            <%}else if(employer.permissionLevel==2){%>
+                            <td>Rekruter</td>
+                            <%}else if(employer.permissionLevel==3){%>
+                            <td>Administrator</td>
+                            <%}%>
+                            <td>
+                                <a href="/admin/manage_employer?_id=<%=employer._id%>" class="btn btn-primary">Edytuj</a>
+                            </td>
+                            <td>
+                                <form action="/admin/delete_organisation" method="post">
+                                    <input type="hidden" name="_id" value="<%=employer._id%>"/>
+                                    <button type="submit" class="btn btn-danger">Usuń</button>
+                                </form>
+                            </td>
+                        </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

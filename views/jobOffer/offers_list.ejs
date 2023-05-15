@@ -8,11 +8,11 @@
             <td style="text-align: center; vertical-align: middle;"><img src="/img/logos/default.png" style="width: 50px; height: 50px; border-radius: 50%;"></td>
         <% } %>
         <td>
-            <div style="font-weight: bolder;"><%= jobOffer.title %></div>
-            <div>
+            <div style="text-align: left; font-weight: bolder;"><%= jobOffer.title %></div>
+            <div style="text-align: left;">
                 <img src="/assets/icons/house-fill.svg" width="16" height="16">
                 <%= jobOffer.location %></div>
-            <div>
+            <div style="text-align: left;">
                 <img src="/assets/icons/building-fill.svg" width="16" height="16">
                 <% jobOffer.mode.forEach((mode, index)=> {%>
                 <% if (mode==0){ %>
@@ -23,7 +23,7 @@
                 zdalnie
                 <% }}) %>
                 </div>
-            <div>
+            <div style="text-align: left;">
                 <img src="/assets/icons/cash-coin.svg" alt="Bootstrap" width="16" height="16">
                 <%= jobOffer.salary %>
             </div>
