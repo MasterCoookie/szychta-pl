@@ -14,16 +14,16 @@
                     <option value="oldest">Od Najstarszej</option>
                     <option value="newest">Od Najnowszej</option>
                 </select> 
-                <input class="col-sm-0" type="hidden" id="jobOfferid" name="jobOfferid" value="<%=jobOffer._id%>"/>
+                <input class="col-sm-0" type="hidden" id="jobOfferObject" name="jobOfferObject" value="<%=jobOffer._id%>"/>
             </form>
             <br>
-            <div id = "applicationlist">
+            <div id = "applicationList">
                 <%- include('employer_application_list.ejs')%>
             </div>
         </div>
     </div>
 </div>
 
-<script src='/js/applicationEmplSorter.js'></script>
+<script src='/js/applicationSorter.js'></script>
 
 <%- include('../partials/footer.ejs') %>

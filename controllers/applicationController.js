@@ -102,7 +102,7 @@ const sort_applications_post = async (req,res) => {
         } else if (criterion === "alphabetically") {
             mySorter = {"joinedjoboffers.title": 1};
         } else {
-            mySorter = { applicationDate:-1 };
+            res.sendStatus(404);
         }
         const applications = await Application.aggregate([
             {
@@ -135,9 +135,9 @@ const sort_applications_post = async (req,res) => {
             }
             return {'offers' : offers, 'stages' : stages};
         }
-        const arrays = await getJobOffers();
-        const jobOffersWithId = arrays.offers;
-        const stages = arrays.stages;
+        const table = await getJobOffers();
+        const jobOffersWithId = table.offers;
+        const stages = table.stages;
         if(!applications || !jobOffersWithId) {
             res.sendStatus(404);
         }
@@ -151,7 +151,7 @@ const sort_applications_post = async (req,res) => {
 }
 
 const employer_sort_applications_post = async (req, res) => {
-    const {criterion, jobOfferid} = req.body; 
+    const {criterion, jobOfferObject} = req.body; 
     try{
         let mySorter = {};
         if (criterion === "oldest") {
@@ -160,10 +160,10 @@ const employer_sort_applications_post = async (req, res) => {
             mySorter = { applicationDate:-1 };
         } else if (criterion === "alphabetically") {
             mySorter = {"applicant.surname": 1};
-        } else {
-            mySorter = { applicationDate:-1 };
+        } else  {
+            res.sendStatus(404);
         }
-        const jobOffer = await JobOffer.findById(jobOfferid);
+        const jobOffer = await JobOffer.findById(jobOfferObject);
         if (!jobOffer) {
             res.sendStatus(404);
         }
@@ -177,7 +177,7 @@ const employer_sort_applications_post = async (req, res) => {
                 }
             },
             {
-                $match: { jobOffer_id: new mongoose.Types.ObjectId(jobOfferid) }
+                $match: { jobOffer_id: new mongoose.Types.ObjectId(jobOfferObject) }
             },
             {
                 $sort: mySorter
