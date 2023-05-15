@@ -3,6 +3,7 @@ const Application = require('../models/applicationModel');
 const Applicant = require('../models/applicantModel');
 const Skill = require('../models/skillsModel');
 const Stage = require('../models/stageModel');
+const Organisation = require('../models/organisationModel');
 const mongoose = require('mongoose');
 const ejs = require('ejs');
 
@@ -65,25 +66,28 @@ const show_applicant_applications_get = async (req, res) => {
         const getJobOffers = async () => {
             let offers = {};
             let stages = {};
+            let organisations = {};
             for (let i = 0; i < applications.length; i++) {
                 const jobOffer = await JobOffer.findById(applications[i].jobOffer_id.toString());
                 if (jobOffer) {
                     offers[applications[i].jobOffer_id] = jobOffer;
                     stages[applications[i].jobOffer_id] = await Stage.findOne({application_id: applications[i]._id}).sort({index:-1});
+                    organisations[applications[i].jobOffer_id] = await Organisation.findOne({_id: jobOffer.organisation_id});
                 }
                 else {
                     res.sendStatus(404);
                 }
             }
-            return {'offers' : offers, 'stages' : stages};
+            return {'offers' : offers, 'stages' : stages, 'organisations' : organisations};
         }
         const arrays = await getJobOffers();
         const jobOffersWithId = arrays.offers;
         const stages = arrays.stages;
+        const organisations = arrays.organisations;
         if(!applications || !jobOffersWithId) {
             res.sendStatus(404);
         }
-        res.render('applications/show_applicant_applications', { title: 'Wyświetlanie swoich aplikacji', applications, jobOffersWithId, stages, user: req.session.applicant, scrollable: true});
+        res.render('applications/show_applicant_applications', { title: 'Wyświetlanie swoich aplikacji', applications, jobOffersWithId, stages, organisations, user: req.session.applicant, scrollable: true});
     }
     catch(err) {
         console.log(err);
@@ -123,25 +127,28 @@ const sort_applications_post = async (req,res) => {
         const getJobOffers = async () => {
             let offers = {};
             let stages = {};
+            let organisations = {};
             for (let i = 0; i < applications.length; i++) {
                 const jobOffer = await JobOffer.findById(applications[i].jobOffer_id.toString());
                 if (jobOffer) {
                     offers[applications[i].jobOffer_id] = jobOffer;
                     stages[applications[i].jobOffer_id] = await Stage.findOne({application_id: applications[i]._id}).sort({index:-1});
+                    organisations[applications[i].jobOffer_id] = await Organisation.findOne({_id: jobOffer.organisation_id});
                 }
                 else {
                     res.sendStatus(404);
                 }
             }
-            return {'offers' : offers, 'stages' : stages};
+            return {'offers' : offers, 'stages' : stages, 'organisations' : organisations};
         }
         const table = await getJobOffers();
         const jobOffersWithId = table.offers;
         const stages = table.stages;
+        const organisations = table.organisations;
         if(!applications || !jobOffersWithId) {
             res.sendStatus(404);
         }
-        const html = await ejs.renderFile(__dirname + '\\..\\views\\applications\\application_list.ejs', { applications, jobOffersWithId, stages });
+        const html = await ejs.renderFile(__dirname + '\\..\\views\\applications\\application_list.ejs', { applications, jobOffersWithId, stages, organisations });
         res.send(html);
     }
     catch(err) {
