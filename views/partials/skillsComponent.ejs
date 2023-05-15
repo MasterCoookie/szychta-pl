@@ -1,5 +1,5 @@
 <!-- TODO: expand template for no creation / picking option -->
-<div class="container h-100">
+<div class="container" style="padding-top: 100px;">
     <div class="form-group">
         <div id="skillsComponent" class="col-md-6 mx-auto text-center bg-white p-3">
             <form autocomplete="off">
@@ -15,8 +15,9 @@
 </div>
 <br>
 <% if(ableToCreate) { %>
-<div class="container h-100">
+<div class="container" style="padding-bottom: 50px;">
     <form id="skillForm" style="display: none;" class="form-vertical col-md-6 mx-auto text-center bg-white p-3" autocomplete="off">
+        <h2>Create new skill</h2>
         <div class="form-group"> 
             <label class="control-label col-sm-6 pt-2 pb-1 m-0" for="skillName">Nazwa</label>
             <div class="col-sm-8 mx-auto">

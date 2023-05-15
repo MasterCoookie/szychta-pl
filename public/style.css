@@ -94,6 +94,7 @@ html, body {
     background-color: #445766;
 }
 .container {
+    height: fit-content;
     padding-top: 2em;
 }
 
