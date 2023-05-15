@@ -89,6 +89,11 @@ html, body {
     padding-right: 50px;
 }
 
+.tableHeader {
+    color: white;
+    background-color: #445766;
+}
 .container {
     padding-top: 2em;
 }
+

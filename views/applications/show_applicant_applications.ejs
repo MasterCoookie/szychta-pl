@@ -1,21 +1,40 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
 
-<div class='container'>
-    <div>
-        <% applications.forEach( application => { 
-            const lastStage = stages[application.jobOffer_id];
-            const date = lastStage ? new Date(lastStage.lastChange).toLocaleString("pl-PL") : "01.01.1970";
-            %>
-            <div class='flex-item text-center'>
-                <div><%= jobOffersWithId[application.jobOffer_id].title %></div>
-                <div>Data aplikacji: <%= new Date(application.applicationDate).toLocaleString("pl-PL") %></div>
-                <div>Stan aplikacji: <%=  lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>, ostatnia aktualizacja <%= date %>)</div>
-                <!--TODO display organization but at the moment there is no organization model-->
-            </div>
+<div class="container h-1500" style="padding-top: 50px;">
+    <div class="row d-flex align-items-up justify-content-center h-100">
+        <div class="col-md-8 mx-auto text-center bg-white p-3">
+            <h3 class="d-flex justify-content-center flex-column text-center w-100">Wybierz kryterium sortowania</h3>
             <br>
-        <% }) %>
+            <form class="form-horizontal" id="sortForm" method="post">
+                <select class="col-md-8 shadow" id="criterion" name="criterion">
+                    <option value="alphabetically">Alfabetycznie</option>
+                    <option value="oldest">Od Najstarszej</option>
+                    <option value="newest">Od Najnowszej</option>
+                </select> 
+            </form>
+            <br>
+
+            <div class="table-responsive">
+                <table class="table table-hover">
+                    <thead>
+                        <tr>
+                            <th class="tableHeader" scope="col">Nazwa oferty</th>
+                            <th class="tableHeader" scope="col">Data aplikacji</th>
+                            <th class="tableHeader" scope="col">Stan aplikacji</th>
+                            <th class="tableHeader" scope="col">Ostatnia aktualizacja</th>
+                            <th class="tableHeader" scope="col">Organizacja</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tableBody">
+                        <%- include('application_list.ejs')%>
+                    </tbody>
+                </table>
+            </div>  
+        </div>
     </div>
 </div>
+
+<script src='/js/applicationSorter.js'></script>
 
 <%- include('../partials/footer.ejs') %>
