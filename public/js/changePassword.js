@@ -28,11 +28,17 @@ passwordButton.addEventListener('click', (event) => {
             passwordMessage.classList.remove('alert-info');
         }
     });
-    if(newPassword === repeatNewPassword){
+    if(newPassword && newPassword === repeatNewPassword){
         request.open('POST', '/profile/password_update');
         request.send(formData);
-    }else{
+    }else if (!newPassword){
+        passwordMessage.innerHTML = 'Hasło nie może być puste';
+        passwordMessage.classList.add('alert-danger');
+        passwordMessage.classList.remove('alert-info');
+    } else {
         passwordMessage.innerHTML = 'Hasło i powtórzone hasło nie są takie same';
+        passwordMessage.classList.add('alert-danger');
+        passwordMessage.classList.remove('alert-info');
     }
 
 });
