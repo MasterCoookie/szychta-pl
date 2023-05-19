@@ -19,7 +19,7 @@ const logoUploadMiddleware = (req, res, next) => {
     });
 }
 
-router.put('/add_organisation', [authMiddleware.require_admin, upload.none()], adminController.addOrganisation_put);
+router.put('/add_organisation', [authMiddleware.require_admin, logoUploadMiddleware], adminController.addOrganisation_put);
 router.post('/modify_organisation', [authMiddleware.require_admin, logoUploadMiddleware], adminController.modifyOrganistation_post);
 router.get('/manage_organisation', authMiddleware.require_admin, adminController.manageOrganisation_get);
 router.post('/delete_organisation', authMiddleware.require_admin, adminController.deleteOrganisation_post);
