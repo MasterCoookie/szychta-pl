@@ -107,3 +107,5 @@ dist
 package-lock.json
 secret.js
 /uploads/docs/*/
+
+temp_data*

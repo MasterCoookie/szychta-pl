@@ -1,12 +1,12 @@
 const pdfFiller = require('pdffiller');
 
 const testPdf_get = (req, res) => {
-    const sourcePdf = __dirname + '\\..\\public\\pdf\\pdf1.pdf';
-    const destinationPdf = __dirname + '\\..\\public\\pdf\\pdf1_filled.pdf';
+    const sourcePdf = __dirname + '\\..\\public\\pdf\\pdf2.pdf';
+    const destinationPdf = __dirname + '\\..\\public\\pdf\\pdf2_filled.pdf';
 
     const data = {
-        'liczbaAplikacji5': '1',
-        'sumaEtapow6': '2',
+        'Text1': '1',
+        'Text2': '2',
     };
     try {
 
@@ -31,6 +31,7 @@ const generateTemplate_get = (req, res) => {
     const FDF_data = pdfFiller.generateFDFTemplate(sourcePdf, nameRegex, function(err, fdfData) {
         if (err) throw err;
         console.log(fdfData);
+        res.sendStatus(200);
     });
 }
 
