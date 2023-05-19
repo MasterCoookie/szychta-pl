@@ -7,7 +7,7 @@
 <tr>
         <td><%= name %></td>
         <td><%= new Date(application.applicationDate).toLocaleString("pl-PL") %></td>
-        <td><%= lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>)</td>
+        <td><%= lastStage ? lastStage.name : "nieokreślony" %> (<%= lastStage ? lastStage.getStatus() : "nieokreślony" %>, <%= lastStage ? lastStage.description : "" %>)</td>
         <td><%= date %></td>
         <td><%= organisation ? organisation.name : "-"%></td> 
 </tr>    
