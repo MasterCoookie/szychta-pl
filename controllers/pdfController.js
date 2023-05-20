@@ -29,10 +29,14 @@ const generateTemplate_get = (req, res) => {
     const sourcePdf = __dirname + '\\..\\public\\pdf\\' + name + '.pdf';
 
     const FDF_data = pdfFiller.generateFDFTemplate(sourcePdf, nameRegex, function(err, fdfData) {
-        if (err) throw err;
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
         console.log(fdfData);
-        res.sendStatus(200);
+        res.send(fdfData);
     });
 }
+
 
 module.exports = { testPdf_get, generateTemplate_get };
