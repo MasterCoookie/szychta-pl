@@ -1,9 +1,28 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
+
+<dialog id="helpDialog" style="align-items: center; padding: auto;">
+    <form method="dialog">
+        <div class="mx-auto">
+            Wypełnij poniższe pola, aby utworzy ofertę.<br>
+            Możesz uzupełnić wymagane umięjętności,<br>
+            nawet jeśli nie została wcześniej utworzona.<br>
+            Dodatkowe pytania do kandydata bądź slowa kluczowe,<br>
+            które opiszą ofertę dodaje się przyciskiem "+".<br><br>
+        </div>
+        <div class="mx-auto text-center">
+            <button value="cancel" class="btn">OK</button>
+        </div>
+    </form>
+</dialog>
+
 <div class="container" style="padding-top: 50px; padding-bottom: 50px;">
     <div class="row d-flex align-items-center justify-content-center h-100">
         <div class="col-md-8 mx-auto text-center bg-white p-3">
             <h1 class="textTitle">Dodaj ofertę pracy</h1>
+            <div>
+                <button id="showHelp" type = "button" onclick="help()" class="btn" style="background-color: coral;">?</button>
+            </div>
             <form class="form-horizontal" id="offerForm">
                 <div class="form-group">
                     <label class="control-label col-sm-8 pt-2 pb-1 m-0" for="title">Tytuł ogłoszenia:</label>
@@ -81,7 +100,7 @@
     </div>
 </div>
 
-
+<script src="/js/help.js"></script>
 <script type="module">
     import { initializeVaryingSizeInputArray } from '/js/varyingSizeInputArray.js';
     initializeVaryingSizeInputArray('additionalQuestions', 0, 16);
