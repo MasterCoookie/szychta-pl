@@ -1,10 +1,28 @@
 <%- include('../partials/head.ejs') %>
 <%- include('../partials/navbar.ejs') %>
+
+<dialog id="helpDialog" style="align-items: center;">
+    <form method="dialog">
+        <div class="mx-auto">
+            Wypełnij poniższe pola i odpowiedz na ewentualne pytania pracodawcy.<br>
+            Możesz uzupełnić swoje umięjętności, jeśli nie zrobiłełeś/aś tego wcześniej.<br>
+            Przed wciśnięćiem przycisku "Aplikuj" wybierz które z nadesłanych plików<br>
+            mają byc dołączone do aplikacji.
+        </div>
+        <div class="mx-auto text-center padding-top">
+            <button value="cancel" class="btn">OK</button>
+        </div>
+    </form>
+</dialog>
+
 <div class="container h-100">
     <div class="row d-flex align-items-center justify-content-center h-100 text-center">
         <div class="w-75 bg-white">
             <div class="p-2">
-                    <div style="background-color: #445766;color: white;">Aplikujesz na stanowisko: <%= jobAdvert.title %></div>
+                <div style="background-color: #445766;color: white;">Aplikujesz na stanowisko: <%= jobAdvert.title %></div>
+                <div>
+                    <button id="showHelp" type = "button" onclick="help()" class="btn" style="background-color: coral;">?</button>
+                </div>
                 <form id = "applyForm">
                     <div>
                         <label for="email" class="control-label col-sm-6 pt-2 pb-1 m-0">Email:</label>
@@ -53,5 +71,6 @@
 </div>
 
 <script src="/js/apply.js"></script>
+<script src="/js/help.js"></script>
 
 <%- include('../partials/footer.ejs') %>
