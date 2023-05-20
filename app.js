@@ -9,6 +9,7 @@ const employerRoutes = require('./routes/employerRoutes');
 const skillsRoutes = require('./routes/skillsRoutes');
 const applicantRoutes = require('./routes/applicantRoutes');
 const adminRoutes = require('./routes/adminRoutes');
+const pdfRoutes = require('./routes/pdfRoutes');
 
 const app = express();
 
@@ -52,6 +53,7 @@ app.use(express.static(__dirname + '/public'));
 app.use('/auth', authRoutes);
 app.use('/employer', employerRoutes);
 app.use('/skills', skillsRoutes);
+app.use('/pdf', pdfRoutes);
 app.use('/', mainRoutes);
 app.use('/applicant', applicantRoutes);
 app.use('/admin', adminRoutes);
