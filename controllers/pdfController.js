@@ -37,16 +37,17 @@ const generateTemplate_get = (req, res) => {
     });
 }
 
-const generatePdf_post = (req, res) => {
-    //TODO extract actual data from req.body
-    const { sourcePdfName, Text1, Text2 } = req.body;
+const generatePdf_get = (req, res) => {
+    const { sourcePdfName } = req.query;
 
     const sourcePdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '.pdf';
     const destinationPdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '_filled.pdf';
 
+    //TODO use szczur's methods to get data
+
     const data = {
-        'Text1': Text1,
-        'Text2': Text2,
+        'Text1': 69,
+        'Text2': 420,
     };
 
     pdfFiller.fillForm(sourcePdf, destinationPdf, data, function(err) {
@@ -55,7 +56,7 @@ const generatePdf_post = (req, res) => {
             return res.sendStatus(500);
         }
         console.log('New pdf ' + sourcePdfName + ' Generated');
-        res.status(200).json({ url: '/pdf/' + sourcePdfName + '_filled.pdf' });
+        res.download(destinationPdf);
     });
 }
 
@@ -63,5 +64,5 @@ const generatePdf_post = (req, res) => {
 module.exports = {
     testPdf_get,
     generateTemplate_get,
-    generatePdf_post
+    generatePdf_get
 };
