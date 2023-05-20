@@ -9,10 +9,9 @@ const testPdf_get = (req, res) => {
         'Text2': '2',
     };
     try {
-
         pdfFiller.fillForm(sourcePdf, destinationPdf, data, function(err) {
             if (err) throw err;
-            console.log("Generated");
+            console.log('Generated');
             res.sendStatus(200);
         });
     } catch (e) {
@@ -38,5 +37,31 @@ const generateTemplate_get = (req, res) => {
     });
 }
 
+const generatePdf_post = (req, res) => {
+    //TODO extract actual data from req.body
+    const { sourcePdfName, Text1, Text2 } = req.body;
 
-module.exports = { testPdf_get, generateTemplate_get };
+    const sourcePdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '.pdf';
+    const destinationPdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '_filled.pdf';
+
+    const data = {
+        'Text1': Text1,
+        'Text2': Text2,
+    };
+
+    pdfFiller.fillForm(sourcePdf, destinationPdf, data, function(err) {
+        if (err) {
+            console.log(err);
+            return res.sendStatus(500);
+        }
+        console.log('New pdf ' + sourcePdfName + ' Generated');
+        res.status(200).json({ url: '/pdf/' + sourcePdfName + '_filled.pdf' });
+    });
+}
+
+
+module.exports = {
+    testPdf_get,
+    generateTemplate_get,
+    generatePdf_post
+};
