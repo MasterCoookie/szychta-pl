@@ -1,4 +1,5 @@
 const pdfFiller = require('pdffiller');
+const dataController = require('./dataController');
 
 const testPdf_get = (req, res) => {
     const sourcePdf = __dirname + '\\..\\public\\pdf\\pdf2.pdf';
@@ -44,6 +45,7 @@ const generatePdf_get = (req, res) => {
     const destinationPdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '_filled.pdf';
 
     //TODO use szczur's methods to get data
+    dataController.data_join_get(req, res);
 
     const data = {
         'Text1': 69,
