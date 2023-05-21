@@ -53,7 +53,7 @@ const generatePdf_get = async (req, res) => {
     const applications = await dataController.jobOffer_applications_get(req, res, chosenJob);
     const statusTable = await dataController.stage_status_get(req, res, chosenJob);
 
-    const averageStage = (1*(statusTable[0]+statusTable[1])+2*statusTable[2]+3*statusTable[3]+4*statusTable[4])/(statusTable[0]+statusTable[1]+statusTable[2]+statusTable[3]+statusTable[4]);
+    const averageStage = (stagesSum)/(applications);
     
     const data = {
         "offerName": name,
