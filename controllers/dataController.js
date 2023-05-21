@@ -33,8 +33,7 @@ const stage_data_get = async (req, res, chosenJob) =>{
                 }
             },
         ]);
-        for(let i=0; i< applications.length; i++)
-        {   
+        for(let i=0; i< applications.length; i++) {   
             if(applications[i].numberOfStages){
                 stagesSum += applications[i].numberOfStages;
             }
@@ -84,8 +83,7 @@ const stage_status_get = async (req, res, chosenJob) =>{
                     $match: { "application.jobOffer_id": new mongoose.Types.ObjectId(chosenJob),  status: i }
                 }
             ]);
-            for(let j = 0; j < stages.length; j++)
-            {
+            for(let j = 0; j < stages.length; j++) {
                 currentStatus++;
             }
             statusTable.push(currentStatus);
