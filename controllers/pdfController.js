@@ -45,15 +45,27 @@ const generatePdf_get = async (req, res) => {
     const destinationPdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '_filled.pdf';
 
     //TODO use szczur's methods to get data
+    const name = await dataController.jobOffer_name_get(req, res, chosenJob);
+    const date = await dataController.jobOffer_date_get(req, res, chosenJob);
+    const prettyDate = new Date(date).toLocaleString("pl-PL");
     const stagesSum = await dataController.stage_data_get(req, res, chosenJob);
     const jobOffers = await dataController.organistaion_jobOffers_get(req, res);
     const applications = await dataController.jobOffer_applications_get(req, res, chosenJob);
     const statusTable = await dataController.stage_status_get(req, res, chosenJob);
 
+    const averageStage = (1*(statusTable[0]+statusTable[1])+2*statusTable[2]+3*statusTable[3]+4*statusTable[4])/(statusTable[0]+statusTable[1]+statusTable[2]+statusTable[3]+statusTable[4]);
+    
     const data = {
-        'Text1': 69,
-        'Text2': 420,
-    };
+        "offerName": name,
+        "iloscAplikacji": applications,
+        "sumaEtapow": stagesSum,
+        "sredniaEtapow": averageStage.toFixed(2),
+        "liczbaNierozpatrzonych": statusTable[0]+statusTable[1],
+        "liczbaZwrotow": statusTable[2],
+        "LiczcbaZaakceptowanych": statusTable[3],
+        "liczbaOdrzuconych": statusTable[4],
+        "aktywnaOd": prettyDate
+    }
 
     pdfFiller.fillForm(sourcePdf, destinationPdf, data, function(err) {
         if (err) {

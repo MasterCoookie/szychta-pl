@@ -39,7 +39,6 @@ const stage_data_get = async (req, res, chosenJob) =>{
                 stagesSum += applications[i].numberOfStages;
             }
         }
-        console.log(stagesSum)
         return stagesSum;
     } catch (err) {
         console.log(err);
@@ -49,8 +48,7 @@ const stage_data_get = async (req, res, chosenJob) =>{
 
 const organistaion_jobOffers_get = async (req, res) =>{
     try {
-        const jobOffers = await JobOffer.find({ organisation_id: req.session.employer.organisation_id }).count();  
-        console.log(jobOffers)
+        const jobOffers = await JobOffer.find({ organisation_id: req.session.employer.organisation_id }).count();
         return jobOffers; 
     } catch (err) {
         console.log(err);
@@ -60,19 +58,19 @@ const organistaion_jobOffers_get = async (req, res) =>{
 
 const jobOffer_applications_get = async (req, res, chosenJob) =>{
     try {
-        const applications = await Application.find({ jobOffer_id: chosenJob }).count() ; 
-        console.log(applications)
+        const applications = await Application.find({ jobOffer_id: chosenJob }).count(); 
         return applications;
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
     }
-}
+};
 
 const stage_status_get = async (req, res, chosenJob) =>{
     try {
         let statusTable = [];
-        for(let i = 0; i<5; i++) {
+        for(let i = 0; i < 5; i++) {
+            let currentStatus = 0;
             const stages = await Stage.aggregate([
                 {
                     $lookup: {
@@ -84,23 +82,46 @@ const stage_status_get = async (req, res, chosenJob) =>{
                 }, 
                 {
                     $match: { "application.jobOffer_id": new mongoose.Types.ObjectId(chosenJob),  status: i }
-                },
-                {
-                    $count: "stageStatus"
                 }
             ]);
-            statusTable.push(stages.stageStatus);
-            console.log(stages);
+            for(let j = 0; j < stages.length; j++)
+            {
+                currentStatus++;
+            }
+            statusTable.push(currentStatus);
         }
+        return statusTable;
     } catch (err) {
         console.log(err);
         res.sendStatus(500);
     }
-}
+};
+
+const jobOffer_name_get = async (req, res, chosenJob) =>{
+    try {
+        const jobOffer = await JobOffer.findOne({ _id: chosenJob });
+        return jobOffer.title;
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+};
+
+const jobOffer_date_get = async (req, res, chosenJob) =>{
+    try {
+        const jobOffer = await JobOffer.findOne({ _id: chosenJob });
+        return jobOffer.expiryDate;
+    } catch (err) {
+        console.log(err);
+        res.sendStatus(500);
+    }
+};
 
 module.exports = {
     stage_data_get,
     organistaion_jobOffers_get,
     jobOffer_applications_get,
-    stage_status_get
+    stage_status_get,
+    jobOffer_name_get,
+    jobOffer_date_get
 }
