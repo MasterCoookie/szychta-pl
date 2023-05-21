@@ -13,7 +13,7 @@ const stage_data_get = async (req, res, chosenJob) =>{
                     from: "joboffers",
                     localField: "jobOffer_id",
                     foreignField: "_id",
-                    as: "joinedjoboffers"
+                    as: "joinedJobOffers"
                 }
             },
             {
@@ -21,15 +21,15 @@ const stage_data_get = async (req, res, chosenJob) =>{
                     from: "stages",
                     localField: "_id",
                     foreignField: "application_id",
-                    as: "applicationstages"
+                    as: "applicationStages"
                 }
             },
             {
-                $match: { "joinedjoboffers.organisation_id" : new mongoose.Types.ObjectId(req.session.employer.organisation_id), jobOffer_id: new mongoose.Types.ObjectId(chosenJob) }
+                $match: { "joinedJobOffers.organisation_id" : new mongoose.Types.ObjectId(req.session.employer.organisation_id), jobOffer_id: new mongoose.Types.ObjectId(chosenJob) }
             },
             {
                 $project: {
-                    numberOfStages: {$cond: { if: {$isArray: "$applicationstages"}, then: { $size: "$applicationstages"}, else: ""}}
+                    numberOfStages: {$cond: { if: {$isArray: "$applicationStages"}, then: { $size: "$applicationStages"}, else: ""}}
                 }
             },
         ]);
