@@ -38,14 +38,17 @@ const generateTemplate_get = (req, res) => {
     });
 }
 
-const generatePdf_get = (req, res) => {
-    const { sourcePdfName } = req.query;
+const generatePdf_get = async (req, res) => {
+    const { sourcePdfName, chosenJob } = req.query;
 
     const sourcePdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '.pdf';
     const destinationPdf = __dirname + '\\..\\public\\pdf\\' + sourcePdfName + '_filled.pdf';
 
     //TODO use szczur's methods to get data
-    dataController.data_join_get(req, res);
+    const stagesSum = await dataController.stage_data_get(req, res, chosenJob);
+    const jobOffers = await dataController.organistaion_jobOffers_get(req, res);
+    const applications = await dataController.jobOffer_applications_get(req, res, chosenJob);
+    const statusTable = await dataController.stage_status_get(req, res, chosenJob);
 
     const data = {
         'Text1': 69,
