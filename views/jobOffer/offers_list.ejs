@@ -33,7 +33,7 @@
                 <a href="/employer/manage_offer/?_id=<%=jobOffer._id%>" class="btn">Zmodyfikuj ofertę</a>
                 <a href="/employer/show_applications/?_id=<%=jobOffer._id%>" class="btn">Wyświetl aplikacje</a>
                 <!-- TODO: append actual pdf template -->
-                <a href="/pdf/generatePdf?sourcePdfName=pdf2" class="btn">Wygeneruj PDF</a>
+                <a href="/pdf/generatePdf?sourcePdfName=szychta-szablon&chosenJob=<%=jobOffer._id%>" class="btn">Wygeneruj PDF</a>
             <% } else{ %>
                 <a href="/applicant/view?_id=<%=jobOffer._id%>" class="btn">Szczegóły</a>
             <% } %>
